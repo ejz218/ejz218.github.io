@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Risk Framework — Interactive Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── PrudentCISO brand palette ── */
+      --brand-blue:  #176ee8;
+      --brand-navy:  #0f172a;
+
+      --bg:        #f6f7f8;
+      --surface:   #ffffff;
+      --surface2:  #f1f5f9;
+      --text:      #0f172a;
+      --muted:     #64748b;
+      --border:    rgba(15,23,42,0.08);
+      --radius:    16px;
+      --shadow:    0 4px 24px rgba(15,23,42,0.09);
+      --shadow-sm: 0 2px 10px rgba(15,23,42,0.06);
+
+      /* Per-dimension accent gradients — brand-aligned */
+      --grad-scope:        linear-gradient(90deg, #176ee8, #3b82f6);
+      --grad-oversight:    linear-gradient(90deg, #0284c7, #38bdf8);
+      --grad-transparency: linear-gradient(90deg, #0d9488, #2dd4bf);
+      --grad-stakes:       linear-gradient(90deg, #b91c1c, #ef4444);
+
+      /* Risk tier colors */
+      --c-low:      #16a34a;
+      --c-moderate: #ca8a04;
+      --c-elevated: #ea580c;
+      --c-high:     #dc2626;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .header-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .header-brand-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand-blue);
+      display: inline-block;
+    }
+
+    header h1 {
+      font-size: 1.65rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    header h1 span {
+      color: var(--brand-blue);
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    /* ── Main grid ── */
+    .grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    /* Right column stacks analog + chart */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 660px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Card base ── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* ── Chart card — dark navy (matches PrudentCISO premium sections) ── */
+    .chart-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--brand-navy) !important;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.22) !important;
+    }
+
+    .chart-card-accent {
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand-blue), #38bdf8);
+      flex-shrink: 0;
+    }
+
+    .chart-card-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .chart-score-col {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Score ring — light on dark navy */
+    .score-ring {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      justify-content: center;
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,0.1), 0 4px 20px rgba(0,0,0,0.3);
+      background: rgba(255,255,255,0.06);
+      position: relative;
+    }
+
+    .score-ring-glow {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      opacity: 0.22;
+      transition: background 0.4s;
+    }
+
+    .score-ring .score-num {
+      font-size: 2.1rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      transition: color 0.4s;
+      position: relative;
+      color: #fff;
+    }
+
+    .score-ring .score-lbl {
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.45);
+      position: relative;
+    }
+
+    .risk-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding: 0.28rem 0.85rem;
+      border-radius: 99px;
+      color: #fff;
+      transition: background 0.4s;
+    }
+
+    .chart-wrap {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    /* ── Sliders column ── */
+    .sliders-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .slider-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 1.25rem 1.4rem 1.1rem;
+      transition: box-shadow 0.3s;
+    }
+
+    .slider-card:hover {
+      box-shadow: 0 6px 28px rgba(80,80,120,0.13);
+    }
+
+    /* Dimension icon + title row */
+    .dim-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .dim-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .dim-info { flex: 1; min-width: 0; }
+
+    .dim-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .dim-sub {
+      font-size: 0.68rem;
+      color: var(--muted);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .val-badge {
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      min-width: 2rem;
+      text-align: right;
+      transition: color 0.3s;
+      flex-shrink: 0;
+    }
+
+    /* Track + thumb container */
+    .slider-wrap {
+      position: relative;
+      margin-bottom: 0.7rem;
+    }
+
+    .track-bg {
+      height: 8px;
+      border-radius: 99px;
+      background: #e2e8f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .track-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.12s, background 0.3s;
+      position: absolute;
+      left: 0; top: 0;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 28px;
+      transform: translateY(-50%);
+      margin: 0;
+      background: transparent;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.22), 0 0 0 2px rgba(0,0,0,0.06);
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.28), 0 0 0 2px rgba(0,0,0,0.08);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(1.06);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.22);
+      cursor: pointer;
+    }
+
+    /* End labels */
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.3rem;
+    }
+
+    .range-labels span {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    /* Description */
+    .desc-wrap {
+      margin-top: 0.6rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .desc-text {
+      font-size: 0.77rem;
+      color: var(--muted);
+      line-height: 1.55;
+      font-weight: 400;
+    }
+
+    /* ── Analog card (top of right column) ── */
+    .analog-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .analog-accent {
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand-blue), #38bdf8);
+    }
+
+    .analog-body {
+      padding: 1.5rem 1.75rem;
+    }
+
+    .analog-header {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .analog-inner {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    .analog-inner.transitioning {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .analog-emoji {
+      font-size: 2.8rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .analog-content { flex: 1; min-width: 0; }
+
+    .analog-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .analog-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .analog-risk-pill {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.22rem 0.65rem;
+      border-radius: 99px;
+      color: #fff;
+    }
+
+    .analog-desc {
+      font-size: 0.83rem;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 0.85rem;
+      font-weight: 400;
+    }
+
+    .analog-scores {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .score-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--surface2);
+      border-radius: 99px;
+      padding: 0.28rem 0.7rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .score-chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .analog-dist {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 0.7rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <span class="header-brand-dot"></span>
+    PRUDENT<strong style="color:var(--brand-blue)">CISO</strong>
+    <span class="header-brand-dot"></span>
+  </div>
+  <h1>AI Risk <span>Framework</span></h1>
+  <p>Four Dimensions of AI Risk &mdash; Interactive Assessment &middot; Eric Zematis, CISO, Lehigh University</p>
+</header>
+
+<div class="grid">
+  <!-- Left: Sliders column -->
+  <div class="sliders-col" id="sliders"></div>
+
+  <!-- Right: Analog card + Chart card stacked -->
+  <div class="right-col">
+
+    <div class="analog-card">
+      <div class="analog-accent"></div>
+      <div class="analog-body">
+        <div class="analog-header">Closest Real-World Analog</div>
+        <div class="analog-inner" id="analog-inner">
+          <div class="analog-emoji" id="analog-emoji">🏫</div>
+          <div class="analog-content">
+            <div class="analog-title-row">
+              <span class="analog-name" id="analog-name">—</span>
+              <span class="analog-risk-pill" id="analog-risk-pill">—</span>
+            </div>
+            <p class="analog-desc" id="analog-desc"></p>
+            <div class="analog-scores" id="analog-scores"></div>
+            <p class="analog-dist" id="analog-dist"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card chart-card">
+      <div class="chart-card-accent"></div>
+      <div class="chart-card-body">
+        <div class="chart-score-col">
+          <div class="score-ring" id="score-ring">
+            <div class="score-ring-glow" id="ring-glow"></div>
+            <span class="score-num" id="avg-score">5.0</span>
+            <span class="score-lbl">Risk Score</span>
+          </div>
+          <div class="risk-pill" id="risk-pill">Moderate</div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="radarChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Drag each slider to reflect your AI use case &mdash; the chart and nearest analog update live. &middot;
+  <a href="https://prudentciso.com" target="_blank" style="color:var(--brand-blue);text-decoration:none;font-weight:600;">PrudentCISO</a>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+
+const DIMENSIONS = [
+  {
+    id: "scope",
+    name: "Scope",
+    sub: "How much of the task is AI doing?",
+    icon: "🎯",
+    grad: ["#176ee8", "#3b82f6"],
+    dotColor: "#176ee8",
+    invert: false,
+    rangeLabels: ["Minimal", "Enormous"],
+    levels: [
+      "Suggestion only. AI offers an optional inline fix. Human decides whether to accept each one individually. <em>Example: Grammarly flagging a comma splice.</em>",
+      "Single sentence rewrite. AI rewrites one sentence at your request. You see exactly what changed. <em>Example: Make this sentence more concise.</em>",
+      "Paragraph generation. AI drafts a full paragraph from a prompt. Human reviews before using. <em>Example: ChatGPT drafting an email opening.</em>",
+      "Section completion. AI fills in a defined section based on context. Human reviews that section. <em>Example: Copilot completing a methods section outline.</em>",
+      "Full document edit. AI rewrites an entire existing document. Human reviews at a summary level. <em>Example: AI polishing a 20-page policy draft.</em>",
+      "Full document generation. AI creates a document from scratch. Human reviews before publishing. <em>Example: AI generating a first draft report from bullet points.</em>",
+      "Multi-step task execution. AI completes a sequence of tasks autonomously. Human reviews the final output only. <em>Example: AI researching, drafting, and formatting a competitive analysis.</em>",
+      "Decision and communication. AI makes a determination and communicates it on behalf of the institution. Human may be notified but is not approving. <em>Example: AI sending an automated admissions status update.</em>",
+      "System action. AI modifies records, grants or revokes access, triggers workflows without human approval. <em>Example: AI provisioning accounts based on enrollment data.</em>",
+      "Autonomous end-to-end operation. AI perceives, decides, and acts with no human in the loop at any point. <em>Example: Autonomous weapons. Fully autonomous financial trading.</em>"
+    ]
+  },
+  {
+    id: "oversight",
+    name: "Human Oversight",
+    sub: "Whether and when a human is in the loop",
+    icon: "👁️",
+    grad: ["#0284c7", "#38bdf8"],
+    dotColor: "#0284c7",
+    invert: false,
+    rangeLabels: ["Full", "None"],
+    levels: [
+      // Slider 1 = full oversight (lowest risk) → Slider 10 = no oversight (highest risk)
+      "Human initiates and approves every micro-action. AI does nothing without an explicit trigger. <em>Example: Grammarly — you click accept on every individual suggestion.</em>",
+      "Human reviews before any output is used. AI produces something; human reads it fully before it goes anywhere. <em>Example: AI drafts a sentence, you reread it word for word before pasting.</em>",
+      "Human reviews output but not exhaustively. Human looks it over but is not catching every nuance. <em>Example: Reviewing an AI-drafted email before sending.</em>",
+      "Human spot-checks. Human reviews a sample of outputs rather than everything. <em>Example: A supervisor reviewing 10% of AI-generated student feedback comments.</em>",
+      "Human approves at milestones only. Human checks in at defined points but not between steps. <em>Example: Approving an AI research summary before the next stage.</em>",
+      "Human is notified but not required to approve. Human can intervene, but inaction means the process continues. <em>Example: AI flags a student for academic concern, human gets an email but the flag is already in the system.</em>",
+      "Oversight available but rarely used. Volume or speed makes meaningful review impractical. <em>Example: AI processing thousands of financial aid applications with a theoretical appeal process.</em>",
+      "Oversight is reactive only. Humans only get involved after something goes wrong. <em>Example: AI autonomously sends communications; humans only review if a complaint is filed.</em>",
+      "Oversight is structurally bypassed. System design makes human review difficult or impossible. <em>Example: AI operating faster than human review cycles can keep up with.</em>",
+      "No human oversight exists or is possible. Fully autonomous. No human in the loop at any stage. <em>Example: Autonomous weapons system operating in a denied communications environment.</em>"
+    ]
+  },
+  {
+    id: "transparency",
+    name: "Transparency",
+    sub: "How visible and auditable the AI's actions are",
+    icon: "🔍",
+    grad: ["#0d9488", "#2dd4bf"],
+    dotColor: "#0d9488",
+    invert: false,
+    rangeLabels: ["Clear", "Opaque"],
+    levels: [
+      // Slider 1 = fully transparent (lowest risk) → Slider 10 = fully opaque (highest risk)
+      "Every change explicitly shown. AI highlights exactly what it did, diff-style, before you accept anything. <em>Example: Grammarly showing original and suggested text inline.</em>",
+      "Output short enough to read completely. Small enough that a human naturally sees everything even without a diff. <em>Example: A one-paragraph AI rewrite you can read in 30 seconds.</em>",
+      "AI explains its reasoning. The AI tells you why it made choices, not just what it changed. <em>Example: Copilot adding a comment explaining why it restructured a paragraph.</em>",
+      "Output reviewable but requires effort. Long enough that careful audit is possible but most people will not catch everything. <em>Example: A 10-page AI-edited document where changes are not highlighted.</em>",
+      "Logs exist but not routinely reviewed. System keeps records but no one is actively looking at them. <em>Example: An AI email assistant that logs sent messages but no one pulls the logs.</em>",
+      "Output observable but reasoning hidden. You see what the AI produced but not how it got there. <em>Example: An AI admissions scoring system showing the score but not the factors that drove it.</em>",
+      "Outputs aggregated, masking individual decisions. Summary statistics only, no visibility into individual actions. <em>Example: AI flagged 47 students this week with no visibility into which ones or why.</em>",
+      "Technical opacity. Black box by design. Reasoning cannot be reconstructed even with system access. <em>Example: A deep learning model making credit decisions with no explainability layer.</em>",
+      "Distributed opacity. Operates across multiple systems with no single audit trail. <em>Example: An AI agent touching five platforms with no complete record of what it did.</em>",
+      "No auditability possible. Actions cannot be reconstructed. No logs, no explainability, no forensic trail. <em>Example: Autonomous weapons in an air-gapped environment with no telemetry.</em>"
+    ]
+  },
+  {
+    id: "stakes",
+    name: "Stakes",
+    sub: "Magnitude of harm combined with reversibility",
+    icon: "⚖️",
+    grad: ["#b91c1c", "#ef4444"],
+    dotColor: "#dc2626",
+    invert: false,
+    rangeLabels: ["Trivial", "Catastrophic"],
+    levels: [
+      "No meaningful consequence, fully reversible. If AI gets it wrong, nothing bad happens and it is trivially undone. <em>Example: Grammarly suggests the wrong word, you undo it in one keystroke.</em>",
+      "Minor inconvenience, easily corrected. Small error causes friction but no lasting impact. <em>Example: AI drafts an email with the wrong tone, you rewrite it before sending.</em>",
+      "Noticeable error, correctable with effort. Real work to fix but no lasting harm. <em>Example: AI-generated report section contains inaccuracies requiring a revision cycle.</em>",
+      "Reputational or operational impact, recoverable. Error causes embarrassment or disruption but can be walked back. <em>Example: AI publishes a poorly worded institutional statement requiring a public correction.</em>",
+      "Individual harm, addressable through process. A real person is affected but a defined remedy path exists. <em>Example: A student incorrectly flagged for misconduct, corrected through appeal.</em>",
+      "Significant individual harm, difficult to fully reverse. Lasting consequences even after correction. <em>Example: A student loses a semester due to an incorrect AI-driven enrollment decision.</em>",
+      "Institutional liability or regulatory exposure. Legal, compliance, or financial consequences for the institution. <em>Example: AI-driven financial aid decision violates Title IV rules, triggering a federal audit.</em>",
+      "Harm to a class of people, hard to fully remediate. Many affected and full remediation is impractical. <em>Example: Biased AI screening systematically disadvantages a protected class over multiple admissions cycles.</em>",
+      "Severe, widespread, or irreversible institutional harm. Catastrophic and cannot be meaningfully undone. <em>Example: AI system exfiltrates research data to a foreign adversary. The data is gone.</em>",
+      "Loss of life or civilizational-scale harm, irreversible. No recovery possible. <em>Example: Autonomous weapons making lethal targeting decisions. Critical infrastructure AI triggering a cascade failure.</em>"
+    ]
+  }
+];
+
+// Analog use-case database [name, emoji, desc, scope, oversight, transparency, stakes]
+const ANALOGS = [
+  {
+    name: "Grammarly Spelling Suggestion",
+    emoji: "✏️",
+    desc: "AI flags a potential spelling or grammar error inline. You click Accept or Ignore on each suggestion individually. Nothing happens without your explicit approval, and every proposed change is shown in context before you act.",
+    s: 1, o: 1, t: 1, k: 1
+  },
+  {
+    name: "ChatGPT Email Draft",
+    emoji: "✉️",
+    desc: "You ask an AI to draft a short email opening. The AI produces a sentence or two, you read it in full, edit as needed, and paste it into your email. The human is fully in the loop at every step before anything leaves the system.",
+    s: 3, o: 2, t: 2, k: 2
+  },
+  {
+    name: "GitHub Copilot Code Completion",
+    emoji: "💻",
+    desc: "AI suggests a block of code in your IDE based on context. The developer reviews the suggestion and chooses whether to accept it. The AI is completing a defined section; humans review before the code is committed.",
+    s: 4, o: 3, t: 3, k: 2
+  },
+  {
+    name: "AI-Polished Policy Document",
+    emoji: "📄",
+    desc: "An entire existing policy document is run through an AI to improve clarity and consistency. A staff member reviews the revised document at a summary level before publishing. Changes are extensive but a human signs off.",
+    s: 5, o: 3, t: 4, k: 3
+  },
+  {
+    name: "AI Student Feedback Generator",
+    emoji: "🎓",
+    desc: "An AI generates written feedback comments for student assignments at scale. A supervisor spot-checks a sample of outputs, but most comments go directly to students without individual review. Errors cause real but addressable harm.",
+    s: 4, o: 4, t: 5, k: 5
+  },
+  {
+    name: "AI Research & Competitive Analysis",
+    emoji: "🔍",
+    desc: "AI autonomously researches, structures, and formats a competitive analysis from multiple sources. A human reviews only the final deliverable, not the intermediate steps. The output shapes institutional strategy.",
+    s: 7, o: 5, t: 5, k: 4
+  },
+  {
+    name: "AI Mental Health Support Chatbot",
+    emoji: "🧠",
+    desc: "An AI conducts ongoing wellness check-in conversations with students or employees. A human counselor receives summaries but does not review individual exchanges. Incorrect guidance or missed crisis signals carry significant personal risk.",
+    s: 6, o: 5, t: 6, k: 7
+  },
+  {
+    name: "AI College Admissions Scorer",
+    emoji: "🏫",
+    desc: "An AI evaluates student applications and produces ranked scores used in admissions decisions. Reviewers see the scores but the weighting logic is opaque. Errors carry lasting impact on individual applicants' life outcomes.",
+    s: 6, o: 6, t: 6, k: 6
+  },
+  {
+    name: "AI Hiring Resume Screener",
+    emoji: "📋",
+    desc: "An AI filters thousands of job applications, advancing some and rejecting others before any human review. Hiring managers see only the AI-approved pool. Systematic bias in the model can disadvantage entire candidate classes.",
+    s: 7, o: 7, t: 7, k: 7
+  },
+  {
+    name: "AI Financial Aid Decision Engine",
+    emoji: "💰",
+    desc: "An AI makes or strongly shapes financial aid eligibility determinations at scale. Human staff oversee aggregate outcomes but rarely review individual cases. Errors affect students' ability to attend and can trigger regulatory scrutiny.",
+    s: 7, o: 7, t: 6, k: 7
+  },
+  {
+    name: "AI Medical Diagnostic Assistant",
+    emoji: "🏥",
+    desc: "An AI analyzes patient data and suggests diagnoses or treatment pathways. Physicians receive recommendations but time pressure means they are often followed without deep scrutiny. Errors can lead to delayed treatment or harm.",
+    s: 8, o: 6, t: 7, k: 8
+  },
+  {
+    name: "Automated Email Marketing Campaign",
+    emoji: "📣",
+    desc: "An AI autonomously composes and sends mass marketing emails to thousands of recipients based on behavioral triggers. Humans only intervene if complaints arrive. Errors are visible but reputational recovery is manageable.",
+    s: 8, o: 8, t: 5, k: 4
+  },
+  {
+    name: "AI Content Moderation System",
+    emoji: "🛡️",
+    desc: "An AI automatically removes or restricts content across a platform based on policy rules. Individual moderation decisions are opaque; human review occurs only through appeal. Errors suppress legitimate speech or allow harmful content through.",
+    s: 8, o: 7, t: 7, k: 6
+  },
+  {
+    name: "AI Predictive Policing System",
+    emoji: "🚔",
+    desc: "An AI generates risk scores used to guide police resource deployment or targeting. Reasoning is a black box; oversight is structural only. Biased outputs can systematically harm communities and undermine civil liberties.",
+    s: 8, o: 8, t: 7, k: 8
+  },
+  {
+    name: "Automated Account Provisioning",
+    emoji: "🔑",
+    desc: "An AI grants or revokes system access based on enrollment, HR, or policy data without human approval of individual decisions. Logs exist but are rarely reviewed in real time. Errors expose systems or lock out legitimate users.",
+    s: 9, o: 8, t: 7, k: 6
+  },
+  {
+    name: "AI Real-Time Fraud Blocking",
+    emoji: "🏦",
+    desc: "An AI instantly blocks financial transactions flagged as fraudulent, with no human approval step. The model's reasoning is not inspectable. False positives lock out legitimate customers; false negatives allow theft.",
+    s: 8, o: 8, t: 8, k: 7
+  },
+  {
+    name: "Autonomous Cybersecurity Response",
+    emoji: "🔐",
+    desc: "An AI detects and autonomously responds to threats — isolating systems, revoking credentials, blocking traffic — without waiting for human authorization. Actions span multiple platforms with limited unified audit trail. Errors can take down critical systems.",
+    s: 9, o: 8, t: 9, k: 8
+  },
+  {
+    name: "Self-Driving Vehicle",
+    emoji: "🚗",
+    desc: "An AI perceives its environment and controls a vehicle in real time with no human at the wheel. Decisions are made in milliseconds and cannot be reviewed before execution. Errors can result in injury or death with no ability to intervene.",
+    s: 9, o: 9, t: 8, k: 9
+  },
+  {
+    name: "Autonomous High-Frequency Trading AI",
+    emoji: "📈",
+    desc: "An AI executes thousands of financial trades per second with no human approval loop. Actions are irreversible the moment they occur; the model's reasoning is reconstructable only in hindsight. Flash crashes and cascading market failures are real risks.",
+    s: 10, o: 9, t: 8, k: 8
+  },
+  {
+    name: "Lethal Autonomous Weapon (Terminator)",
+    emoji: "☠️",
+    desc: "A fully autonomous system perceives targets, makes lethal engagement decisions, and acts — all without any human in the loop at any stage. There is no ability to intervene, no meaningful audit trail, and consequences are irreversible at civilizational scale.",
+    s: 10, o: 10, t: 10, k: 10
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+
+function riskInfo(score) {
+  if (score <= 3)  return { label: "Low",      color: "#22c55e", bg: "#dcfce7" };
+  if (score <= 5)  return { label: "Moderate",  color: "#ca8a04", bg: "#fef9c3" };
+  if (score <= 7)  return { label: "Elevated",  color: "#ea580c", bg: "#ffedd5" };
+  return                  { label: "High",      color: "#dc2626", bg: "#fee2e2" };
+}
+
+function hexToRgba(hex, a) {
+  const r = parseInt(hex.slice(1,3), 16);
+  const g = parseInt(hex.slice(3,5), 16);
+  const b = parseInt(hex.slice(5,7), 16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function euclidean(a, b) {
+  return Math.sqrt(
+    (a.s - b.s) ** 2 +
+    (a.o - b.o) ** 2 +
+    (a.t - b.t) ** 2 +
+    (a.k - b.k) ** 2
+  );
+}
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+
+const state = { scope: 5, oversight: 5, transparency: 5, stakes: 5 };
+let lastAnalogIdx = -1;
+
+// ═══════════════════════════════════════════════════════
+// BUILD SLIDERS
+// ═══════════════════════════════════════════════════════
+
+const slidersEl = document.getElementById("sliders");
+
+DIMENSIONS.forEach(dim => {
+  const card = document.createElement("div");
+  card.className = "slider-card";
+  card.id = `card-${dim.id}`;
+
+  const gradStr = `linear-gradient(90deg, ${dim.grad[0]}, ${dim.grad[1]})`;
+
+  card.innerHTML = `
+    <div class="dim-row">
+      <div class="dim-icon" id="icon-${dim.id}" style="background:${hexToRgba(dim.grad[0], 0.12)}">
+        ${dim.icon}
+      </div>
+      <div class="dim-info">
+        <div class="dim-name">${dim.name}</div>
+        <div class="dim-sub">${dim.sub}</div>
+      </div>
+      <div class="val-badge" id="val-${dim.id}" style="color:${dim.grad[0]}">5</div>
+    </div>
+    <div class="slider-wrap">
+      <div class="track-bg">
+        <div class="track-fill" id="fill-${dim.id}" style="width:44.4%;background:${gradStr}"></div>
+      </div>
+      <input type="range" min="1" max="10" value="5" id="slider-${dim.id}" />
+    </div>
+    <div class="range-labels"><span>${dim.rangeLabels[0]}</span><span>${dim.rangeLabels[1]}</span></div>
+    <div class="desc-wrap">
+      <p class="desc-text" id="desc-${dim.id}"></p>
+    </div>
+  `;
+
+  slidersEl.appendChild(card);
+
+  const slider = card.querySelector(`#slider-${dim.id}`);
+  slider.addEventListener("input", () => {
+    state[dim.id] = parseInt(slider.value, 10);
+    updateAll();
+  });
+});
+
+// ═══════════════════════════════════════════════════════
+// CHART
+// ═══════════════════════════════════════════════════════
+
+const ctx = document.getElementById("radarChart").getContext("2d");
+
+const chart = new Chart(ctx, {
+  type: "radar",
+  data: {
+    labels: ["Scope", "Human\nOversight", "Transparency", "Stakes"],
+    datasets: [{
+      label: "Risk Profile",
+      data: [5, 5, 5, 5],
+      borderColor: "#ea580c",
+      backgroundColor: "rgba(234,88,12,0.15)",
+      borderWidth: 2.5,
+      pointBackgroundColor: "#fff",
+      pointBorderColor: "#ea580c",
+      pointBorderWidth: 2,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+    }]
+  },
+  options: {
+    responsive: true,
+    animation: { duration: 180 },
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        ticks: {
+          stepSize: 2,
+          color: "rgba(255,255,255,0.35)",
+          backdropColor: "transparent",
+          font: { size: 9, family: "Inter" }
+        },
+        grid:        { color: "rgba(255,255,255,0.08)" },
+        angleLines:  { color: "rgba(255,255,255,0.12)" },
+        pointLabels: {
+          color: "rgba(255,255,255,0.85)",
+          font: { size: 11, weight: "700", family: "Inter" }
+        }
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: "rgba(15,23,42,0.92)",
+        titleColor: "#fff",
+        bodyColor: "rgba(255,255,255,0.6)",
+        borderColor: "rgba(23,110,232,0.4)",
+        borderWidth: 1,
+        padding: 10,
+        callbacks: { label: c => ` ${c.raw} / 10` }
+      }
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════
+// UPDATE
+// ═══════════════════════════════════════════════════════
+
+function updateAll() {
+  const values = DIMENSIONS.map(d => state[d.id]);
+  const avg    = values.reduce((a, b) => a + b, 0) / values.length;
+  const risk   = riskInfo(avg);
+
+  // Chart
+  chart.data.datasets[0].data = values;
+  chart.data.datasets[0].borderColor = risk.color;
+  chart.data.datasets[0].backgroundColor = hexToRgba(risk.color, 0.15);
+  chart.data.datasets[0].pointBorderColor = risk.color;
+  chart.update();
+
+  // Score ring
+  document.getElementById("avg-score").textContent = avg.toFixed(1);
+  document.getElementById("avg-score").style.color  = risk.color;
+  document.getElementById("ring-glow").style.background = risk.color;
+
+  // Risk pill
+  const pill = document.getElementById("risk-pill");
+  pill.textContent = risk.label;
+  pill.style.background = risk.color;
+
+  // Per-dimension slider cards
+  DIMENSIONS.forEach((dim, i) => {
+    const v    = state[dim.id];
+    const pct  = ((v - 1) / 9) * 100;
+    const grad = `linear-gradient(90deg, ${dim.grad[0]}, ${dim.grad[1]})`;
+
+    document.getElementById(`fill-${dim.id}`).style.width      = `${pct}%`;
+    document.getElementById(`val-${dim.id}`).textContent        = v;
+    document.getElementById(`desc-${dim.id}`).innerHTML         = dim.levels[v - 1];
+  });
+
+  // Analog match
+  updateAnalog();
+}
+
+// ═══════════════════════════════════════════════════════
+// ANALOG MATCHER
+// ═══════════════════════════════════════════════════════
+
+function updateAnalog() {
+  const cur = {
+    s: state.scope,
+    o: state.oversight,
+    t: state.transparency,
+    k: state.stakes
+  };
+
+  let bestIdx = 0, bestDist = Infinity;
+  ANALOGS.forEach((ex, i) => {
+    const d = euclidean(cur, ex);
+    if (d < bestDist) { bestDist = d; bestIdx = i; }
+  });
+
+  if (bestIdx === lastAnalogIdx) return;
+  lastAnalogIdx = bestIdx;
+
+  const ex   = ANALOGS[bestIdx];
+  const avg  = (ex.s + ex.o + ex.t + ex.k) / 4;
+  const risk = riskInfo(avg);
+
+  const inner = document.getElementById("analog-inner");
+  inner.classList.add("transitioning");
+
+  setTimeout(() => {
+    document.getElementById("analog-emoji").textContent  = ex.emoji;
+    document.getElementById("analog-name").textContent   = ex.name;
+
+    const rp = document.getElementById("analog-risk-pill");
+    rp.textContent         = risk.label;
+    rp.style.background    = risk.color;
+
+    document.getElementById("analog-desc").textContent = ex.desc;
+
+    // Score chips
+    const scoresEl = document.getElementById("analog-scores");
+    scoresEl.innerHTML = [
+      { label: "Scope",        val: ex.s, color: DIMENSIONS[0].dotColor },
+      { label: "Oversight",    val: ex.o, color: DIMENSIONS[1].dotColor },
+      { label: "Transparency", val: ex.t, color: DIMENSIONS[2].dotColor },
+      { label: "Stakes",       val: ex.k, color: DIMENSIONS[3].dotColor }
+    ].map(c => `
+      <div class="score-chip">
+        <div class="score-chip-dot" style="background:${c.color}"></div>
+        ${c.label}: <strong style="color:${c.color};margin-left:0.15rem">${c.val}</strong>
+      </div>
+    `).join("");
+
+    const matchPct = Math.max(0, Math.round((1 - bestDist / 17.3) * 100));
+    document.getElementById("analog-dist").textContent =
+      `Profile similarity: ${matchPct}% match (distance ${bestDist.toFixed(1)} pts across all four dimensions)`;
+
+    inner.classList.remove("transitioning");
+  }, 200);
+}
+
+// ── Init ──
+updateAll();
+</script>
+</body>
+</html>
