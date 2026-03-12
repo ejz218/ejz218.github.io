@@ -1,47 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lehigh University Data Classification Framework</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       /* ── Lehigh University brand palette ── */
       --brand-maroon: #8B1A1A;
-      --brand-brown: #4A3728;
-      --brand-gold: #C8962E;
-      --brand-dark: #2d0808;
+      --brand-brown:  #4A3728;
+      --brand-gold:   #C8962E;
+      --brand-dark:   #2d0808;
 
       /* ── Design system (matches AI Risk Framework) ── */
-      --bg: #f6f7f8;
-      --surface: #ffffff;
-      --surface2: #f1f5f9;
-      --text: #1a0f09;
-      --muted: #64748b;
-      --border: rgba(74, 55, 40, 0.1);
-      --radius: 16px;
-      --shadow: 0 4px 24px rgba(74, 55, 40, 0.10);
-      --shadow-sm: 0 2px 10px rgba(74, 55, 40, 0.07);
+      --bg:        #f6f7f8;
+      --surface:   #ffffff;
+      --surface2:  #f1f5f9;
+      --text:      #1a0f09;
+      --muted:     #64748b;
+      --border:    rgba(74,55,40,0.1);
+      --radius:    16px;
+      --shadow:    0 4px 24px rgba(74,55,40,0.10);
+      --shadow-sm: 0 2px 10px rgba(74,55,40,0.07);
 
       /* ── Classification level colors ── */
-      --c-iv: #16a34a;
-      --c-iii: #2563eb;
-      --c-ii: #d97706;
-      --c-i: #dc2626;
-      --c-phi: #7c3aed;
+      --c-iv:   #16a34a;
+      --c-iii:  #2563eb;
+      --c-ii:   #d97706;
+      --c-i:    #dc2626;
+      --c-phi:  #7c3aed;
     }
 
     body {
@@ -85,9 +77,7 @@
       color: var(--text);
     }
 
-    header h1 span {
-      color: var(--brand-maroon);
-    }
+    header h1 span { color: var(--brand-maroon); }
 
     header p {
       color: var(--muted);
@@ -150,15 +140,10 @@
     }
 
     @media (max-width: 780px) {
-      .selector {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .selector { grid-template-columns: repeat(3, 1fr); }
     }
-
     @media (max-width: 480px) {
-      .selector {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .selector { grid-template-columns: repeat(2, 1fr); }
     }
 
     .sel-card {
@@ -273,10 +258,7 @@
       line-height: 1;
     }
 
-    .detail-title-block {
-      flex: 1;
-      min-width: 0;
-    }
+    .detail-title-block { flex: 1; min-width: 0; }
 
     .detail-class-label {
       font-size: 0.72rem;
@@ -309,9 +291,7 @@
     }
 
     @media (max-width: 600px) {
-      .detail-grid {
-        grid-template-columns: 1fr;
-      }
+      .detail-grid { grid-template-columns: 1fr; }
     }
 
     .detail-section {
@@ -329,21 +309,10 @@
     }
 
     @media (max-width: 600px) {
-      .detail-section {
-        border-right: none;
-      }
-
-      .detail-section:last-child {
-        border-bottom: none;
-      }
-
-      .detail-section:nth-last-child(-n+2) {
-        border-bottom: 1px solid var(--border);
-      }
-
-      .detail-section:last-child {
-        border-bottom: none;
-      }
+      .detail-section { border-right: none; }
+      .detail-section:last-child { border-bottom: none; }
+      .detail-section:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .detail-section:last-child { border-bottom: none; }
     }
 
     .section-label {
@@ -403,7 +372,7 @@
 
     .info-bar-text {
       font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255,255,255,0.7);
       line-height: 1.5;
     }
 
@@ -451,9 +420,7 @@
       padding: 0;
     }
 
-    .back-btn:hover {
-      text-decoration: underline;
-    }
+    .back-btn:hover { text-decoration: underline; }
 
     .compare-scroll {
       overflow-x: auto;
@@ -487,7 +454,7 @@
     .compare-table td {
       padding: 0.7rem 0.85rem;
       vertical-align: top;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
       line-height: 1.5;
       color: #374151;
     }
@@ -556,9 +523,7 @@
       font-weight: 600;
     }
 
-    footer a:hover {
-      text-decoration: underline;
-    }
+    footer a:hover { text-decoration: underline; }
 
     /* ════════════════════════════════════════════
        WIZARD (integrated)
@@ -599,13 +564,11 @@
       color: var(--muted);
     }
 
-    .w-step-label strong {
-      color: var(--brand-maroon);
-    }
+    .w-step-label strong { color: var(--brand-maroon); }
 
     .w-progress-track {
       height: 5px;
-      background: rgba(74, 55, 40, 0.1);
+      background: rgba(74,55,40,0.1);
       border-radius: 99px;
       overflow: hidden;
     }
@@ -679,36 +642,32 @@
     .w-btn-yes {
       background: var(--brand-maroon);
       color: #fff;
-      box-shadow: 0 4px 16px rgba(139, 26, 26, 0.28);
+      box-shadow: 0 4px 16px rgba(139,26,26,0.28);
     }
 
     .w-btn-yes:hover {
       background: #7a1515;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(139, 26, 26, 0.38);
+      box-shadow: 0 6px 20px rgba(139,26,26,0.38);
     }
 
-    .w-btn-yes:active {
-      transform: translateY(0);
-    }
+    .w-btn-yes:active { transform: translateY(0); }
 
     .w-btn-no {
       background: var(--surface);
       color: var(--text);
-      border-color: rgba(74, 55, 40, 0.18);
+      border-color: rgba(74,55,40,0.18);
       box-shadow: var(--shadow-sm);
     }
 
     .w-btn-no:hover {
       background: var(--surface2);
-      border-color: rgba(74, 55, 40, 0.3);
+      border-color: rgba(74,55,40,0.3);
       transform: translateY(-2px);
       box-shadow: var(--shadow);
     }
 
-    .w-btn-no:active {
-      transform: translateY(0);
-    }
+    .w-btn-no:active { transform: translateY(0); }
 
     .w-btn-yes.w-prev-yes {
       outline: 3px solid var(--brand-gold);
@@ -741,20 +700,11 @@
       transition: color 0.15s;
     }
 
-    .w-back-btn:hover {
-      color: var(--brand-maroon);
-    }
-
-    .w-back-btn:disabled {
-      opacity: 0;
-      pointer-events: none;
-    }
+    .w-back-btn:hover { color: var(--brand-maroon); }
+    .w-back-btn:disabled { opacity: 0; pointer-events: none; }
 
     /* Result card */
-    .w-result-accent {
-      height: 5px;
-      width: 100%;
-    }
+    .w-result-accent { height: 5px; width: 100%; }
 
     .w-result-header {
       padding: 1.75rem 1.75rem 1.25rem;
@@ -784,15 +734,9 @@
       opacity: 0.7;
     }
 
-    .w-result-badge .wb-icon {
-      font-size: 1.6rem;
-      line-height: 1;
-    }
+    .w-result-badge .wb-icon { font-size: 1.6rem; line-height: 1; }
 
-    .w-result-title {
-      flex: 1;
-      min-width: 0;
-    }
+    .w-result-title { flex: 1; min-width: 0; }
 
     .w-result-label {
       font-size: 0.7rem;
@@ -865,11 +809,7 @@
       font-weight: 500;
     }
 
-    .w-path-arrow {
-      color: var(--muted);
-      font-size: 0.72rem;
-      flex-shrink: 0;
-    }
+    .w-path-arrow { color: var(--muted); font-size: 0.72rem; flex-shrink: 0; }
 
     .w-path-ans {
       font-weight: 800;
@@ -879,15 +819,8 @@
       flex-shrink: 0;
     }
 
-    .w-path-yes {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
-    .w-path-no {
-      background: #e2e8f0;
-      color: #475569;
-    }
+    .w-path-yes { background: #fee2e2; color: #991b1b; }
+    .w-path-no  { background: #e2e8f0; color: #475569; }
 
     .w-handling-box {
       font-size: 0.85rem;
@@ -909,13 +842,11 @@
 
     .w-phi-bar-text {
       font-size: 0.77rem;
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255,255,255,0.72);
       line-height: 1.55;
     }
 
-    .w-phi-bar-text strong {
-      color: #fff;
-    }
+    .w-phi-bar-text strong { color: #fff; }
 
     .w-result-actions {
       padding: 1.25rem 1.75rem 1.75rem;
@@ -942,10 +873,7 @@
       transition: background 0.2s, box-shadow 0.2s;
     }
 
-    .w-btn-start-over:hover {
-      background: #fff7f7;
-      box-shadow: var(--shadow);
-    }
+    .w-btn-start-over:hover { background: #fff7f7; box-shadow: var(--shadow); }
 
     .w-btn-view-details {
       display: inline-flex;
@@ -960,849 +888,924 @@
       font-weight: 700;
       color: #fff;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(139, 26, 26, 0.28);
+      box-shadow: 0 4px 14px rgba(139,26,26,0.28);
       transition: background 0.2s, box-shadow 0.2s;
     }
 
-    .w-btn-view-details:hover {
-      background: #7a1515;
-      box-shadow: 0 6px 18px rgba(139, 26, 26, 0.38);
+    .w-btn-view-details:hover { background: #7a1515; box-shadow: 0 6px 18px rgba(139,26,26,0.38); }
+
+    /* ════════════════════════════════════════════
+       STORAGE GUIDANCE (sg-*)
+    ════════════════════════════════════════════ */
+    .sg-container {
+      padding: 1.5rem 1.75rem 1.35rem;
+      border-top: 1px solid var(--border);
     }
+
+    .sg-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .sg-title-icon { font-size: 0.95rem; }
+
+    .sg-heading {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .sg-subhead {
+      font-size: 0.77rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 1.1rem;
+    }
+
+    .sg-section-title {
+      font-size: 0.67rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 1.15rem 0 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .sg-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .sg-row {
+      border-bottom: 1px solid rgba(74,55,40,0.06);
+    }
+
+    .sg-row:last-child { border-bottom: none; }
+
+    .sg-icon-cell {
+      width: 2rem;
+      text-align: center;
+      padding: 0.45rem 0.3rem;
+      font-size: 0.9rem;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .sg-name {
+      padding: 0.45rem 0.25rem;
+      font-size: 0.81rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Status colors */
+    .sg-ok   .sg-icon-cell { color: #16a34a; }
+    .sg-warn .sg-icon-cell { color: #d97706; }
+    .sg-no   .sg-icon-cell { color: #94a3b8; }
+
+    /* Gray out not-approved rows */
+    .sg-no .sg-name { color: #94a3b8; }
+
+    .sg-note {
+      display: block;
+      font-size: 0.73rem;
+      color: var(--muted);
+      margin-top: 0.18rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .sg-footer {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .sg-footer a {
+      color: var(--brand-maroon);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .sg-footer a:hover { text-decoration: underline; }
 
     /* ── Print styles ── */
     @media print {
-      body {
-        background: #fff;
-        padding: 1rem;
-      }
-
-      .toolbar,
-      .compare-btn,
-      .back-btn {
-        display: none !important;
-      }
-
-      .card,
-      .sel-card,
-      .detail-panel,
-      .compare-view {
+      body { background: #fff; padding: 1rem; }
+      .toolbar, .compare-btn, .back-btn { display: none !important; }
+      .card, .sel-card, .detail-panel, .compare-view {
         box-shadow: none !important;
         border: 1px solid #ddd !important;
       }
-
-      .detail-info-bar {
-        background: #4A3728 !important;
-        -webkit-print-color-adjust: exact;
-      }
+      .detail-info-bar { background: #4A3728 !important; -webkit-print-color-adjust: exact; }
     }
   </style>
 </head>
-
 <body>
 
-  <header>
-    <div class="header-brand">
-      <span class="header-brand-dot"></span>
-      Lehigh <strong style="color:var(--brand-maroon)">University</strong>
-      <span class="header-brand-dot"></span>
-    </div>
-    <h1>Data <span>Classification</span> Framework</h1>
-    <p>Select a classification level to view its full definition, examples, handling requirements, and regulatory
-      drivers.</p>
-  </header>
+<header>
+  <div class="header-brand">
+    <span class="header-brand-dot"></span>
+    Lehigh <strong style="color:var(--brand-maroon)">University</strong>
+    <span class="header-brand-dot"></span>
+  </div>
+  <h1>Data <span>Classification</span> Framework</h1>
+  <p>Select a classification level to view its full definition, examples, handling requirements, and regulatory drivers.</p>
+</header>
 
-  <div class="wrapper">
+<div class="wrapper">
 
-    <!-- Toolbar -->
-    <div class="toolbar" style="gap:0.5rem">
-      <button class="compare-btn" id="wizard-btn" onclick="toggleWizard()">
-        🧭 Classification Wizard
-      </button>
-      <button class="compare-btn" id="compare-btn" onclick="toggleCompare()">
-        ⊞ Compare All Classes
-      </button>
-    </div>
-
-    <!-- Selector cards -->
-    <div class="selector" id="selector"></div>
-
-    <!-- Detail panel -->
-    <div class="detail-panel" id="detail-panel">
-      <div class="detail-accent" id="detail-accent"></div>
-      <div class="detail-header">
-        <div class="detail-class-badge" id="detail-badge">
-          <span class="badge-num" id="badge-num"></span>
-          <span class="badge-name" id="badge-name"></span>
-        </div>
-        <div class="detail-title-block">
-          <div class="detail-class-label" id="detail-label"></div>
-          <div class="detail-class-title" id="detail-title"></div>
-          <div class="detail-class-desc" id="detail-desc"></div>
-        </div>
-      </div>
-      <div class="detail-grid">
-        <div class="detail-section">
-          <div class="section-label" id="lbl-def"><span class="section-icon">📋</span> Definition</div>
-          <div class="section-body" id="sec-definition"></div>
-        </div>
-        <div class="detail-section">
-          <div class="section-label" id="lbl-ex"><span class="section-icon">📁</span> Examples at Lehigh</div>
-          <div class="section-body" id="sec-examples"></div>
-        </div>
-        <div class="detail-section">
-          <div class="section-label" id="lbl-hand"><span class="section-icon">🔒</span> Handling Requirements</div>
-          <div class="section-body" id="sec-handling"></div>
-        </div>
-        <div class="detail-section">
-          <div class="section-label" id="lbl-reg"><span class="section-icon">⚖️</span> Regulatory Drivers</div>
-          <div class="section-body" id="sec-regulations"></div>
-        </div>
-      </div>
-      <div class="detail-info-bar" id="detail-info-bar" style="display:none">
-        <span class="info-bar-icon">ℹ️</span>
-        <p class="info-bar-text"><strong>PHI Distinction:</strong> Class I PHI is an operational subset of Class I
-          Critical. The key trigger is whether a <strong>Business Associate Agreement (BAA)</strong> is required.
-          Student health and counseling records are covered under FERPA (Class II), not HIPAA — only faculty/staff
-          health data and third-party health vendor relationships fall here.</p>
-      </div>
-    </div>
-
-    <!-- ═══ Classification Wizard (hidden by default) ═══ -->
-    <div class="wizard-area" id="wizard-area">
-
-      <!-- Question panel -->
-      <div class="w-card" id="w-question-panel">
-        <div class="w-progress-wrap">
-          <div class="w-progress-header">
-            <div class="w-step-label">
-              Question <strong id="w-step-current">1</strong> of up to <strong id="w-step-max">6</strong>
-            </div>
-          </div>
-          <div class="w-progress-track">
-            <div class="w-progress-fill" id="w-progress-fill" style="width:16%"></div>
-          </div>
-        </div>
-        <div class="w-body">
-          <div class="w-topic-chip" id="w-topic-chip">🏥 Health Data</div>
-          <div class="w-question-text" id="w-question-text">
-            Does this data relate to the physical or mental health of a person?
-          </div>
-          <div class="w-answer-row">
-            <button class="w-answer-btn w-btn-yes" id="w-btn-yes" onclick="wAnswer(true)">
-              <span class="w-btn-icon">✓</span>YES
-            </button>
-            <button class="w-answer-btn w-btn-no" id="w-btn-no" onclick="wAnswer(false)">
-              <span class="w-btn-icon">✗</span>NO
-            </button>
-          </div>
-          <div class="w-back-row">
-            <button class="w-back-btn" id="w-back-btn" onclick="wGoBack()" disabled>← Back</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Result panel (hidden until result reached) -->
-      <div class="w-card" id="w-result-panel" style="display:none; margin-top:1rem">
-        <div class="w-result-accent" id="w-result-accent"></div>
-        <div class="w-result-header">
-          <div class="w-result-badge" id="w-result-badge">
-            <span class="wb-num" id="w-rbadge-num"></span>
-            <span class="wb-icon" id="w-rbadge-icon"></span>
-          </div>
-          <div class="w-result-title">
-            <div class="w-result-label" id="w-result-label"></div>
-            <div class="w-result-name" id="w-result-name"></div>
-            <div class="w-confirmed-chip" id="w-confirmed-chip">✓ Classification Determined</div>
-          </div>
-        </div>
-        <div class="w-result-sections">
-          <div>
-            <div class="w-section-label" id="w-lbl-reason"><span>💡</span> Why You Landed Here</div>
-            <div class="w-reason-text" id="w-reason-text"></div>
-          </div>
-          <div>
-            <div class="w-section-label" id="w-lbl-path"><span>🗺️</span> Your Answer Path</div>
-            <div class="w-answer-path" id="w-answer-path"></div>
-          </div>
-          <div>
-            <div class="w-section-label" id="w-lbl-handling"><span>🔒</span> Handling Requirements</div>
-            <div class="w-handling-box" id="w-handling-box"></div>
-          </div>
-        </div>
-        <div class="w-phi-bar" id="w-phi-bar" style="display:none">
-          <span style="font-size:1rem;flex-shrink:0;margin-top:0.05rem">ℹ️</span>
-          <p class="w-phi-bar-text">
-            <strong>Class I PHI is an operational distinction within Class I.</strong>
-            The key trigger is whether the data involves non-student health information where Lehigh
-            acts as a covered entity or business associate, requiring a Business Associate Agreement (BAA).
-          </p>
-        </div>
-        <div class="w-result-actions">
-          <button class="w-btn-start-over" onclick="wStartOver()">↺ Start Over</button>
-          <button class="w-btn-view-details" id="w-view-details-btn" onclick="wViewDetails()">
-            View Full Classification Details →
-          </button>
-        </div>
-      </div>
-
-    </div><!-- /wizard-area -->
-
-    <!-- Comparison table (hidden by default) -->
-    <div class="compare-view" id="compare-view" style="display:none">
-      <div class="compare-accent"></div>
-      <div class="compare-header-bar">
-        <div class="compare-title">All Classification Levels — Side-by-Side</div>
-        <button class="back-btn" onclick="toggleCompare()">← Back to Detail View</button>
-      </div>
-      <div class="compare-scroll">
-        <table class="compare-table" id="compare-table"></table>
-      </div>
-    </div>
-
+  <!-- Toolbar -->
+  <div class="toolbar" style="gap:0.5rem">
+    <button class="compare-btn" id="wizard-btn" onclick="toggleWizard()">
+      🧭 Classification Wizard
+    </button>
+    <button class="compare-btn" id="compare-btn" onclick="toggleCompare()">
+      ⊞ Compare All Classes
+    </button>
   </div>
 
-  <footer>
-    Developed by Eric Zematis, CISO — Lehigh University &middot;
-    Based on <a href="https://data.lehigh.edu" target="_blank">data.lehigh.edu</a> classification policy
-  </footer>
+  <!-- Selector cards -->
+  <div class="selector" id="selector"></div>
 
-  <script>
-    // ═══════════════════════════════════════════════════════
-    // DATA
-    // ═══════════════════════════════════════════════════════
+  <!-- Detail panel -->
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-accent" id="detail-accent"></div>
+    <div class="detail-header">
+      <div class="detail-class-badge" id="detail-badge">
+        <span class="badge-num" id="badge-num"></span>
+        <span class="badge-name" id="badge-name"></span>
+      </div>
+      <div class="detail-title-block">
+        <div class="detail-class-label" id="detail-label"></div>
+        <div class="detail-class-title" id="detail-title"></div>
+        <div class="detail-class-desc" id="detail-desc"></div>
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-section">
+        <div class="section-label" id="lbl-def"><span class="section-icon">📋</span> Definition</div>
+        <div class="section-body" id="sec-definition"></div>
+      </div>
+      <div class="detail-section">
+        <div class="section-label" id="lbl-ex"><span class="section-icon">📁</span> Examples at Lehigh</div>
+        <div class="section-body" id="sec-examples"></div>
+      </div>
+      <div class="detail-section">
+        <div class="section-label" id="lbl-hand"><span class="section-icon">🔒</span> Handling Requirements</div>
+        <div class="section-body" id="sec-handling"></div>
+      </div>
+      <div class="detail-section">
+        <div class="section-label" id="lbl-reg"><span class="section-icon">⚖️</span> Regulatory Drivers</div>
+        <div class="section-body" id="sec-regulations"></div>
+      </div>
+    </div>
+    <div class="detail-info-bar" id="detail-info-bar" style="display:none">
+      <span class="info-bar-icon">ℹ️</span>
+      <p class="info-bar-text"><strong>PHI Distinction:</strong> Class I PHI is an operational subset of Class I Critical. The key trigger is whether a <strong>Business Associate Agreement (BAA)</strong> is required. Student health and counseling records are covered under FERPA (Class II), not HIPAA — only faculty/staff health data and third-party health vendor relationships fall here.</p>
+    </div>
+    <!-- Storage & AI guidance — rendered dynamically by renderStorageGuidance() -->
+    <div id="storage-guidance-mount"></div>
+  </div>
 
-    const CLASSES = [
-      {
-        id: "iv",
-        num: "Class IV",
-        name: "Public / Unrestricted",
-        short: "No harm if disclosed; no access controls required",
-        color: "#16a34a",
-        colorBg: "#f0fdf4",
-        icon: "🌐",
-        definition: "Data that is intentionally made available to the public or that would cause no harm if disclosed. No access controls are required.",
-        examples: [
-          "Lehigh public website content",
-          "Course catalog and published research",
-          "Press releases and public event information",
-          "Directory information not suppressed under FERPA",
-        ],
-        handling: [
-          "No restrictions on storage, transmission, or sharing",
-          "May be posted publicly, emailed freely, and stored in any system",
-          "No encryption required",
-        ],
-        regulations: [
-          "No specific regulatory driver",
-          "Note: FERPA still governs directory information — students may suppress it, which moves it to a higher classification",
-        ],
-        baa: false,
-        phi: false,
-      },
-      {
-        id: "iii",
-        num: "Class III",
-        name: "Institutional / Proprietary",
-        short: "Internal use only; unauthorized disclosure causes operational or reputational harm",
-        color: "#2563eb",
-        colorBg: "#eff6ff",
-        icon: "🏛️",
-        definition: "Data intended for use within Lehigh University that is not meant for public disclosure. No regulatory requirement protects it, but unauthorized disclosure could cause operational, reputational, or competitive harm.",
-        examples: [
-          "Internal memos, policies, and org charts",
-          "Budget drafts and internal meeting notes",
-          "Employee performance discussions",
-          "IT system documentation and network diagrams",
-          "Vendor contracts and internal project plans",
-          "Marketing and forecasting reports",
-          "Email distribution lists",
-          "Source code",
-          "Building diagrams and blueprints",
-          "Lehigh Identification Numbers (LIN)",
-          "Aggregated, de-identified data about people",
-        ],
-        handling: [
-          "Must not be shared outside Lehigh without authorization",
-          "May be stored on Lehigh systems and shared internally without special controls",
-          "Not required to be encrypted at rest",
-          "Must not be posted publicly or sent to personal email accounts",
-        ],
-        regulations: [
-          "No specific regulatory driver",
-          "Contractual obligations such as vendor NDAs may elevate specific documents",
-          "Institutional policy governs",
-        ],
-        baa: false,
-        phi: false,
-      },
-      {
-        id: "ii",
-        num: "Class II",
-        name: "Restricted Information",
-        short: "Sensitive; unauthorized disclosure harms individuals or the institution",
-        color: "#d97706",
-        colorBg: "#fffbeb",
-        icon: "🔐",
-        definition: "Data that is sensitive in nature and whose unauthorized disclosure could cause harm to individuals, the institution, or both. Access should be limited to those with a legitimate need. This is where most regulatory obligations begin.",
-        examples: [
-          "Student educational records (FERPA)",
-          "Employee personnel files",
-          "Unpublished research data and legal correspondence",
-          "Audit findings and information security configurations",
-          "Donor records and non-public institutional financial data",
-          "Human subjects research information",
-          "Date of birth (DOB)",
-          "Student health and counseling records (FERPA — not HIPAA)",
-        ],
-        handling: [
-          "Access restricted to authorized personnel on a need-to-know basis",
-          "Must be stored on Lehigh-approved systems with access controls",
-          "Encryption required in transit; strongly recommended at rest",
-          "Must not be stored in personal cloud accounts or emailed to personal addresses",
-          "Third-party sharing requires a data use agreement or appropriate contract language",
-        ],
-        regulations: [
-          "FERPA (student records including student health and counseling)",
-          "GLBA (non-account financial data)",
-          "Pennsylvania breach notification law",
+  <!-- ═══ Classification Wizard (hidden by default) ═══ -->
+  <div class="wizard-area" id="wizard-area">
 
-          "Contractual obligations; may implicate GDPR if data subject is in the EU",
-        ],
-        baa: false,
-        phi: false,
-      },
-      {
-        id: "i",
-        num: "Class I",
-        name: "Critical Information",
-        short: "Highest non-health class; directly monetizable or subject to maximum regulatory penalties",
-        color: "#dc2626",
-        colorBg: "#fff1f2",
-        icon: "🛡️",
-        definition: "Data whose unauthorized disclosure would cause serious harm to individuals or the institution, and that is directly monetizable by attackers or subject to the most stringent regulatory penalties. Access must be tightly controlled, logged, and audited. Lehigh's highest classification for non-health data.",
-        examples: [
-          "Social security numbers and government-issued ID numbers (passport, driver's license)",
-          "Financial account numbers and payment card data (PCI)",
-          "Bank routing numbers",
-          "Passwords, authentication credentials, and encryption keys",
-          "Network security vulnerability reports",
-          "Research data under DFARS/CMMC federal contracts",
-          "ITAR/EAR controlled research data",
-        ],
-        handling: [
-          "Access restricted to minimum required authorized personnel",
-          "Must be stored on Lehigh-approved systems with strong access controls, logging, and audit trails",
-          "Encryption required in transit and at rest",
-          "Must not be stored in email, spreadsheets, or unmanaged systems",
-          "Third-party sharing requires formal data sharing agreement, security review, and legal review",
-          "Retention must follow defined schedules with secure destruction at end of life",
-        ],
-        regulations: [
-          "GLBA (financial account data)",
-          "Pennsylvania breach notification law (Act 14 of 2023 — 73 Pa. Stat. § 2301 et seq.)",
-          "PCI-DSS (payment card data)",
-          "ITAR/EAR/DFARS (controlled research data)",
-          "Federal contract requirements",
-        ],
-        baa: false,
-        phi: false,
-      },
-      {
-        id: "phi",
-        num: "Class I PHI",
-        name: "Protected Health Information",
-        short: "Most restrictive; HIPAA-covered health data — BAA required for all third-party vendors",
-        color: "#7c3aed",
-        colorBg: "#faf5ff",
-        icon: "🏥",
-        definition: "A special operational subset of Class I covering health information created, received, maintained, or transmitted by Lehigh in its capacity as a HIPAA-covered entity or business associate. Applies to non-student health contexts: faculty/staff health plan data, third-party health provider relationships, and any situation where a Business Associate Agreement (BAA) is required. Student health and counseling records are Class II (FERPA), not this class.",
-        examples: [
-          "Faculty and staff health plan records",
-          "Medical information from non-student health services",
-          "Employee wellness program data with health identifiers",
-          "Health information where Lehigh acts as a covered entity or business associate",
-          "Third-party vendor health data requiring a BAA",
-        ],
-        handling: [
-          "Most restrictive class — access limited to workforce members with specific treatment, payment, or operations need",
-          "Minimum necessary standard applies to every access and disclosure",
-          "Must be stored on Lehigh-approved HIPAA-compliant systems only",
-          "Encryption required in transit and at rest",
-          "Business Associate Agreements (BAA) required for any third-party vendor that touches this data",
-          "Incident response for suspected breach must involve the HIPAA Security and Privacy Officer within 24 hours",
-        ],
-        regulations: [
-          "HIPAA Privacy Rule",
-          "HIPAA Security Rule",
-          "HIPAA Breach Notification Rule",
-          "42 CFR Part 2 (substance use disorder records, if applicable)",
-          "Pennsylvania Mental Health Procedures Act",
-          "Pennsylvania Confidentiality of HIV-Related Information Act",
-        ],
-        baa: true,
-        phi: true,
-      },
-    ];
+    <!-- Question panel -->
+    <div class="w-card" id="w-question-panel">
+      <div class="w-progress-wrap">
+        <div class="w-progress-header">
+          <div class="w-step-label">
+            Question <strong id="w-step-current">1</strong> of up to <strong id="w-step-max">6</strong>
+          </div>
+        </div>
+        <div class="w-progress-track">
+          <div class="w-progress-fill" id="w-progress-fill" style="width:16%"></div>
+        </div>
+      </div>
+      <div class="w-body">
+        <div class="w-topic-chip" id="w-topic-chip">🏥 Health Data</div>
+        <div class="w-question-text" id="w-question-text">
+          Does this data relate to the physical or mental health of a person?
+        </div>
+        <div class="w-answer-row">
+          <button class="w-answer-btn w-btn-yes" id="w-btn-yes" onclick="wAnswer(true)">
+            <span class="w-btn-icon">✓</span>YES
+          </button>
+          <button class="w-answer-btn w-btn-no" id="w-btn-no" onclick="wAnswer(false)">
+            <span class="w-btn-icon">✗</span>NO
+          </button>
+        </div>
+        <div class="w-back-row">
+          <button class="w-back-btn" id="w-back-btn" onclick="wGoBack()" disabled>← Back</button>
+        </div>
+      </div>
+    </div>
 
-    // ═══════════════════════════════════════════════════════
-    // STATE
-    // ═══════════════════════════════════════════════════════
+    <!-- Result panel (hidden until result reached) -->
+    <div class="w-card" id="w-result-panel" style="display:none; margin-top:1rem">
+      <div class="w-result-accent" id="w-result-accent"></div>
+      <div class="w-result-header">
+        <div class="w-result-badge" id="w-result-badge">
+          <span class="wb-num" id="w-rbadge-num"></span>
+          <span class="wb-icon" id="w-rbadge-icon"></span>
+        </div>
+        <div class="w-result-title">
+          <div class="w-result-label" id="w-result-label"></div>
+          <div class="w-result-name" id="w-result-name"></div>
+          <div class="w-confirmed-chip" id="w-confirmed-chip">✓ Classification Determined</div>
+        </div>
+      </div>
+      <div class="w-result-sections">
+        <div>
+          <div class="w-section-label" id="w-lbl-reason"><span>💡</span> Why You Landed Here</div>
+          <div class="w-reason-text" id="w-reason-text"></div>
+        </div>
+        <div>
+          <div class="w-section-label" id="w-lbl-path"><span>🗺️</span> Your Answer Path</div>
+          <div class="w-answer-path" id="w-answer-path"></div>
+        </div>
+        <div>
+          <div class="w-section-label" id="w-lbl-handling"><span>🔒</span> Handling Requirements</div>
+          <div class="w-handling-box" id="w-handling-box"></div>
+        </div>
+      </div>
+      <div class="w-phi-bar" id="w-phi-bar" style="display:none">
+        <span style="font-size:1rem;flex-shrink:0;margin-top:0.05rem">ℹ️</span>
+        <p class="w-phi-bar-text">
+          <strong>Class I PHI is an operational distinction within Class I.</strong>
+          The key trigger is whether the data involves non-student health information where Lehigh
+          acts as a covered entity or business associate, requiring a Business Associate Agreement (BAA).
+        </p>
+      </div>
+      <div class="w-result-actions">
+        <button class="w-btn-start-over" onclick="wStartOver()">↺ Start Over</button>
+        <button class="w-btn-view-details" id="w-view-details-btn" onclick="wViewDetails()">
+          View Full Classification Details →
+        </button>
+      </div>
+    </div>
 
-    let activeId = "iv";
-    let compareOpen = false;
+  </div><!-- /wizard-area -->
 
-    // ═══════════════════════════════════════════════════════
-    // BUILD SELECTOR CARDS
-    // ═══════════════════════════════════════════════════════
+  <!-- Comparison table (hidden by default) -->
+  <div class="compare-view" id="compare-view" style="display:none">
+    <div class="compare-accent"></div>
+    <div class="compare-header-bar">
+      <div class="compare-title">All Classification Levels — Side-by-Side</div>
+      <button class="back-btn" onclick="toggleCompare()">← Back to Detail View</button>
+    </div>
+    <div class="compare-scroll">
+      <table class="compare-table" id="compare-table"></table>
+    </div>
+  </div>
 
-    const selectorEl = document.getElementById("selector");
+</div>
 
-    CLASSES.forEach(cls => {
-      const card = document.createElement("div");
-      card.className = "sel-card" + (cls.id === activeId ? " active" : "");
-      card.id = `sel-${cls.id}`;
-      card.style.borderLeftColor = cls.id === activeId ? cls.color : "transparent";
-      if (cls.id === activeId) card.style.background = cls.colorBg;
+<footer>
+  Developed by Eric Zematis, CISO — Lehigh University &middot;
+  Based on <a href="https://data.lehigh.edu" target="_blank">data.lehigh.edu</a> classification policy
+</footer>
 
-      card.innerHTML = `
+<script>
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+
+const CLASSES = [
+  {
+    id: "iv",
+    num: "Class IV",
+    name: "Public / Unrestricted",
+    short: "No harm if disclosed; no access controls required",
+    color: "#16a34a",
+    colorBg: "#f0fdf4",
+    icon: "🌐",
+    definition: "Data that is intentionally made available to the public or that would cause no harm if disclosed. No access controls are required.",
+    examples: [
+      "Lehigh public website content",
+      "Course catalog and published research",
+      "Press releases and public event information",
+      "Directory information not suppressed under FERPA",
+    ],
+    handling: [
+      "No restrictions on storage, transmission, or sharing",
+      "May be posted publicly, emailed freely, and stored in any system",
+      "No encryption required",
+    ],
+    regulations: [
+      "No specific regulatory driver",
+      "Note: FERPA still governs directory information — students may suppress it, which moves it to a higher classification",
+    ],
+    baa: false,
+    phi: false,
+  },
+  {
+    id: "iii",
+    num: "Class III",
+    name: "Institutional / Proprietary",
+    short: "Internal use only; unauthorized disclosure causes operational or reputational harm",
+    color: "#2563eb",
+    colorBg: "#eff6ff",
+    icon: "🏛️",
+    definition: "Data intended for use within Lehigh University that is not meant for public disclosure. No regulatory requirement protects it, but unauthorized disclosure could cause operational, reputational, or competitive harm.",
+    examples: [
+      "Internal memos, policies, and org charts",
+      "Budget drafts and internal meeting notes",
+      "Employee performance discussions",
+      "IT system documentation and network diagrams",
+      "Vendor contracts and internal project plans",
+    ],
+    handling: [
+      "Must not be shared outside Lehigh without authorization",
+      "May be stored on Lehigh systems and shared internally without special controls",
+      "Not required to be encrypted at rest",
+      "Must not be posted publicly or sent to personal email accounts",
+    ],
+    regulations: [
+      "No specific regulatory driver",
+      "Contractual obligations such as vendor NDAs may elevate specific documents",
+      "Institutional policy governs",
+    ],
+    baa: false,
+    phi: false,
+  },
+  {
+    id: "ii",
+    num: "Class II",
+    name: "Restricted Information",
+    short: "Sensitive; unauthorized disclosure harms individuals or the institution",
+    color: "#d97706",
+    colorBg: "#fffbeb",
+    icon: "🔐",
+    definition: "Data that is sensitive in nature and whose unauthorized disclosure could cause harm to individuals, the institution, or both. Access should be limited to those with a legitimate need. This is where most regulatory obligations begin.",
+    examples: [
+      "Student educational records (FERPA)",
+      "Employee personnel files",
+      "Unpublished research data and legal correspondence",
+      "Audit findings and information security configurations",
+      "Donor records and non-public institutional financial data",
+      "Immigration records and ITAR/EAR controlled research data",
+      "Student health and counseling records (FERPA — not HIPAA)",
+    ],
+    handling: [
+      "Access restricted to authorized personnel on a need-to-know basis",
+      "Must be stored on Lehigh-approved systems with access controls",
+      "Encryption required in transit; strongly recommended at rest",
+      "Must not be stored in personal cloud accounts or emailed to personal addresses",
+      "Third-party sharing requires a data use agreement or appropriate contract language",
+    ],
+    regulations: [
+      "FERPA (student records including student health and counseling)",
+      "GLBA (non-account financial data)",
+      "Pennsylvania breach notification law",
+      "ITAR/EAR (controlled research)",
+      "Contractual obligations; may implicate GDPR if data subject is in the EU",
+    ],
+    baa: false,
+    phi: false,
+  },
+  {
+    id: "i",
+    num: "Class I",
+    name: "Critical Information",
+    short: "Highest non-health class; directly monetizable or subject to maximum regulatory penalties",
+    color: "#dc2626",
+    colorBg: "#fff1f2",
+    icon: "🛡️",
+    definition: "Data whose unauthorized disclosure would cause serious harm to individuals or the institution, and that is directly monetizable by attackers or subject to the most stringent regulatory penalties. Access must be tightly controlled, logged, and audited. Lehigh's highest classification for non-health data.",
+    examples: [
+      "Social security numbers and government-issued ID numbers (passport, driver's license)",
+      "Financial account numbers and payment card data (PCI)",
+      "Bank routing numbers",
+      "Passwords, authentication credentials, and encryption keys",
+      "Network security vulnerability reports",
+      "Research data under DFARS/CMMC federal contracts",
+    ],
+    handling: [
+      "Access restricted to minimum required authorized personnel",
+      "Must be stored on Lehigh-approved systems with strong access controls, logging, and audit trails",
+      "Encryption required in transit and at rest",
+      "Must not be stored in email, spreadsheets, or unmanaged systems",
+      "Third-party sharing requires formal data sharing agreement, security review, and legal review",
+      "Retention must follow defined schedules with secure destruction at end of life",
+    ],
+    regulations: [
+      "GLBA (financial account data)",
+      "Pennsylvania breach notification law (Act 14 of 2023 — 73 Pa. Stat. § 2301 et seq.)",
+      "PCI-DSS (payment card data)",
+      "ITAR/EAR/DFARS (controlled research data)",
+      "Federal contract requirements",
+    ],
+    baa: false,
+    phi: false,
+  },
+  {
+    id: "phi",
+    num: "Class I PHI",
+    name: "Protected Health Information",
+    short: "Most restrictive; HIPAA-covered health data — BAA required for all third-party vendors",
+    color: "#7c3aed",
+    colorBg: "#faf5ff",
+    icon: "🏥",
+    definition: "A special operational subset of Class I covering health information created, received, maintained, or transmitted by Lehigh in its capacity as a HIPAA-covered entity or business associate. Applies to non-student health contexts: faculty/staff health plan data, third-party health provider relationships, and any situation where a Business Associate Agreement (BAA) is required. Student health and counseling records are Class II (FERPA), not this class.",
+    examples: [
+      "Faculty and staff health plan records",
+      "Medical information from non-student health services",
+      "Employee wellness program data with health identifiers",
+      "Health information where Lehigh acts as a covered entity or business associate",
+      "Third-party vendor health data requiring a BAA",
+    ],
+    handling: [
+      "Most restrictive class — access limited to workforce members with specific treatment, payment, or operations need",
+      "Minimum necessary standard applies to every access and disclosure",
+      "Must be stored on Lehigh-approved HIPAA-compliant systems only",
+      "Encryption required in transit and at rest",
+      "Business Associate Agreements (BAA) required for any third-party vendor that touches this data",
+      "Incident response for suspected breach must involve the HIPAA Security and Privacy Officer within 24 hours",
+    ],
+    regulations: [
+      "HIPAA Privacy Rule",
+      "HIPAA Security Rule",
+      "HIPAA Breach Notification Rule",
+      "42 CFR Part 2 (substance use disorder records, if applicable)",
+      "Pennsylvania Mental Health Procedures Act",
+      "Pennsylvania Confidentiality of HIV-Related Information Act",
+    ],
+    baa: true,
+    phi: true,
+  },
+];
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+
+let activeId = "iv";
+let compareOpen = false;
+
+// ═══════════════════════════════════════════════════════
+// BUILD SELECTOR CARDS
+// ═══════════════════════════════════════════════════════
+
+const selectorEl = document.getElementById("selector");
+
+CLASSES.forEach(cls => {
+  const card = document.createElement("div");
+  card.className = "sel-card" + (cls.id === activeId ? " active" : "");
+  card.id = `sel-${cls.id}`;
+  card.style.borderLeftColor = cls.id === activeId ? cls.color : "transparent";
+  if (cls.id === activeId) card.style.background = cls.colorBg;
+
+  card.innerHTML = `
     <div class="sel-class-num" style="color:${cls.color}">${cls.num}</div>
     <div class="sel-class-name">${cls.name}</div>
     <div class="sel-class-short">${cls.short}</div>
     ${cls.phi ? `<div class="phi-note">ℹ️ BAA Required</div>` : ""}
   `;
 
-      card.addEventListener("click", () => selectClass(cls.id));
-      selectorEl.appendChild(card);
-    });
+  card.addEventListener("click", () => selectClass(cls.id));
+  selectorEl.appendChild(card);
+});
 
-    // ═══════════════════════════════════════════════════════
-    // SELECT CLASS
-    // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// SELECT CLASS
+// ═══════════════════════════════════════════════════════
 
-    function selectClass(id) {
-      if (id === activeId && !compareOpen) return;
-      if (compareOpen) toggleCompare();
+function selectClass(id) {
+  if (id === activeId && !compareOpen) return;
+  if (compareOpen) toggleCompare();
 
-      activeId = id;
-      const cls = CLASSES.find(c => c.id === id);
+  activeId = id;
+  const cls = CLASSES.find(c => c.id === id);
 
-      // Update selector cards
-      CLASSES.forEach(c => {
-        const card = document.getElementById(`sel-${c.id}`);
-        if (c.id === id) {
-          card.classList.add("active");
-          card.style.borderLeftColor = c.color;
-          card.style.background = c.colorBg;
-        } else {
-          card.classList.remove("active");
-          card.style.borderLeftColor = "transparent";
-          card.style.background = "";
-        }
-      });
-
-      // Animate out
-      const panel = document.getElementById("detail-panel");
-      panel.classList.add("transitioning");
-
-      setTimeout(() => {
-        renderDetail(cls);
-        panel.classList.remove("transitioning");
-      }, 200);
+  // Update selector cards
+  CLASSES.forEach(c => {
+    const card = document.getElementById(`sel-${c.id}`);
+    if (c.id === id) {
+      card.classList.add("active");
+      card.style.borderLeftColor = c.color;
+      card.style.background = c.colorBg;
+    } else {
+      card.classList.remove("active");
+      card.style.borderLeftColor = "transparent";
+      card.style.background = "";
     }
+  });
 
-    // ═══════════════════════════════════════════════════════
-    // RENDER DETAIL PANEL
-    // ═══════════════════════════════════════════════════════
+  // Animate out
+  const panel = document.getElementById("detail-panel");
+  panel.classList.add("transitioning");
 
-    function renderDetail(cls) {
-      // Accent bar
-      document.getElementById("detail-accent").style.background =
-        `linear-gradient(90deg, ${cls.color}, ${cls.color}99)`;
+  setTimeout(() => {
+    renderDetail(cls);
+    panel.classList.remove("transitioning");
+  }, 200);
+}
 
-      // Badge
-      const badge = document.getElementById("detail-badge");
-      badge.style.background = cls.colorBg;
-      badge.style.border = `2px solid ${cls.color}33`;
-      document.getElementById("badge-num").textContent = cls.num.replace("Class ", "CL");
-      document.getElementById("badge-num").style.color = cls.color;
-      document.getElementById("badge-name").textContent = cls.icon;
+// ═══════════════════════════════════════════════════════
+// RENDER DETAIL PANEL
+// ═══════════════════════════════════════════════════════
 
-      // Title block
-      document.getElementById("detail-label").textContent = cls.num;
-      document.getElementById("detail-label").style.color = cls.color;
-      document.getElementById("detail-title").textContent = cls.name;
-      document.getElementById("detail-desc").textContent = cls.short;
+function renderDetail(cls) {
+  // Accent bar
+  document.getElementById("detail-accent").style.background =
+    `linear-gradient(90deg, ${cls.color}, ${cls.color}99)`;
 
-      // Section label colors
-      ["lbl-def", "lbl-ex", "lbl-hand", "lbl-reg"].forEach(id => {
-        document.getElementById(id).style.color = cls.color;
-      });
+  // Badge
+  const badge = document.getElementById("detail-badge");
+  badge.style.background = cls.colorBg;
+  badge.style.border = `2px solid ${cls.color}33`;
+  document.getElementById("badge-num").textContent = cls.num.replace("Class ", "CL");
+  document.getElementById("badge-num").style.color = cls.color;
+  document.getElementById("badge-name").textContent = cls.icon;
 
-      // Definition
-      document.getElementById("sec-definition").textContent = cls.definition;
+  // Title block
+  document.getElementById("detail-label").textContent = cls.num;
+  document.getElementById("detail-label").style.color = cls.color;
+  document.getElementById("detail-title").textContent = cls.name;
+  document.getElementById("detail-desc").textContent = cls.short;
 
-      // Examples
-      document.getElementById("sec-examples").innerHTML =
-        `<ul>${cls.examples.map(e => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${e}</span></li>`).join("")}</ul>`;
+  // Section label colors
+  ["lbl-def", "lbl-ex", "lbl-hand", "lbl-reg"].forEach(id => {
+    document.getElementById(id).style.color = cls.color;
+  });
 
-      // Handling
-      document.getElementById("sec-handling").innerHTML =
-        `<ul>${cls.handling.map(h => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${h}</span></li>`).join("")}</ul>`;
+  // Definition
+  document.getElementById("sec-definition").textContent = cls.definition;
 
-      // Regulations
-      document.getElementById("sec-regulations").innerHTML =
-        `<ul>${cls.regulations.map(r => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${r}</span></li>`).join("")}</ul>`;
+  // Examples
+  document.getElementById("sec-examples").innerHTML =
+    `<ul>${cls.examples.map(e => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${e}</span></li>`).join("")}</ul>`;
 
-      // PHI info bar
-      const infoBar = document.getElementById("detail-info-bar");
-      infoBar.style.display = cls.phi ? "flex" : "none";
-    }
+  // Handling
+  document.getElementById("sec-handling").innerHTML =
+    `<ul>${cls.handling.map(h => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${h}</span></li>`).join("")}</ul>`;
 
-    // ═══════════════════════════════════════════════════════
-    // COMPARISON TABLE
-    // ═══════════════════════════════════════════════════════
+  // Regulations
+  document.getElementById("sec-regulations").innerHTML =
+    `<ul>${cls.regulations.map(r => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${r}</span></li>`).join("")}</ul>`;
 
-    function buildCompareTable() {
-      const table = document.getElementById("compare-table");
+  // PHI info bar
+  const infoBar = document.getElementById("detail-info-bar");
+  infoBar.style.display = cls.phi ? "flex" : "none";
 
-      const rows = [
-        {
-          label: "Classification",
-          render: cls => `<span class="class-chip"><span class="class-dot" style="background:${cls.color}"></span>${cls.num}</span>`,
-        },
-        {
-          label: "Name",
-          render: cls => `<strong>${cls.name}</strong>`,
-        },
-        {
-          label: "Definition",
-          render: cls => cls.definition.length > 160 ? cls.definition.slice(0, 157) + "…" : cls.definition,
-        },
-        {
-          label: "Key Examples",
-          render: cls => cls.examples.slice(0, 3).map(e => `<div style="margin-bottom:0.2rem">• ${e}</div>`).join(""),
-        },
-        {
-          label: "Handling",
-          render: cls => cls.handling.slice(0, 3).map(h => `<div style="margin-bottom:0.2rem">• ${h}</div>`).join(""),
-        },
-        {
-          label: "Key Regulations",
-          render: cls => cls.regulations.slice(0, 3).map(r => `<div style="margin-bottom:0.2rem">• ${r}</div>`).join(""),
-        },
-        {
-          label: "BAA Required",
-          isBaa: true,
-          render: cls => cls.baa
-            ? `<span class="baa-yes">✓ Required</span>`
-            : `<span class="baa-no">—</span>`,
-        },
-      ];
+  // Storage & AI platform guidance
+  renderStorageGuidance(CLASS_TO_SG_KEY[cls.id]);
+}
 
-      // Header row
-      let html = `<thead><tr>
+// ═══════════════════════════════════════════════════════
+// COMPARISON TABLE
+// ═══════════════════════════════════════════════════════
+
+function buildCompareTable() {
+  const table = document.getElementById("compare-table");
+
+  const rows = [
+    {
+      label: "Classification",
+      render: cls => `<span class="class-chip"><span class="class-dot" style="background:${cls.color}"></span>${cls.num}</span>`,
+    },
+    {
+      label: "Name",
+      render: cls => `<strong>${cls.name}</strong>`,
+    },
+    {
+      label: "Definition",
+      render: cls => cls.definition.length > 160 ? cls.definition.slice(0, 157) + "…" : cls.definition,
+    },
+    {
+      label: "Key Examples",
+      render: cls => cls.examples.slice(0, 3).map(e => `<div style="margin-bottom:0.2rem">• ${e}</div>`).join(""),
+    },
+    {
+      label: "Handling",
+      render: cls => cls.handling.slice(0, 3).map(h => `<div style="margin-bottom:0.2rem">• ${h}</div>`).join(""),
+    },
+    {
+      label: "Key Regulations",
+      render: cls => cls.regulations.slice(0, 3).map(r => `<div style="margin-bottom:0.2rem">• ${r}</div>`).join(""),
+    },
+    {
+      label: "BAA Required",
+      isBaa: true,
+      render: cls => cls.baa
+        ? `<span class="baa-yes">✓ Required</span>`
+        : `<span class="baa-no">—</span>`,
+    },
+  ];
+
+  // Header row
+  let html = `<thead><tr>
     <th class="col-class">Dimension</th>
     ${CLASSES.map(c => `<th style="color:${c.color}">${c.num}</th>`).join("")}
   </tr></thead><tbody>`;
 
-      rows.forEach(row => {
-        html += `<tr class="${row.isBaa ? "baa-row" : ""}">
+  rows.forEach(row => {
+    html += `<tr class="${row.isBaa ? "baa-row" : ""}">
       <td class="row-header">${row.label}${row.isBaa ? ' ⭐' : ''}</td>
       ${CLASSES.map(c => `<td>${row.render(c)}</td>`).join("")}
     </tr>`;
-      });
+  });
 
-      html += "</tbody>";
-      table.innerHTML = html;
-    }
+  html += "</tbody>";
+  table.innerHTML = html;
+}
 
-    // ═══════════════════════════════════════════════════════
-    // COMPARE TOGGLE
-    // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// COMPARE TOGGLE
+// ═══════════════════════════════════════════════════════
 
-    function toggleCompare() {
-      // Close wizard if open
-      if (wizardOpen) {
-        wizardOpen = false;
-        document.getElementById("wizard-area").style.display = "none";
-        document.getElementById("wizard-btn").classList.remove("active");
-        document.getElementById("wizard-btn").innerHTML = "🧭 Classification Wizard";
-        document.getElementById("selector").style.display = "grid";
-      }
+function toggleCompare() {
+  // Close wizard if open
+  if (wizardOpen) {
+    wizardOpen = false;
+    document.getElementById("wizard-area").style.display = "none";
+    document.getElementById("wizard-btn").classList.remove("active");
+    document.getElementById("wizard-btn").innerHTML = "🧭 Classification Wizard";
+    document.getElementById("selector").style.display = "grid";
+  }
 
-      compareOpen = !compareOpen;
-      const detail = document.getElementById("detail-panel");
-      const compare = document.getElementById("compare-view");
-      const btn = document.getElementById("compare-btn");
+  compareOpen = !compareOpen;
+  const detail = document.getElementById("detail-panel");
+  const compare = document.getElementById("compare-view");
+  const btn = document.getElementById("compare-btn");
 
-      if (compareOpen) {
-        detail.style.display = "none";
-        compare.style.display = "block";
-        btn.classList.add("active");
-        btn.textContent = "✕ Close Comparison";
-        buildCompareTable();
-      } else {
-        detail.style.display = "block";
-        compare.style.display = "none";
-        btn.classList.remove("active");
-        btn.innerHTML = "⊞ Compare All Classes";
-      }
-    }
+  if (compareOpen) {
+    detail.style.display = "none";
+    compare.style.display = "block";
+    btn.classList.add("active");
+    btn.textContent = "✕ Close Comparison";
+    buildCompareTable();
+  } else {
+    detail.style.display = "block";
+    compare.style.display = "none";
+    btn.classList.remove("active");
+    btn.innerHTML = "⊞ Compare All Classes";
+  }
+}
 
-    // ═══════════════════════════════════════════════════════
-    // WIZARD TOGGLE
-    // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// WIZARD TOGGLE
+// ═══════════════════════════════════════════════════════
 
-    let wizardOpen = false;
+let wizardOpen = false;
 
-    function toggleWizard() {
-      // Close compare if open
-      if (compareOpen) {
-        compareOpen = false;
-        document.getElementById("compare-view").style.display = "none";
-        document.getElementById("detail-panel").style.display = "block";
-        document.getElementById("compare-btn").classList.remove("active");
-        document.getElementById("compare-btn").innerHTML = "⊞ Compare All Classes";
-      }
+function toggleWizard() {
+  // Close compare if open
+  if (compareOpen) {
+    compareOpen = false;
+    document.getElementById("compare-view").style.display = "none";
+    document.getElementById("detail-panel").style.display = "block";
+    document.getElementById("compare-btn").classList.remove("active");
+    document.getElementById("compare-btn").innerHTML = "⊞ Compare All Classes";
+  }
 
-      wizardOpen = !wizardOpen;
-      const btn = document.getElementById("wizard-btn");
-      const wizardArea = document.getElementById("wizard-area");
-      const selector = document.getElementById("selector");
-      const detail = document.getElementById("detail-panel");
+  wizardOpen = !wizardOpen;
+  const btn = document.getElementById("wizard-btn");
+  const wizardArea = document.getElementById("wizard-area");
+  const selector = document.getElementById("selector");
+  const detail = document.getElementById("detail-panel");
 
-      if (wizardOpen) {
-        selector.style.display = "none";
-        detail.style.display = "none";
-        wizardArea.style.display = "block";
-        btn.classList.add("active");
-        btn.innerHTML = "✕ Close Wizard";
-        // Reset wizard to Q1
-        wHistory = [];
-        document.getElementById("w-result-panel").style.display = "none";
-        document.getElementById("w-question-panel").style.display = "block";
-        wRenderQuestion("q1", null);
-      } else {
-        selector.style.display = "grid";
-        detail.style.display = "block";
-        wizardArea.style.display = "none";
-        btn.classList.remove("active");
-        btn.innerHTML = "🧭 Classification Wizard";
-      }
-    }
+  if (wizardOpen) {
+    selector.style.display = "none";
+    detail.style.display = "none";
+    wizardArea.style.display = "block";
+    btn.classList.add("active");
+    btn.innerHTML = "✕ Close Wizard";
+    // Reset wizard to Q1
+    wHistory = [];
+    document.getElementById("w-result-panel").style.display = "none";
+    document.getElementById("w-question-panel").style.display = "block";
+    wRenderQuestion("q1", null);
+  } else {
+    selector.style.display = "grid";
+    detail.style.display = "block";
+    wizardArea.style.display = "none";
+    btn.classList.remove("active");
+    btn.innerHTML = "🧭 Classification Wizard";
+  }
+}
 
-    // ═══════════════════════════════════════════════════════
-    // WIZARD DATA
-    // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// WIZARD DATA
+// ═══════════════════════════════════════════════════════
 
-    const W_QUESTIONS = {
-      q1: {
-        id: "q1", topic: "🏥 Health Data",
-        text: "Does this data relate to the physical or mental health of a person?",
-        shortLabel: "Health-related data?",
-        stepNum: 1, stepMax: 6,
-        yes: "q1a", no: "q2"
-      },
-      q1a: {
-        id: "q1a", topic: "🏥 Health Data",
-        text: "Is this person a Lehigh student receiving health or counseling services through Lehigh University?",
-        shortLabel: "Lehigh student health or counseling services?",
-        stepNum: 2, stepMax: 3,
-        yes: { type: "result", id: "r_ii_student" },
-        no: "q1b"
-      },
-      q1b: {
-        id: "q1b", topic: "🏥 Health Data",
-        text: "Is this health data processed by or on behalf of Lehigh in a context where a Business Associate Agreement (BAA) would be required with a vendor or third party?",
-        shortLabel: "BAA required with a vendor or third party?",
-        stepNum: 3, stepMax: 3,
-        yes: { type: "result", id: "r_phi_baa" },
-        no: { type: "result", id: "r_phi_no_baa" }
-      },
-      q2: {
-        id: "q2", topic: "🔑 Critical Identifiers",
-        text: "Does this data include any of the following: Social Security numbers, passport or driver's license numbers, financial account or payment card numbers, bank routing numbers, authentication credentials, or encryption keys?",
-        shortLabel: "SSNs, financial accounts, or credentials?",
-        stepNum: 2, stepMax: 6,
-        yes: { type: "result", id: "r_i" }, no: "q3"
-      },
-      q3: {
-        id: "q3", topic: "🔬 Research Data",
-        text: "Is this data related to export-controlled research, including data subject to ITAR, EAR, or DFARS/CMMC requirements?",
-        shortLabel: "Export-controlled research (ITAR / EAR / CMMC)?",
-        stepNum: 3, stepMax: 6,
-        yes: { type: "result", id: "r_ii_export" }, no: "q4"
-      },
-      q4: {
-        id: "q4", topic: "🎓 Student Records",
-        text: "Is this data related to a student's academic record, including enrollment, grades, attendance, financial aid, or academic performance?",
-        shortLabel: "Student academic records (FERPA)?",
-        stepNum: 4, stepMax: 6,
-        yes: { type: "result", id: "r_ii_ferpa" }, no: "q5"
-      },
-      q5: {
-        id: "q5", topic: "⚖️ Legal & Regulatory",
-        text: "Is this data subject to any other federal or state law, regulation, or contractual obligation? Examples include: employee personnel records, legal correspondence, audit findings, donor records, non-public institutional financial data, or vendor contracts with confidentiality terms.",
-        shortLabel: "Other legal, regulatory, or contractual obligation?",
-        stepNum: 5, stepMax: 6,
-        yes: { type: "result", id: "r_ii_other" }, no: "q6"
-      },
-      q6: {
-        id: "q6", topic: "🏛️ Institutional Sensitivity",
-        text: "Is this data intended for internal Lehigh use only, and would its unauthorized disclosure cause operational, reputational, or competitive harm to the university — even if no law or regulation requires its protection?",
-        shortLabel: "Internal only; disclosure would cause institutional harm?",
-        stepNum: 6, stepMax: 6,
-        yes: { type: "result", id: "r_iii" },
-        no: { type: "result", id: "r_iv" }
-      }
-    };
+const W_QUESTIONS = {
+  q1: {
+    id: "q1", topic: "🏥 Health Data",
+    text: "Does this data relate to the physical or mental health of a person?",
+    shortLabel: "Health-related data?",
+    stepNum: 1, stepMax: 6,
+    yes: "q1a", no: "q2"
+  },
+  q1a: {
+    id: "q1a", topic: "🏥 Health Data",
+    text: "Is this person a Lehigh student receiving health or counseling services through Lehigh University?",
+    shortLabel: "Lehigh student health or counseling services?",
+    stepNum: 2, stepMax: 3,
+    yes: { type: "result", id: "r_ii_student" },
+    no: "q1b"
+  },
+  q1b: {
+    id: "q1b", topic: "🏥 Health Data",
+    text: "Is this health data processed by or on behalf of Lehigh in a context where a Business Associate Agreement (BAA) would be required with a vendor or third party?",
+    shortLabel: "BAA required with a vendor or third party?",
+    stepNum: 3, stepMax: 3,
+    yes: { type: "result", id: "r_phi_baa" },
+    no: { type: "result", id: "r_phi_no_baa" }
+  },
+  q2: {
+    id: "q2", topic: "🔑 Critical Identifiers",
+    text: "Does this data include any of the following: Social Security numbers, passport or driver's license numbers, financial account or payment card numbers, bank routing numbers, authentication credentials, or encryption keys?",
+    shortLabel: "SSNs, financial accounts, or credentials?",
+    stepNum: 2, stepMax: 6,
+    yes: { type: "result", id: "r_i" }, no: "q3"
+  },
+  q3: {
+    id: "q3", topic: "🎓 Student Records",
+    text: "Is this data related to a student's academic record, including enrollment, grades, attendance, financial aid, or academic performance?",
+    shortLabel: "Student academic records (FERPA)?",
+    stepNum: 3, stepMax: 6,
+    yes: { type: "result", id: "r_ii_ferpa" }, no: "q4"
+  },
+  q4: {
+    id: "q4", topic: "🔬 Research Data",
+    text: "Is this data related to export-controlled research, including data subject to ITAR, EAR, or DFARS/CMMC requirements?",
+    shortLabel: "Export-controlled research (ITAR / EAR / CMMC)?",
+    stepNum: 4, stepMax: 6,
+    yes: { type: "result", id: "r_ii_export" }, no: "q5"
+  },
+  q5: {
+    id: "q5", topic: "⚖️ Legal & Regulatory",
+    text: "Is this data subject to any other federal or state law, regulation, or contractual obligation? Examples include: employee personnel records, immigration records, legal correspondence, audit findings, donor records, non-public institutional financial data, or vendor contracts with confidentiality terms.",
+    shortLabel: "Other legal, regulatory, or contractual obligation?",
+    stepNum: 5, stepMax: 6,
+    yes: { type: "result", id: "r_ii_other" }, no: "q6"
+  },
+  q6: {
+    id: "q6", topic: "🏛️ Institutional Sensitivity",
+    text: "Is this data intended for internal Lehigh use only, and would its unauthorized disclosure cause operational, reputational, or competitive harm to the university — even if no law or regulation requires its protection?",
+    shortLabel: "Internal only; disclosure would cause institutional harm?",
+    stepNum: 6, stepMax: 6,
+    yes: { type: "result", id: "r_iii" },
+    no: { type: "result", id: "r_iv" }
+  }
+};
 
-    const W_RESULTS = {
-      r_ii_student: {
-        classId: "ii", classNum: "Class II", className: "Restricted Information",
-        icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
-        reason: "Student health and counseling records at Lehigh are covered under FERPA, not HIPAA. These records are treated as part of the student's educational record and classified as Class II Restricted. A Business Associate Agreement (BAA) is not required for these records.",
-        handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
-        phi: false
-      },
-      r_phi_baa: {
-        classId: "phi", classNum: "Class I PHI", className: "Protected Health Information",
-        icon: "🏥", color: "#7c3aed", colorBg: "#faf5ff",
-        reason: "This data constitutes Protected Health Information (PHI) under HIPAA. Lehigh is acting as a covered entity or business associate. A BAA is required for any vendor or third party that touches this data. This is the most restrictive classification at Lehigh.",
-        handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
-        phi: true
-      },
-      r_phi_no_baa: {
-        classId: "phi", classNum: "Class I PHI", className: "Protected Health Information",
-        icon: "🏥", color: "#7c3aed", colorBg: "#faf5ff",
-        reason: "This data constitutes Protected Health Information (PHI) under HIPAA because Lehigh is creating, receiving, maintaining, or transmitting health information for a non-student population in its capacity as a covered entity. Even without an immediate vendor relationship, PHI handling rules and HIPAA compliance requirements apply.",
-        handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
-        phi: true
-      },
-      r_i: {
-        classId: "i", classNum: "Class I", className: "Critical Information",
-        icon: "🛡️", color: "#dc2626", colorBg: "#fff1f2",
-        reason: "This data is directly monetizable by attackers and is breach-notifiable under Pennsylvania law (73 Pa. Stat. § 2301 et seq.) and applicable federal regulations including GLBA and PCI-DSS. It requires the highest level of protection for non-health data at Lehigh.",
-        handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires formal data sharing agreement, security review, and legal review.",
-        phi: false
-      },
-      r_ii_ferpa: {
-        classId: "ii", classNum: "Class II", className: "Restricted Information",
-        icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
-        reason: "Student academic records are protected under the Family Educational Rights and Privacy Act (FERPA). Access is restricted to those with a legitimate educational interest. This data may not be shared externally without student consent except as permitted by FERPA.",
-        handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
-        phi: false
-      },
-      r_ii_export: {
-        classId: "i", classNum: "Class I", className: "Critical Information",
-        icon: "🛡️", color: "#dc2626", colorBg: "#fff1f2",
-        reason: "Export-controlled research data subject to ITAR, EAR, or DFARS/CMMC is classified as Class I Critical Information. Unauthorized disclosure could result in federal criminal penalties, loss of research funding, and serious national security implications.",
-        handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires a formal data sharing agreement, security review, and legal review.",
-        phi: false
-      },
-      r_ii_other: {
-        classId: "ii", classNum: "Class II", className: "Restricted Information",
-        icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
-        reason: "This data is regulated or restricted by federal law, state law, or contractual obligation. Access should be limited to those with a legitimate need to know. External sharing requires a data use agreement or appropriate contract language.",
-        handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
-        phi: false
-      },
-      r_iii: {
-        classId: "iii", classNum: "Class III", className: "Institutional / Proprietary Information",
-        icon: "🏛️", color: "#2563eb", colorBg: "#eff6ff",
-        reason: "This data is not regulated but is sensitive to Lehigh's operations. Examples include budget drafts, org charts, internal policies, network diagrams, and vendor contracts. It should not be shared outside Lehigh without authorization.",
-        handling: "For internal use only. Store on Lehigh-approved systems. Do not post publicly or send to personal email accounts. No encryption required but avoid external sharing without authorization.",
-        phi: false
-      },
-      r_iv: {
-        classId: "iv", classNum: "Class IV", className: "Public / Unrestricted Information",
-        icon: "🌐", color: "#16a34a", colorBg: "#f0fdf4",
-        reason: "This data can be freely shared and disclosed. No access controls, encryption, or special handling are required. Examples include published research, the course catalog, public event information, and press releases.",
-        handling: "No restrictions. May be stored anywhere, shared freely, and posted publicly. No encryption required.",
-        phi: false
-      }
-    };
+const W_RESULTS = {
+  r_ii_student: {
+    classId: "ii", classNum: "Class II", className: "Restricted Information",
+    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
+    reason: "Student health and counseling records at Lehigh are covered under FERPA, not HIPAA. These records are treated as part of the student's educational record and classified as Class II Restricted. A Business Associate Agreement (BAA) is not required for these records.",
+    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    phi: false
+  },
+  r_phi_baa: {
+    classId: "phi", classNum: "Class I PHI", className: "Protected Health Information",
+    icon: "🏥", color: "#7c3aed", colorBg: "#faf5ff",
+    reason: "This data constitutes Protected Health Information (PHI) under HIPAA. Lehigh is acting as a covered entity or business associate. A BAA is required for any vendor or third party that touches this data. This is the most restrictive classification at Lehigh.",
+    handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
+    phi: true
+  },
+  r_phi_no_baa: {
+    classId: "phi", classNum: "Class I PHI", className: "Protected Health Information",
+    icon: "🏥", color: "#7c3aed", colorBg: "#faf5ff",
+    reason: "This data constitutes Protected Health Information (PHI) under HIPAA because Lehigh is creating, receiving, maintaining, or transmitting health information for a non-student population in its capacity as a covered entity. Even without an immediate vendor relationship, PHI handling rules and HIPAA compliance requirements apply.",
+    handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
+    phi: true
+  },
+  r_i: {
+    classId: "i", classNum: "Class I", className: "Critical Information",
+    icon: "🛡️", color: "#dc2626", colorBg: "#fff1f2",
+    reason: "This data is directly monetizable by attackers and is breach-notifiable under Pennsylvania law (73 Pa. Stat. § 2301 et seq.) and applicable federal regulations including GLBA and PCI-DSS. It requires the highest level of protection for non-health data at Lehigh.",
+    handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires formal data sharing agreement, security review, and legal review.",
+    phi: false
+  },
+  r_ii_ferpa: {
+    classId: "ii", classNum: "Class II", className: "Restricted Information",
+    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
+    reason: "Student academic records are protected under the Family Educational Rights and Privacy Act (FERPA). Access is restricted to those with a legitimate educational interest. This data may not be shared externally without student consent except as permitted by FERPA.",
+    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    phi: false
+  },
+  r_ii_export: {
+    classId: "ii", classNum: "Class II", className: "Restricted Information",
+    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
+    reason: "Export-controlled research data is subject to federal regulations under the International Traffic in Arms Regulations (ITAR), Export Administration Regulations (EAR), or the Defense Federal Acquisition Regulation Supplement (DFARS). Unauthorized disclosure could result in federal penalties and loss of research funding.",
+    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    phi: false
+  },
+  r_ii_other: {
+    classId: "ii", classNum: "Class II", className: "Restricted Information",
+    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
+    reason: "This data is regulated or restricted by federal law, state law, or contractual obligation. Access should be limited to those with a legitimate need to know. External sharing requires a data use agreement or appropriate contract language.",
+    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    phi: false
+  },
+  r_iii: {
+    classId: "iii", classNum: "Class III", className: "Institutional / Proprietary Information",
+    icon: "🏛️", color: "#2563eb", colorBg: "#eff6ff",
+    reason: "This data is not regulated but is sensitive to Lehigh's operations. Examples include budget drafts, org charts, internal policies, network diagrams, and vendor contracts. It should not be shared outside Lehigh without authorization.",
+    handling: "For internal use only. Store on Lehigh-approved systems. Do not post publicly or send to personal email accounts. No encryption required but avoid external sharing without authorization.",
+    phi: false
+  },
+  r_iv: {
+    classId: "iv", classNum: "Class IV", className: "Public / Unrestricted Information",
+    icon: "🌐", color: "#16a34a", colorBg: "#f0fdf4",
+    reason: "This data can be freely shared and disclosed. No access controls, encryption, or special handling are required. Examples include published research, the course catalog, public event information, and press releases.",
+    handling: "No restrictions. May be stored anywhere, shared freely, and posted publicly. No encryption required.",
+    phi: false
+  }
+};
 
-    // ═══════════════════════════════════════════════════════
-    // WIZARD STATE & FUNCTIONS
-    // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// WIZARD STATE & FUNCTIONS
+// ═══════════════════════════════════════════════════════
 
-    let wCurrentQ = "q1";
-    let wHistory = [];
-    let wCurrentResultClassId = null;
+let wCurrentQ = "q1";
+let wHistory = [];
+let wCurrentResultClassId = null;
 
-    function wRenderQuestion(qId, prevAns) {
-      const q = W_QUESTIONS[qId];
-      wCurrentQ = qId;
+function wRenderQuestion(qId, prevAns) {
+  const q = W_QUESTIONS[qId];
+  wCurrentQ = qId;
 
-      document.getElementById("w-step-current").textContent = q.stepNum;
-      document.getElementById("w-step-max").textContent = q.stepMax;
-      document.getElementById("w-progress-fill").style.width =
-        `${Math.round((q.stepNum / q.stepMax) * 100)}%`;
+  document.getElementById("w-step-current").textContent = q.stepNum;
+  document.getElementById("w-step-max").textContent = q.stepMax;
+  document.getElementById("w-progress-fill").style.width =
+    `${Math.round((q.stepNum / q.stepMax) * 100)}%`;
 
-      document.getElementById("w-topic-chip").textContent = q.topic;
-      document.getElementById("w-question-text").textContent = q.text;
-      document.getElementById("w-back-btn").disabled = wHistory.length === 0;
+  document.getElementById("w-topic-chip").textContent = q.topic;
+  document.getElementById("w-question-text").textContent = q.text;
+  document.getElementById("w-back-btn").disabled = wHistory.length === 0;
 
-      const yesBtn = document.getElementById("w-btn-yes");
-      const noBtn = document.getElementById("w-btn-no");
-      yesBtn.classList.remove("w-prev-yes");
-      noBtn.classList.remove("w-prev-no");
-      if (prevAns === true) yesBtn.classList.add("w-prev-yes");
-      if (prevAns === false) noBtn.classList.add("w-prev-no");
-    }
+  const yesBtn = document.getElementById("w-btn-yes");
+  const noBtn  = document.getElementById("w-btn-no");
+  yesBtn.classList.remove("w-prev-yes");
+  noBtn.classList.remove("w-prev-no");
+  if (prevAns === true)  yesBtn.classList.add("w-prev-yes");
+  if (prevAns === false) noBtn.classList.add("w-prev-no");
+}
 
-    function wAnswer(isYes) {
-      const q = W_QUESTIONS[wCurrentQ];
-      const next = isYes ? q.yes : q.no;
-      wHistory.push({ questionId: wCurrentQ, answer: isYes, shortLabel: q.shortLabel });
+function wAnswer(isYes) {
+  const q = W_QUESTIONS[wCurrentQ];
+  const next = isYes ? q.yes : q.no;
+  wHistory.push({ questionId: wCurrentQ, answer: isYes, shortLabel: q.shortLabel });
 
-      if (typeof next === "string") {
-        wFadeCard("w-question-panel", () => wRenderQuestion(next, null));
-      } else {
-        wShowResult(next.id);
-      }
-    }
+  if (typeof next === "string") {
+    wFadeCard("w-question-panel", () => wRenderQuestion(next, null));
+  } else {
+    wShowResult(next.id);
+  }
+}
 
-    function wGoBack() {
-      if (wHistory.length === 0) return;
-      const last = wHistory.pop();
-      wFadeCard("w-question-panel", () => wRenderQuestion(last.questionId, last.answer));
-    }
+function wGoBack() {
+  if (wHistory.length === 0) return;
+  const last = wHistory.pop();
+  wFadeCard("w-question-panel", () => wRenderQuestion(last.questionId, last.answer));
+}
 
-    function wShowResult(resultId) {
-      const result = W_RESULTS[resultId];
-      wCurrentResultClassId = result.classId;
-      const qPanel = document.getElementById("w-question-panel");
-      const rPanel = document.getElementById("w-result-panel");
+function wShowResult(resultId) {
+  const result = W_RESULTS[resultId];
+  wCurrentResultClassId = result.classId;
+  const qPanel = document.getElementById("w-question-panel");
+  const rPanel = document.getElementById("w-result-panel");
 
-      qPanel.classList.add("fade-out");
-      setTimeout(() => {
-        qPanel.style.display = "none";
-        qPanel.classList.remove("fade-out");
+  qPanel.classList.add("fade-out");
+  setTimeout(() => {
+    qPanel.style.display = "none";
+    qPanel.classList.remove("fade-out");
 
-        document.getElementById("w-result-accent").style.background =
-          `linear-gradient(90deg, ${result.color}, ${result.color}80)`;
+    document.getElementById("w-result-accent").style.background =
+      `linear-gradient(90deg, ${result.color}, ${result.color}80)`;
 
-        const badge = document.getElementById("w-result-badge");
-        badge.style.background = result.colorBg;
-        badge.style.border = `2px solid ${result.color}33`;
-        document.getElementById("w-rbadge-num").textContent = result.classNum.replace("Class ", "CL ");
-        document.getElementById("w-rbadge-num").style.color = result.color;
-        document.getElementById("w-rbadge-icon").textContent = result.icon;
+    const badge = document.getElementById("w-result-badge");
+    badge.style.background = result.colorBg;
+    badge.style.border = `2px solid ${result.color}33`;
+    document.getElementById("w-rbadge-num").textContent = result.classNum.replace("Class ", "CL ");
+    document.getElementById("w-rbadge-num").style.color = result.color;
+    document.getElementById("w-rbadge-icon").textContent = result.icon;
 
-        document.getElementById("w-result-label").textContent = result.classNum;
-        document.getElementById("w-result-label").style.color = result.color;
-        document.getElementById("w-result-name").textContent = result.className;
-        document.getElementById("w-confirmed-chip").style.background = result.color;
+    document.getElementById("w-result-label").textContent = result.classNum;
+    document.getElementById("w-result-label").style.color = result.color;
+    document.getElementById("w-result-name").textContent = result.className;
+    document.getElementById("w-confirmed-chip").style.background = result.color;
 
-        ["w-lbl-reason", "w-lbl-path", "w-lbl-handling"].forEach(id => {
-          document.getElementById(id).style.color = result.color;
-        });
+    ["w-lbl-reason","w-lbl-path","w-lbl-handling"].forEach(id => {
+      document.getElementById(id).style.color = result.color;
+    });
 
-        document.getElementById("w-reason-text").textContent = result.reason;
+    document.getElementById("w-reason-text").textContent = result.reason;
 
-        document.getElementById("w-answer-path").innerHTML = wHistory.map(h => `
+    document.getElementById("w-answer-path").innerHTML = wHistory.map(h => `
       <div class="w-path-item">
         <div class="w-path-q">${h.shortLabel}</div>
         <span class="w-path-arrow">→</span>
@@ -1810,72 +1813,277 @@
       </div>
     `).join("");
 
-        const hBox = document.getElementById("w-handling-box");
-        hBox.textContent = result.handling;
-        hBox.style.borderLeftColor = result.color;
+    const hBox = document.getElementById("w-handling-box");
+    hBox.textContent = result.handling;
+    hBox.style.borderLeftColor = result.color;
 
-        document.getElementById("w-phi-bar").style.display = result.phi ? "flex" : "none";
+    document.getElementById("w-phi-bar").style.display = result.phi ? "flex" : "none";
 
-        rPanel.style.opacity = "0";
-        rPanel.style.transform = "translateY(10px)";
-        rPanel.style.transition = "opacity 0.25s ease, transform 0.25s ease";
-        rPanel.style.display = "block";
+    rPanel.style.opacity = "0";
+    rPanel.style.transform = "translateY(10px)";
+    rPanel.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+    rPanel.style.display = "block";
 
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          rPanel.style.opacity = "1";
-          rPanel.style.transform = "translateY(0)";
-        }));
-      }, 200);
-    }
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      rPanel.style.opacity = "1";
+      rPanel.style.transform = "translateY(0)";
+    }));
+  }, 200);
+}
 
-    function wStartOver() {
-      const rPanel = document.getElementById("w-result-panel");
-      const qPanel = document.getElementById("w-question-panel");
-      rPanel.style.opacity = "0";
-      rPanel.style.transform = "translateY(8px)";
-      setTimeout(() => {
-        rPanel.style.display = "none";
-        rPanel.style.transition = "";
-        wHistory = [];
-        wCurrentResultClassId = null;
-        wRenderQuestion("q1", null);
-        qPanel.style.opacity = "0";
-        qPanel.style.transform = "translateY(8px)";
-        qPanel.style.transition = "opacity 0.25s ease, transform 0.25s ease";
-        qPanel.style.display = "block";
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          qPanel.style.opacity = "1";
-          qPanel.style.transform = "translateY(0)";
-        }));
-      }, 200);
-    }
+function wStartOver() {
+  const rPanel = document.getElementById("w-result-panel");
+  const qPanel = document.getElementById("w-question-panel");
+  rPanel.style.opacity = "0";
+  rPanel.style.transform = "translateY(8px)";
+  setTimeout(() => {
+    rPanel.style.display = "none";
+    rPanel.style.transition = "";
+    wHistory = [];
+    wCurrentResultClassId = null;
+    wRenderQuestion("q1", null);
+    qPanel.style.opacity = "0";
+    qPanel.style.transform = "translateY(8px)";
+    qPanel.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+    qPanel.style.display = "block";
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      qPanel.style.opacity = "1";
+      qPanel.style.transform = "translateY(0)";
+    }));
+  }, 200);
+}
 
-    function wViewDetails() {
-      if (!wCurrentResultClassId) return;
-      const classId = wCurrentResultClassId;
-      // Close wizard
-      wizardOpen = false;
-      document.getElementById("wizard-area").style.display = "none";
-      document.getElementById("wizard-btn").classList.remove("active");
-      document.getElementById("wizard-btn").innerHTML = "🧭 Classification Wizard";
-      // Show selector + detail panel
-      document.getElementById("selector").style.display = "grid";
-      // Select the result class
-      selectClass(classId);
-    }
+function wViewDetails() {
+  if (!wCurrentResultClassId) return;
+  const classId = wCurrentResultClassId;
+  // Close wizard
+  wizardOpen = false;
+  document.getElementById("wizard-area").style.display = "none";
+  document.getElementById("wizard-btn").classList.remove("active");
+  document.getElementById("wizard-btn").innerHTML = "🧭 Classification Wizard";
+  // Show selector + detail panel
+  document.getElementById("selector").style.display = "grid";
+  // Select the result class
+  selectClass(classId);
+}
 
-    function wFadeCard(id, callback) {
-      const card = document.getElementById(id);
-      card.classList.add("fade-out");
-      setTimeout(() => { callback(); card.classList.remove("fade-out"); }, 180);
-    }
+function wFadeCard(id, callback) {
+  const card = document.getElementById(id);
+  card.classList.add("fade-out");
+  setTimeout(() => { callback(); card.classList.remove("fade-out"); }, 180);
+}
 
-    // ═══════════════════════════════════════════════════════
-    // INIT
-    // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// STORAGE & AI GUIDANCE DATA
+// ═══════════════════════════════════════════════════════
 
-    renderDetail(CLASSES.find(c => c.id === activeId));
-  </script>
+// Map from CLASSES id → storage guidance key
+const CLASS_TO_SG_KEY = { phi: "c1phi", i: "c1", ii: "c2", iii: "c3", iv: "c4" };
+
+const STORAGE_PLATFORMS = [
+  {
+    name: "Approved Access-Controlled LAN Drive*",
+    status: { c1phi: "ok", c1: "ok", c2: "ok", c3: "ok", c4: "ok" },
+    note: "Must be approved by Information Security or implemented by LTS in an approved configuration."
+  },
+  {
+    name: "AWS – Secure Research Cloud (SRC)",
+    status: { c1phi: "ok", c1: "ok", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "AWS – Lehigh Administrative Data Lake (LADL)",
+    status: { c1phi: "conditional", c1: "conditional", c2: "ok", c3: "ok", c4: "ok" },
+    note: "Contact LTS before storing Class I data in LADL."
+  },
+  {
+    name: "REDCap",
+    status: { c1phi: "conditional", c1: "conditional", c2: "ok", c3: "ok", c4: "ok" },
+    note: "Must be appropriately configured by LTS for Class I or Class I PHI data."
+  },
+  {
+    name: "DocuSign",
+    status: { c1phi: "conditional", c1: "conditional", c2: "ok", c3: "ok", c4: "ok" },
+    note: "Must be set up by LTS to support Class I or Class I PHI data."
+  },
+  {
+    name: "Lehigh Dropbox for Business",
+    status: { c1phi: "conditional", c1: "conditional", c2: "ok", c3: "ok", c4: "ok" },
+    note: "Requires LTS-managed team drive with Class I data placed in the C1 folder. Do not share files externally."
+  },
+  {
+    name: "Lehigh File Sender",
+    status: { c1phi: "no", c1: "ok", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Ceph Storage with LTS Access-Control (R Drive)",
+    status: { c1phi: "no", c1: "no", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Course Site",
+    status: { c1phi: "no", c1: "no", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "JIRA",
+    status: { c1phi: "no", c1: "no", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Qualtrics",
+    status: { c1phi: "no", c1: "no", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Slack (Lehigh Licensed)",
+    status: { c1phi: "no", c1: "no", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Zoom",
+    status: { c1phi: "no", c1: "no", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Zoom – HIPAA",
+    status: { c1phi: "conditional", c1: "conditional", c2: "ok", c3: "ok", c4: "ok" },
+    note: "HIPAA account conversion required. Disables cloud recording, breakout rooms, and AI features."
+  },
+  {
+    name: "Lehigh Gmail",
+    status: { c1phi: "no", c1: "no", c2: "conditional", c3: "ok", c4: "ok" },
+    note: "Class II only permitted for internal @lehigh.edu addresses. FERPA prohibits sharing student data to external addresses."
+  },
+  {
+    name: "Lehigh Google Drive",
+    status: { c1phi: "conditional", c1: "conditional", c2: "conditional", c3: "ok", c4: "ok" },
+    note: "ITAR and export-controlled data excluded — cannot be stored on systems outside the US. Google stores data on servers domestically and abroad."
+  },
+  {
+    name: "Lehigh Microsoft OneDrive",
+    status: { c1phi: "no", c1: "no", c2: "conditional", c3: "ok", c4: "ok" },
+    note: "ITAR and export-controlled data excluded. Encrypted in transit and at rest."
+  },
+  {
+    name: "Lehigh University LAN Drive (H: I: J:)",
+    status: { c1phi: "no", c1: "no", c2: "ok", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Confluence",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Drupal and Lehigh Hosted Webpages",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Web and Storage Space",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Unmanaged Devices (Lehigh or Personal)",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "no", c4: "ok" }
+  },
+  {
+    name: "Personally Owned Computers or Storage Devices",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "no", c4: "ok" }
+  },
+  {
+    name: "Personal Dropbox",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "no", c4: "ok" }
+  }
+];
+
+const AI_PLATFORMS = [
+  {
+    name: "Google Gemini AI (Lehigh Account) — Gems, NotebookLM, AI Studio",
+    status: { c1phi: "no", c1: "conditional", c2: "ok", c3: "ok", c4: "ok" },
+    note: "ITAR and export-controlled data excluded from Google systems."
+  },
+  {
+    name: "Zoom AI",
+    status: { c1phi: "no", c1: "no", c2: "ok", c3: "ok", c4: "ok" },
+    note: "HIPAA Zoom accounts do not support AI features."
+  },
+  {
+    name: "DataCamp",
+    status: { c1phi: "no", c1: "no", c2: "conditional", c3: "ok", c4: "ok" },
+    note: "Learning environment only. Not designed for Class II production use. Consult LTS for non-learning use cases."
+  },
+  {
+    name: "LibreChat",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "Claude (Anthropic — Lehigh-licensed)",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "ok", c4: "ok" }
+  },
+  {
+    name: "All Other AI Tools (free tier / not centrally purchased)",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "no", c4: "ok" },
+    note: "Includes ChatGPT/OpenAI, Perplexity, Claude free tier, etc."
+  },
+  {
+    name: "otter.ai / read.ai and similar meeting note tools",
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "no", c4: "no" },
+    note: "Do not use. Use Zoom's embedded meeting tools instead."
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// RENDER STORAGE GUIDANCE
+// ═══════════════════════════════════════════════════════
+
+function renderStorageGuidance(classKey) {
+  const statusIcon = {
+    ok:          '<span aria-label="Approved">✔</span>',
+    no:          '<span aria-label="Not approved">✘</span>',
+    conditional: '<span aria-label="Conditional approval">⚠</span>'
+  };
+
+  // Resolve accent color from active class
+  const cls = CLASSES.find(c => CLASS_TO_SG_KEY[c.id] === classKey);
+  const accent = cls ? cls.color : "var(--brand-maroon)";
+
+  function buildRows(platforms) {
+    return platforms.map(p => {
+      const s = p.status[classKey];
+      const icon = statusIcon[s];
+      const noteHTML = (s !== "no" && p.note)
+        ? `<span class="sg-note">${p.note}</span>`
+        : "";
+      return `<tr class="sg-row sg-${s}">
+        <td class="sg-icon-cell">${icon}</td>
+        <td class="sg-name">${p.name}${noteHTML}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  const html = `
+    <div class="sg-container">
+      <div class="sg-title-row">
+        <span class="sg-title-icon">💾</span>
+        <h2 class="sg-heading" style="color:${accent}">Where can I store or use this data?</h2>
+      </div>
+      <p class="sg-subhead">Based on your classification result. ⚠ Conditional approvals require additional steps — see the note inline.</p>
+
+      <h3 class="sg-section-title" style="color:${accent}">
+        <span>🗄️</span> Storage &amp; Collaboration
+      </h3>
+      <table class="sg-table"><tbody>${buildRows(STORAGE_PLATFORMS)}</tbody></table>
+
+      <h3 class="sg-section-title" style="color:${accent}">
+        <span>🤖</span> AI Services
+      </h3>
+      <table class="sg-table"><tbody>${buildRows(AI_PLATFORMS)}</tbody></table>
+
+      <p class="sg-footer">Questions? Contact <a href="mailto:infosec@lehigh.edu">infosec@lehigh.edu</a> &middot; Information Security.</p>
+    </div>
+  `;
+
+  const mount = document.getElementById("storage-guidance-mount");
+  if (mount) mount.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+
+renderDetail(CLASSES.find(c => c.id === activeId));
+</script>
 </body>
-
 </html>
