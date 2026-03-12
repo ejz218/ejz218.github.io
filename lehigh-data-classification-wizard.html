@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lehigh University Data Classification Wizard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand-maroon: #8B1A1A;
+      --brand-brown:  #4A3728;
+      --brand-gold:   #C8962E;
+      --brand-dark:   #2d0808;
+      --bg:        #f6f7f8;
+      --surface:   #ffffff;
+      --surface2:  #f1f5f9;
+      --text:      #1a0f09;
+      --muted:     #64748b;
+      --border:    rgba(74,55,40,0.1);
+      --radius:    16px;
+      --shadow:    0 4px 24px rgba(74,55,40,0.10);
+      --shadow-sm: 0 2px 10px rgba(74,55,40,0.07);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 2.25rem;
+    }
+
+    .header-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .header-brand-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand-maroon);
+      display: inline-block;
+    }
+
+    header h1 {
+      font-size: 1.65rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    header h1 span { color: var(--brand-maroon); }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.83rem;
+      margin-top: 0.3rem;
+      font-weight: 500;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.55;
+    }
+
+    /* ── Wrapper ── */
+    .wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ── Wizard card ── */
+    .wizard-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .wizard-card.fade-out {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    /* ── Progress bar ── */
+    .wizard-progress-wrap {
+      padding: 1.25rem 1.75rem 0;
+    }
+
+    .wizard-progress-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.65rem;
+    }
+
+    .wizard-step-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .wizard-step-label strong {
+      color: var(--brand-maroon);
+    }
+
+    .wizard-progress-track {
+      height: 5px;
+      background: rgba(74,55,40,0.1);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .wizard-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand-maroon), var(--brand-gold));
+      border-radius: 99px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── Question body ── */
+    .wizard-body {
+      padding: 1.75rem 1.75rem 1.5rem;
+    }
+
+    .wizard-topic-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--surface2);
+      border-radius: 99px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--brand-brown);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.1rem;
+      border: 1px solid var(--border);
+    }
+
+    .wizard-question-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.55;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    /* ── YES / NO buttons ── */
+    .wizard-answer-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .answer-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      padding: 1.2rem 1rem;
+      border-radius: 14px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      transition: all 0.15s ease;
+      user-select: none;
+      min-height: 90px;
+    }
+
+    .answer-btn .btn-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .btn-yes {
+      background: var(--brand-maroon);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(139,26,26,0.28);
+    }
+
+    .btn-yes:hover {
+      background: #7a1515;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139,26,26,0.38);
+    }
+
+    .btn-yes:active { transform: translateY(0); }
+
+    .btn-no {
+      background: var(--surface);
+      color: var(--text);
+      border-color: rgba(74,55,40,0.18);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-no:hover {
+      background: var(--surface2);
+      border-color: rgba(74,55,40,0.3);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-no:active { transform: translateY(0); }
+
+    /* Previously selected answer highlighting */
+    .btn-yes.prev-selected {
+      outline: 3px solid var(--brand-gold);
+      outline-offset: 2px;
+    }
+
+    .btn-no.prev-selected {
+      border-color: var(--brand-maroon);
+      background: #fff7f7;
+      color: var(--brand-maroon);
+    }
+
+    /* ── Back button ── */
+    .wizard-back-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .wizard-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      padding: 0;
+      transition: color 0.15s;
+    }
+
+    .wizard-back-btn:hover { color: var(--brand-maroon); }
+
+    .wizard-back-btn:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ── Result card ── */
+    .result-accent {
+      height: 5px;
+      width: 100%;
+    }
+
+    .result-header {
+      padding: 1.75rem 1.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .result-badge-box {
+      width: 82px;
+      height: 82px;
+      border-radius: 16px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.05rem;
+    }
+
+    .result-badge-box .rbadge-num {
+      font-size: 0.57rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+    }
+
+    .result-badge-box .rbadge-icon {
+      font-size: 1.65rem;
+      line-height: 1;
+    }
+
+    .result-title-block { flex: 1; min-width: 0; }
+
+    .result-class-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.2rem;
+    }
+
+    .result-class-name {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .result-confirmed-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.67rem;
+      font-weight: 700;
+      color: #fff;
+      border-radius: 99px;
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* ── Result sections ── */
+    .result-sections {
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .result-section-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .result-reason-text {
+      font-size: 0.87rem;
+      line-height: 1.65;
+      color: #374151;
+    }
+
+    /* Answer path trail */
+    .answer-path {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .path-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .path-q {
+      flex: 1;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .path-arrow {
+      color: var(--muted);
+      font-size: 0.72rem;
+      flex-shrink: 0;
+    }
+
+    .path-ans {
+      font-weight: 800;
+      font-size: 0.72rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 99px;
+      flex-shrink: 0;
+    }
+
+    .path-ans.yes-ans {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .path-ans.no-ans {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    /* Handling summary box */
+    .handling-box {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: #374151;
+      background: var(--surface2);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      border-left: 3px solid var(--brand-maroon);
+    }
+
+    /* PHI footnote */
+    .phi-footnote {
+      background: var(--brand-dark);
+      padding: 1rem 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .phi-footnote-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    .phi-footnote-text {
+      font-size: 0.77rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.55;
+    }
+
+    .phi-footnote-text strong { color: #fff; }
+
+    /* ── Action buttons ── */
+    .result-actions {
+      padding: 1.25rem 1.75rem 1.75rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn-start-over {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      padding: 0.65rem 1.35rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--brand-maroon);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-start-over:hover {
+      background: #fff7f7;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-learn-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--brand-maroon);
+      border: none;
+      border-radius: 99px;
+      padding: 0.65rem 1.35rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(139,26,26,0.28);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-learn-more:hover {
+      background: #7a1515;
+      box-shadow: 0 6px 18px rgba(139,26,26,0.38);
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.73rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: var(--brand-maroon);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Mobile ── */
+    @media (max-width: 500px) {
+      body { padding: 1.5rem 1rem 2.5rem; }
+      header h1 { font-size: 1.35rem; }
+      .wizard-body { padding: 1.25rem 1.25rem 1.1rem; }
+      .wizard-progress-wrap { padding: 1rem 1.25rem 0; }
+      .wizard-question-text { font-size: 1rem; }
+      .answer-btn { min-height: 78px; font-size: 0.92rem; }
+      .result-header { padding: 1.25rem; }
+      .result-sections { padding: 1.25rem; }
+      .result-actions { padding: 1rem 1.25rem 1.25rem; }
+      .phi-footnote { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <span class="header-brand-dot"></span>
+    Lehigh <strong style="color:var(--brand-maroon)">University</strong>
+    <span class="header-brand-dot"></span>
+  </div>
+  <h1>Data Classification <span>Wizard</span></h1>
+  <p>Answer a few yes/no questions to determine the correct classification level for your data.</p>
+</header>
+
+<div class="wrapper">
+
+  <!-- QUESTION PANEL -->
+  <div class="wizard-card" id="wizard-panel">
+    <div class="wizard-progress-wrap">
+      <div class="wizard-progress-header">
+        <div class="wizard-step-label">
+          Question <strong id="step-current">1</strong> of up to <strong id="step-max">6</strong>
+        </div>
+      </div>
+      <div class="wizard-progress-track">
+        <div class="wizard-progress-fill" id="progress-fill" style="width:16%"></div>
+      </div>
+    </div>
+    <div class="wizard-body">
+      <div class="wizard-topic-chip" id="topic-chip">🏥 Health Data</div>
+      <div class="wizard-question-text" id="question-text">
+        Does this data relate to the physical or mental health of a person?
+      </div>
+      <div class="wizard-answer-row">
+        <button class="answer-btn btn-yes" id="btn-yes" onclick="answer(true)">
+          <span class="btn-icon">✓</span>
+          YES
+        </button>
+        <button class="answer-btn btn-no" id="btn-no" onclick="answer(false)">
+          <span class="btn-icon">✗</span>
+          NO
+        </button>
+      </div>
+      <div class="wizard-back-row">
+        <button class="wizard-back-btn" id="back-btn" onclick="goBack()" disabled>
+          ← Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT PANEL (hidden until result reached) -->
+  <div class="wizard-card" id="result-panel" style="display:none">
+    <div class="result-accent" id="result-accent"></div>
+    <div class="result-header">
+      <div class="result-badge-box" id="result-badge-box">
+        <span class="rbadge-num" id="rbadge-num"></span>
+        <span class="rbadge-icon" id="rbadge-icon"></span>
+      </div>
+      <div class="result-title-block">
+        <div class="result-class-label" id="result-class-label"></div>
+        <div class="result-class-name" id="result-class-name"></div>
+        <div class="result-confirmed-chip" id="result-confirmed-chip">✓ Classification Determined</div>
+      </div>
+    </div>
+
+    <div class="result-sections">
+      <!-- Why You Landed Here -->
+      <div>
+        <div class="result-section-label" id="lbl-reason">
+          <span>💡</span> Why You Landed Here
+        </div>
+        <div class="result-reason-text" id="result-reason"></div>
+      </div>
+
+      <!-- Answer Path -->
+      <div>
+        <div class="result-section-label" id="lbl-path">
+          <span>🗺️</span> Your Answer Path
+        </div>
+        <div class="answer-path" id="answer-path"></div>
+      </div>
+
+      <!-- Handling Requirements -->
+      <div>
+        <div class="result-section-label" id="lbl-handling">
+          <span>🔒</span> Handling Requirements
+        </div>
+        <div class="handling-box" id="handling-box"></div>
+      </div>
+    </div>
+
+    <!-- PHI footnote (only shown for PHI results) -->
+    <div class="phi-footnote" id="phi-footnote" style="display:none">
+      <span class="phi-footnote-icon">ℹ️</span>
+      <p class="phi-footnote-text">
+        <strong>Class I PHI is an operational distinction within Class I.</strong>
+        The key trigger is whether the data involves non-student health information where Lehigh acts
+        as a covered entity or business associate, requiring a Business Associate Agreement (BAA).
+      </p>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn-start-over" onclick="startOver()">↺ Start Over</button>
+      <a class="btn-learn-more" href="lehigh-data-classification.html" id="learn-more-link">
+        View Full Classification Details →
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Developed by Eric Zematis, CISO — Lehigh University &middot;
+  Companion to <a href="lehigh-data-classification.html">Data Classification Framework</a>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// QUESTIONS
+// ═══════════════════════════════════════════════════════
+
+const QUESTIONS = {
+  q1: {
+    id: "q1",
+    topic: "🏥 Health Data",
+    text: "Does this data relate to the physical or mental health of a person?",
+    shortLabel: "Health-related data?",
+    stepNum: 1, stepMax: 6,
+    yes: "q1a",
+    no: "q2"
+  },
+  q1a: {
+    id: "q1a",
+    topic: "🏥 Health Data",
+    text: "Is this person a Lehigh student receiving health or counseling services through Lehigh University?",
+    shortLabel: "Lehigh student health or counseling services?",
+    stepNum: 2, stepMax: 3,
+    yes: { type: "result", id: "r_ii_student" },
+    no: "q1b"
+  },
+  q1b: {
+    id: "q1b",
+    topic: "🏥 Health Data",
+    text: "Is this health data processed by or on behalf of Lehigh in a context where a Business Associate Agreement (BAA) would be required with a vendor or third party?",
+    shortLabel: "BAA required with a vendor or third party?",
+    stepNum: 3, stepMax: 3,
+    yes: { type: "result", id: "r_phi_baa" },
+    no: { type: "result", id: "r_phi_no_baa" }
+  },
+  q2: {
+    id: "q2",
+    topic: "🔑 Critical Identifiers",
+    text: "Does this data include any of the following: Social Security numbers, passport or driver's license numbers, financial account or payment card numbers, bank routing numbers, authentication credentials, or encryption keys?",
+    shortLabel: "SSNs, financial accounts, or credentials?",
+    stepNum: 2, stepMax: 6,
+    yes: { type: "result", id: "r_i" },
+    no: "q3"
+  },
+  q3: {
+    id: "q3",
+    topic: "🔬 Research Data",
+    text: "Is this data related to export-controlled research, including data subject to ITAR, EAR, or DFARS/CMMC requirements?",
+    shortLabel: "Export-controlled research (ITAR / EAR / CMMC)?",
+    stepNum: 3, stepMax: 6,
+    yes: { type: "result", id: "r_ii_export" },
+    no: "q4"
+  },
+  q4: {
+    id: "q4",
+    topic: "🎓 Student Records",
+    text: "Is this data related to a student's academic record, including enrollment, grades, attendance, financial aid, or academic performance?",
+    shortLabel: "Student academic records (FERPA)?",
+    stepNum: 4, stepMax: 6,
+    yes: { type: "result", id: "r_ii_ferpa" },
+    no: "q5"
+  },
+  q5: {
+    id: "q5",
+    topic: "⚖️ Legal & Regulatory",
+    text: "Is this data subject to any other federal or state law, regulation, or contractual obligation? Examples include: employee personnel records, legal correspondence, audit findings, donor records, non-public institutional financial data, or vendor contracts with confidentiality terms.",
+    shortLabel: "Other legal, regulatory, or contractual obligation?",
+    stepNum: 5, stepMax: 6,
+    yes: { type: "result", id: "r_ii_other" },
+    no: "q6"
+  },
+  q6: {
+    id: "q6",
+    topic: "🏛️ Institutional Sensitivity",
+    text: "Is this data intended for internal Lehigh use only, and would its unauthorized disclosure cause operational, reputational, or competitive harm to the university — even if no law or regulation requires its protection?",
+    shortLabel: "Internal only; disclosure would cause institutional harm?",
+    stepNum: 6, stepMax: 6,
+    yes: { type: "result", id: "r_iii" },
+    no: { type: "result", id: "r_iv" }
+  }
+};
+
+// ═══════════════════════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════════════════════
+
+const RESULTS = {
+  r_ii_student: {
+    classId: "ii",
+    classNum: "Class II",
+    className: "Restricted Information",
+    icon: "🔐",
+    color: "#d97706",
+    colorBg: "#fffbeb",
+    reason: "Student health and counseling records at Lehigh are covered under FERPA, not HIPAA. These records are treated as part of the student's educational record and classified as Class II Restricted. A Business Associate Agreement (BAA) is not required for these records.",
+    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    phi: false
+  },
+  r_phi_baa: {
+    classId: "phi",
+    classNum: "Class I PHI",
+    className: "Protected Health Information",
+    icon: "🏥",
+    color: "#7c3aed",
+    colorBg: "#faf5ff",
+    reason: "This data constitutes Protected Health Information (PHI) under HIPAA. Lehigh is acting as a covered entity or business associate. A BAA is required for any vendor or third party that touches this data. This is the most restrictive classification at Lehigh.",
+    handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
+    phi: true
+  },
+  r_phi_no_baa: {
+    classId: "phi",
+    classNum: "Class I PHI",
+    className: "Protected Health Information",
+    icon: "🏥",
+    color: "#7c3aed",
+    colorBg: "#faf5ff",
+    reason: "This data constitutes Protected Health Information (PHI) under HIPAA because Lehigh is creating, receiving, maintaining, or transmitting health information for a non-student population in its capacity as a covered entity. Even without an immediate vendor relationship, PHI handling rules and HIPAA compliance requirements apply.",
+    handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
+    phi: true
+  },
+  r_i: {
+    classId: "i",
+    classNum: "Class I",
+    className: "Critical Information",
+    icon: "🛡️",
+    color: "#dc2626",
+    colorBg: "#fff1f2",
+    reason: "This data is directly monetizable by attackers and is breach-notifiable under Pennsylvania law (73 Pa. Stat. § 2301 et seq.) and applicable federal regulations including GLBA and PCI-DSS. It requires the highest level of protection for non-health data at Lehigh.",
+    handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires formal data sharing agreement, security review, and legal review.",
+    phi: false
+  },
+  r_ii_ferpa: {
+    classId: "ii",
+    classNum: "Class II",
+    className: "Restricted Information",
+    icon: "🔐",
+    color: "#d97706",
+    colorBg: "#fffbeb",
+    reason: "Student academic records are protected under the Family Educational Rights and Privacy Act (FERPA). Access is restricted to those with a legitimate educational interest. This data may not be shared externally without student consent except as permitted by FERPA.",
+    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    phi: false
+  },
+  r_ii_export: {
+    classId: "i",
+    classNum: "Class I",
+    className: "Critical Information",
+    icon: "🛡️",
+    color: "#dc2626",
+    colorBg: "#fff1f2",
+    reason: "Export-controlled research data subject to ITAR, EAR, or DFARS/CMMC is classified as Class I Critical Information. Unauthorized disclosure could result in federal criminal penalties, loss of research funding, and serious national security implications.",
+    handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires a formal data sharing agreement, security review, and legal review.",
+    phi: false
+  },
+  r_ii_other: {
+    classId: "ii",
+    classNum: "Class II",
+    className: "Restricted Information",
+    icon: "🔐",
+    color: "#d97706",
+    colorBg: "#fffbeb",
+    reason: "This data is regulated or restricted by federal law, state law, or contractual obligation. Access should be limited to those with a legitimate need to know. External sharing requires a data use agreement or appropriate contract language.",
+    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    phi: false
+  },
+  r_iii: {
+    classId: "iii",
+    classNum: "Class III",
+    className: "Institutional / Proprietary Information",
+    icon: "🏛️",
+    color: "#2563eb",
+    colorBg: "#eff6ff",
+    reason: "This data is not regulated but is sensitive to Lehigh's operations. Examples include budget drafts, org charts, internal policies, network diagrams, and vendor contracts. It should not be shared outside Lehigh without authorization.",
+    handling: "For internal use only. Store on Lehigh-approved systems. Do not post publicly or send to personal email accounts. No encryption required but avoid external sharing without authorization.",
+    phi: false
+  },
+  r_iv: {
+    classId: "iv",
+    classNum: "Class IV",
+    className: "Public / Unrestricted Information",
+    icon: "🌐",
+    color: "#16a34a",
+    colorBg: "#f0fdf4",
+    reason: "This data can be freely shared and disclosed. No access controls, encryption, or special handling are required. Examples include published research, the course catalog, public event information, and press releases.",
+    handling: "No restrictions. May be stored anywhere, shared freely, and posted publicly. No encryption required.",
+    phi: false
+  }
+};
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+
+let currentQ = "q1";
+let history = [];   // { questionId, answer, shortLabel }
+
+// ═══════════════════════════════════════════════════════
+// RENDER QUESTION
+// ═══════════════════════════════════════════════════════
+
+function renderQuestion(qId, prevAns) {
+  const q = QUESTIONS[qId];
+  currentQ = qId;
+
+  // Progress
+  document.getElementById("step-current").textContent = q.stepNum;
+  document.getElementById("step-max").textContent = q.stepMax;
+  document.getElementById("progress-fill").style.width =
+    `${Math.round((q.stepNum / q.stepMax) * 100)}%`;
+
+  // Topic & question text
+  document.getElementById("topic-chip").textContent = q.topic;
+  document.getElementById("question-text").textContent = q.text;
+
+  // Back button
+  document.getElementById("back-btn").disabled = history.length === 0;
+
+  // Reset / restore previous selection highlight
+  const yesBtn = document.getElementById("btn-yes");
+  const noBtn  = document.getElementById("btn-no");
+  yesBtn.classList.remove("prev-selected");
+  noBtn.classList.remove("prev-selected");
+  if (prevAns === true)  yesBtn.classList.add("prev-selected");
+  if (prevAns === false) noBtn.classList.add("prev-selected");
+}
+
+// ═══════════════════════════════════════════════════════
+// ANSWER A QUESTION
+// ═══════════════════════════════════════════════════════
+
+function answer(isYes) {
+  const q = QUESTIONS[currentQ];
+  const next = isYes ? q.yes : q.no;
+
+  history.push({ questionId: currentQ, answer: isYes, shortLabel: q.shortLabel });
+
+  if (typeof next === "string") {
+    // Navigate to next question
+    fadeCard("wizard-panel", () => renderQuestion(next, null));
+  } else {
+    // Show result
+    showResult(next.id);
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// GO BACK
+// ═══════════════════════════════════════════════════════
+
+function goBack() {
+  if (history.length === 0) return;
+  const last = history.pop();
+  fadeCard("wizard-panel", () => renderQuestion(last.questionId, last.answer));
+}
+
+// ═══════════════════════════════════════════════════════
+// SHOW RESULT
+// ═══════════════════════════════════════════════════════
+
+function showResult(resultId) {
+  const result = RESULTS[resultId];
+  const wizardPanel  = document.getElementById("wizard-panel");
+  const resultPanel  = document.getElementById("result-panel");
+
+  wizardPanel.classList.add("fade-out");
+
+  setTimeout(() => {
+    wizardPanel.style.display = "none";
+    wizardPanel.classList.remove("fade-out");
+
+    // Fill result data
+    document.getElementById("result-accent").style.background =
+      `linear-gradient(90deg, ${result.color}, ${result.color}80)`;
+
+    const badge = document.getElementById("result-badge-box");
+    badge.style.background = result.colorBg;
+    badge.style.border = `2px solid ${result.color}33`;
+    document.getElementById("rbadge-num").textContent = result.classNum.replace("Class ", "CL ");
+    document.getElementById("rbadge-num").style.color = result.color;
+    document.getElementById("rbadge-icon").textContent = result.icon;
+
+    document.getElementById("result-class-label").textContent = result.classNum;
+    document.getElementById("result-class-label").style.color = result.color;
+    document.getElementById("result-class-name").textContent = result.className;
+
+    const chip = document.getElementById("result-confirmed-chip");
+    chip.style.background = result.color;
+
+    // Section label colors
+    ["lbl-reason","lbl-path","lbl-handling"].forEach(id => {
+      document.getElementById(id).style.color = result.color;
+    });
+
+    // Reason
+    document.getElementById("result-reason").textContent = result.reason;
+
+    // Answer path
+    document.getElementById("answer-path").innerHTML = history.map(h => `
+      <div class="path-item">
+        <div class="path-q">${h.shortLabel}</div>
+        <span class="path-arrow">→</span>
+        <span class="path-ans ${h.answer ? 'yes-ans' : 'no-ans'}">${h.answer ? 'YES' : 'NO'}</span>
+      </div>
+    `).join("");
+
+    // Handling
+    const handlingEl = document.getElementById("handling-box");
+    handlingEl.textContent = result.handling;
+    handlingEl.style.borderLeftColor = result.color;
+
+    // PHI footnote
+    document.getElementById("phi-footnote").style.display = result.phi ? "flex" : "none";
+
+    // Show result panel with fade-in
+    resultPanel.style.opacity = "0";
+    resultPanel.style.transform = "translateY(10px)";
+    resultPanel.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+    resultPanel.style.display = "block";
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      resultPanel.style.opacity = "1";
+      resultPanel.style.transform = "translateY(0)";
+    }));
+  }, 200);
+}
+
+// ═══════════════════════════════════════════════════════
+// START OVER
+// ═══════════════════════════════════════════════════════
+
+function startOver() {
+  const resultPanel = document.getElementById("result-panel");
+  const wizardPanel = document.getElementById("wizard-panel");
+
+  resultPanel.style.opacity = "0";
+  resultPanel.style.transform = "translateY(8px)";
+
+  setTimeout(() => {
+    resultPanel.style.display = "none";
+    resultPanel.style.transition = "";
+
+    history = [];
+    renderQuestion("q1", null);
+
+    wizardPanel.style.opacity = "0";
+    wizardPanel.style.transform = "translateY(8px)";
+    wizardPanel.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+    wizardPanel.style.display = "block";
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      wizardPanel.style.opacity = "1";
+      wizardPanel.style.transform = "translateY(0)";
+    }));
+  }, 200);
+}
+
+// ═══════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════
+
+function fadeCard(id, callback) {
+  const card = document.getElementById(id);
+  card.classList.add("fade-out");
+  setTimeout(() => {
+    callback();
+    card.classList.remove("fade-out");
+  }, 180);
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+
+renderQuestion("q1", null);
+</script>
+</body>
+</html>
