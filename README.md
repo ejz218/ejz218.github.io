@@ -1,6 +1,6 @@
 # Eric Zematis · Security & AI Risk Tools
 
-**CISO, Lehigh University · Founder, [PrudentCISO](https://prudentciso.com)**
+**CISO, Lehigh University**
 
 Interactive tools and educational resources for security leaders navigating AI risk, data governance, and information security practice. Built to be practical, policy-grounded, and usable without a vendor.
 
@@ -36,8 +36,7 @@ A practical Python text written for analysts, administrators, and security profe
 
 ## About
 
-I'm a CISO with a background in higher education security, risk governance, and AI policy. These tools reflect the work I do at Lehigh and through PrudentCISO — translating complex security and risk concepts into practical frameworks that boards, leadership teams, and end users can actually use.
+I'm a CISO with a background in higher education security, risk governance, and AI policy. These tools reflect the work I do at Lehigh — translating complex security and risk concepts into practical frameworks that boards, leadership teams, and end users can actually use.
 
 - **GitHub:** [ejz218](https://github.com/ejz218)
-- **PrudentCISO:** [prudentciso.com](https://prudentciso.com)
 - **Institution:** [Lehigh University](https://lehigh.edu)
