@@ -687,26 +687,26 @@ const QUESTIONS = {
   },
   q3: {
     id: "q3",
-    topic: "🎓 Student Records",
-    text: "Is this data related to a student's academic record, including enrollment, grades, attendance, financial aid, or academic performance?",
-    shortLabel: "Student academic records (FERPA)?",
+    topic: "🔬 Research Data",
+    text: "Is this data related to export-controlled research, including data subject to ITAR, EAR, or DFARS/CMMC requirements?",
+    shortLabel: "Export-controlled research (ITAR / EAR / CMMC)?",
     stepNum: 3, stepMax: 6,
-    yes: { type: "result", id: "r_ii_ferpa" },
+    yes: { type: "result", id: "r_ii_export" },
     no: "q4"
   },
   q4: {
     id: "q4",
-    topic: "🔬 Research Data",
-    text: "Is this data related to export-controlled research, including data subject to ITAR, EAR, or DFARS/CMMC requirements?",
-    shortLabel: "Export-controlled research (ITAR / EAR / CMMC)?",
+    topic: "🎓 Student Records",
+    text: "Is this data related to a student's academic record, including enrollment, grades, attendance, financial aid, or academic performance?",
+    shortLabel: "Student academic records (FERPA)?",
     stepNum: 4, stepMax: 6,
-    yes: { type: "result", id: "r_ii_export" },
+    yes: { type: "result", id: "r_ii_ferpa" },
     no: "q5"
   },
   q5: {
     id: "q5",
     topic: "⚖️ Legal & Regulatory",
-    text: "Is this data subject to any other federal or state law, regulation, or contractual obligation? Examples include: employee personnel records, immigration records, legal correspondence, audit findings, donor records, non-public institutional financial data, or vendor contracts with confidentiality terms.",
+    text: "Is this data subject to any other federal or state law, regulation, or contractual obligation? Examples include: employee personnel records, legal correspondence, audit findings, donor records, non-public institutional financial data, or vendor contracts with confidentiality terms.",
     shortLabel: "Other legal, regulatory, or contractual obligation?",
     stepNum: 5, stepMax: 6,
     yes: { type: "result", id: "r_ii_other" },
@@ -784,14 +784,14 @@ const RESULTS = {
     phi: false
   },
   r_ii_export: {
-    classId: "ii",
-    classNum: "Class II",
-    className: "Restricted Information",
-    icon: "🔐",
-    color: "#d97706",
-    colorBg: "#fffbeb",
-    reason: "Export-controlled research data is subject to federal regulations under the International Traffic in Arms Regulations (ITAR), Export Administration Regulations (EAR), or the Defense Federal Acquisition Regulation Supplement (DFARS). Unauthorized disclosure could result in federal penalties and loss of research funding.",
-    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    classId: "i",
+    classNum: "Class I",
+    className: "Critical Information",
+    icon: "🛡️",
+    color: "#dc2626",
+    colorBg: "#fff1f2",
+    reason: "Export-controlled research data subject to ITAR, EAR, or DFARS/CMMC is classified as Class I Critical Information. Unauthorized disclosure could result in federal criminal penalties, loss of research funding, and serious national security implications.",
+    handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires a formal data sharing agreement, security review, and legal review.",
     phi: false
   },
   r_ii_other: {
