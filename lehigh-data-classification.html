@@ -1627,18 +1627,18 @@
         yes: { type: "result", id: "r_i" }, no: "q3"
       },
       q3: {
-        id: "q3", topic: "🎓 Student Records",
-        text: "Is this data related to a student's academic record, including enrollment, grades, attendance, financial aid, or academic performance?",
-        shortLabel: "Student academic records (FERPA)?",
-        stepNum: 3, stepMax: 6,
-        yes: { type: "result", id: "r_ii_ferpa" }, no: "q4"
-      },
-      q4: {
-        id: "q4", topic: "🔬 Research Data",
+        id: "q3", topic: "🔬 Research Data",
         text: "Is this data related to export-controlled research, including data subject to ITAR, EAR, or DFARS/CMMC requirements?",
         shortLabel: "Export-controlled research (ITAR / EAR / CMMC)?",
+        stepNum: 3, stepMax: 6,
+        yes: { type: "result", id: "r_ii_export" }, no: "q4"
+      },
+      q4: {
+        id: "q4", topic: "🎓 Student Records",
+        text: "Is this data related to a student's academic record, including enrollment, grades, attendance, financial aid, or academic performance?",
+        shortLabel: "Student academic records (FERPA)?",
         stepNum: 4, stepMax: 6,
-        yes: { type: "result", id: "r_ii_export" }, no: "q5"
+        yes: { type: "result", id: "r_ii_ferpa" }, no: "q5"
       },
       q5: {
         id: "q5", topic: "⚖️ Legal & Regulatory",
