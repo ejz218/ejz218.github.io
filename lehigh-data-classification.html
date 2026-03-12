@@ -1148,7 +1148,7 @@ const CLASSES = [
       "Unpublished research data and legal correspondence",
       "Audit findings and information security configurations",
       "Donor records and non-public institutional financial data",
-      "Immigration records and ITAR/EAR controlled research data",
+      "Immigration records",
       "Student health and counseling records (FERPA — not HIPAA)",
     ],
     handling: [
@@ -1162,7 +1162,7 @@ const CLASSES = [
       "FERPA (student records including student health and counseling)",
       "GLBA (non-account financial data)",
       "Pennsylvania breach notification law",
-      "ITAR/EAR (controlled research)",
+
       "Contractual obligations; may implicate GDPR if data subject is in the EU",
     ],
     baa: false,
@@ -1184,6 +1184,7 @@ const CLASSES = [
       "Passwords, authentication credentials, and encryption keys",
       "Network security vulnerability reports",
       "Research data under DFARS/CMMC federal contracts",
+      "ITAR/EAR controlled research data",
     ],
     handling: [
       "Access restricted to minimum required authorized personnel",
@@ -1590,10 +1591,10 @@ const W_RESULTS = {
     phi: false
   },
   r_ii_export: {
-    classId: "ii", classNum: "Class II", className: "Restricted Information",
-    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
-    reason: "Export-controlled research data is subject to federal regulations under the International Traffic in Arms Regulations (ITAR), Export Administration Regulations (EAR), or the Defense Federal Acquisition Regulation Supplement (DFARS). Unauthorized disclosure could result in federal penalties and loss of research funding.",
-    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
+    classId: "i", classNum: "Class I", className: "Critical Information",
+    icon: "🛡️", color: "#dc2626", colorBg: "#fff1f2",
+    reason: "Export-controlled research data subject to ITAR, EAR, or DFARS/CMMC is classified as Class I Critical Information. Unauthorized disclosure could result in federal criminal penalties, loss of research funding, and serious national security implications.",
+    handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires a formal data sharing agreement, security review, and legal review.",
     phi: false
   },
   r_ii_other: {
