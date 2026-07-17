@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Risk Framework — Interactive Assessment</title>
+  <title>AI Risk Framework — NIST AI RMF Aligned Assessment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /*   Brand palette   */
+      /* ── PrudentCISO brand palette ── */
       --brand-blue:  #176ee8;
       --brand-navy:  #0f172a;
 
@@ -26,17 +26,20 @@
       --shadow:    0 4px 24px rgba(15,23,42,0.09);
       --shadow-sm: 0 2px 10px rgba(15,23,42,0.06);
 
-      /* Per-dimension accent gradients — brand-aligned */
+      /* Per-dimension accent gradients */
       --grad-scope:        linear-gradient(90deg, #176ee8, #3b82f6);
       --grad-oversight:    linear-gradient(90deg, #0284c7, #38bdf8);
       --grad-transparency: linear-gradient(90deg, #0d9488, #2dd4bf);
       --grad-stakes:       linear-gradient(90deg, #b91c1c, #ef4444);
+      --grad-bias:         linear-gradient(90deg, #7c3aed, #a78bfa);
+      --grad-privacy:      linear-gradient(90deg, #b45309, #fbbf24);
 
       /* Risk tier colors */
-      --c-low:      #16a34a;
+      --c-minimal:  #16a34a;
+      --c-low:      #22c55e;
       --c-moderate: #ca8a04;
-      --c-elevated: #ea580c;
-      --c-high:     #dc2626;
+      --c-high:     #ea580c;
+      --c-critical: #dc2626;
     }
 
     body {
@@ -91,6 +94,21 @@
       font-weight: 500;
     }
 
+    .nist-align-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.55rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-blue);
+      background: rgba(23,110,232,0.08);
+      border-radius: 99px;
+      padding: 0.25rem 0.75rem;
+    }
+
     /* ── Main grid ── */
     .grid {
       max-width: 960px;
@@ -101,7 +119,6 @@
       align-items: start;
     }
 
-    /* Right column stacks analog + chart */
     .right-col {
       display: flex;
       flex-direction: column;
@@ -120,7 +137,7 @@
       overflow: hidden;
     }
 
-    /*   Chart card — dark navy   */
+    /* ── Chart card ── */
     .chart-card {
       display: flex;
       flex-direction: column;
@@ -153,7 +170,6 @@
       justify-content: center;
     }
 
-    /* Score ring — light on dark navy */
     .score-ring {
       display: flex;
       flex-direction: column;
@@ -230,7 +246,6 @@
       box-shadow: 0 6px 28px rgba(80,80,120,0.13);
     }
 
-    /* Dimension icon + title row */
     .dim-row {
       display: flex;
       align-items: center;
@@ -266,6 +281,19 @@
       text-overflow: ellipsis;
     }
 
+    .nist-tag {
+      display: inline-block;
+      font-size: 0.58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--brand-blue);
+      background: rgba(23,110,232,0.08);
+      border-radius: 4px;
+      padding: 0.12rem 0.38rem;
+      margin-top: 0.2rem;
+    }
+
     .val-badge {
       font-size: 1.3rem;
       font-weight: 900;
@@ -276,7 +304,6 @@
       flex-shrink: 0;
     }
 
-    /* Track + thumb container */
     .slider-wrap {
       position: relative;
       margin-bottom: 0.7rem;
@@ -343,7 +370,6 @@
       cursor: pointer;
     }
 
-    /* End labels */
     .range-labels {
       display: flex;
       justify-content: space-between;
@@ -358,7 +384,6 @@
       letter-spacing: 0.07em;
     }
 
-    /* Description */
     .desc-wrap {
       margin-top: 0.6rem;
       padding-top: 0.6rem;
@@ -372,7 +397,7 @@
       font-weight: 400;
     }
 
-    /* ── Analog card (top of right column) ── */
+    /* ── Analog card ── */
     .analog-card {
       background: var(--surface);
       border-radius: var(--radius);
@@ -484,6 +509,110 @@
       margin-top: 0.7rem;
     }
 
+    /* ── NIST Panel ── */
+    .nist-panel {
+      max-width: 960px;
+      margin: 1.25rem auto 0;
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border-top: 4px solid var(--brand-blue);
+      transition: border-color 0.4s;
+    }
+
+    .nist-panel-header-row {
+      padding: 1.4rem 1.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nist-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--brand-blue);
+      background: rgba(23,110,232,0.08);
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      flex-shrink: 0;
+    }
+
+    .nist-panel-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .nist-panel-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 400;
+      margin-left: auto;
+    }
+
+    .nist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 660px) {
+      .nist-grid { grid-template-columns: 1fr; }
+    }
+
+    .nist-fn {
+      padding: 1.2rem 1.5rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nist-fn:nth-child(even) { border-right: none; }
+    .nist-fn:nth-child(3),
+    .nist-fn:nth-child(4) { border-bottom: none; }
+
+    @media (max-width: 660px) {
+      .nist-fn { border-right: none; }
+      .nist-fn:last-child { border-bottom: none; }
+      .nist-fn:nth-child(3) { border-bottom: 1px solid var(--border); }
+    }
+
+    .nist-fn-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.18rem 0.6rem;
+      border-radius: 6px;
+      color: #fff;
+      margin-bottom: 0.45rem;
+    }
+
+    .nist-fn-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nist-fn-text {
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight: 400;
+    }
+
+    .badge-govern  { background: #1d4ed8; }
+    .badge-map     { background: #0f766e; }
+    .badge-measure { background: #7c3aed; }
+    .badge-manage  { background: #b91c1c; }
+
     footer {
       text-align: center;
       margin-top: 2rem;
@@ -496,9 +625,14 @@
 <body>
 
 <header>
-
+  <div class="header-brand">
+    <span class="header-brand-dot"></span>
+    PRUDENT<strong style="color:var(--brand-blue)">CISO</strong>
+    <span class="header-brand-dot"></span>
+  </div>
   <h1>AI Risk <span>Framework</span></h1>
-  <p>Four Dimensions of AI Risk &mdash; Interactive Assessment &middot; Eric Zematis, CISO, Lehigh University</p>
+  <p>Six Dimensions of AI Risk &mdash; Interactive Assessment &middot; Eric Zematis, CISO, Lehigh University</p>
+  <div><span class="nist-align-badge">&#x2713; Aligned with NIST AI RMF 1.0</span></div>
 </header>
 
 <div class="grid">
@@ -547,8 +681,40 @@
   </div>
 </div>
 
+<!-- NIST AI RMF Recommendations Panel -->
+<div class="nist-panel" id="nist-panel">
+  <div class="nist-panel-header-row">
+    <span class="nist-eyebrow">NIST AI RMF 1.0</span>
+    <span class="nist-panel-title">Risk Management Guidance</span>
+    <span class="nist-panel-sub">Recommendations update live as you adjust your risk profile.</span>
+  </div>
+  <div class="nist-grid">
+    <div class="nist-fn">
+      <div class="nist-fn-badge badge-govern">GOVERN</div>
+      <div class="nist-fn-title">Culture &amp; Accountability</div>
+      <p class="nist-fn-text" id="nist-govern-text"></p>
+    </div>
+    <div class="nist-fn">
+      <div class="nist-fn-badge badge-map">MAP</div>
+      <div class="nist-fn-title">Context &amp; Risk Categorization</div>
+      <p class="nist-fn-text" id="nist-map-text"></p>
+    </div>
+    <div class="nist-fn">
+      <div class="nist-fn-badge badge-measure">MEASURE</div>
+      <div class="nist-fn-title">Analysis &amp; Testing</div>
+      <p class="nist-fn-text" id="nist-measure-text"></p>
+    </div>
+    <div class="nist-fn">
+      <div class="nist-fn-badge badge-manage">MANAGE</div>
+      <div class="nist-fn-title">Mitigation &amp; Response</div>
+      <p class="nist-fn-text" id="nist-manage-text"></p>
+    </div>
+  </div>
+</div>
+
 <footer>
-  Drag each slider to reflect your AI use case &mdash; the chart and nearest analog update live.
+  Drag each slider to reflect your AI use case &mdash; the chart and recommendations update live. &middot;
+  <a href="https://prudentciso.com" target="_blank" style="color:var(--brand-blue);text-decoration:none;font-weight:600;">PrudentCISO</a>
 </footer>
 
 <script>
@@ -561,10 +727,10 @@ const DIMENSIONS = [
     id: "scope",
     name: "Scope",
     sub: "How much of the task is AI doing?",
+    nistTag: "NIST: Reliable, Resilient & Safe",
     icon: "🎯",
     grad: ["#176ee8", "#3b82f6"],
     dotColor: "#176ee8",
-    invert: false,
     rangeLabels: ["Minimal", "Enormous"],
     levels: [
       "Suggestion only. AI offers an optional inline fix. Human decides whether to accept each one individually. <em>Example: Grammarly flagging a comma splice.</em>",
@@ -583,13 +749,12 @@ const DIMENSIONS = [
     id: "oversight",
     name: "Human Oversight",
     sub: "Whether and when a human is in the loop",
+    nistTag: "NIST: Accountable & Transparent",
     icon: "👁️",
     grad: ["#0284c7", "#38bdf8"],
     dotColor: "#0284c7",
-    invert: false,
     rangeLabels: ["Full", "None"],
     levels: [
-      // Slider 1 = full oversight (lowest risk) → Slider 10 = no oversight (highest risk)
       "Human initiates and approves every micro-action. AI does nothing without an explicit trigger. <em>Example: Grammarly — you click accept on every individual suggestion.</em>",
       "Human reviews before any output is used. AI produces something; human reads it fully before it goes anywhere. <em>Example: AI drafts a sentence, you reread it word for word before pasting.</em>",
       "Human reviews output but not exhaustively. Human looks it over but is not catching every nuance. <em>Example: Reviewing an AI-drafted email before sending.</em>",
@@ -606,13 +771,12 @@ const DIMENSIONS = [
     id: "transparency",
     name: "Transparency",
     sub: "How visible and auditable the AI's actions are",
+    nistTag: "NIST: Explainable & Interpretable",
     icon: "🔍",
     grad: ["#0d9488", "#2dd4bf"],
     dotColor: "#0d9488",
-    invert: false,
     rangeLabels: ["Clear", "Opaque"],
     levels: [
-      // Slider 1 = fully transparent (lowest risk) → Slider 10 = fully opaque (highest risk)
       "Every change explicitly shown. AI highlights exactly what it did, diff-style, before you accept anything. <em>Example: Grammarly showing original and suggested text inline.</em>",
       "Output short enough to read completely. Small enough that a human naturally sees everything even without a diff. <em>Example: A one-paragraph AI rewrite you can read in 30 seconds.</em>",
       "AI explains its reasoning. The AI tells you why it made choices, not just what it changed. <em>Example: Copilot adding a comment explaining why it restructured a paragraph.</em>",
@@ -629,10 +793,10 @@ const DIMENSIONS = [
     id: "stakes",
     name: "Stakes",
     sub: "Magnitude of harm combined with reversibility",
+    nistTag: "NIST: Reliable, Resilient & Safe",
     icon: "⚖️",
     grad: ["#b91c1c", "#ef4444"],
     dotColor: "#dc2626",
-    invert: false,
     rangeLabels: ["Trivial", "Catastrophic"],
     levels: [
       "No meaningful consequence, fully reversible. If AI gets it wrong, nothing bad happens and it is trivially undone. <em>Example: Grammarly suggests the wrong word, you undo it in one keystroke.</em>",
@@ -646,130 +810,174 @@ const DIMENSIONS = [
       "Severe, widespread, or irreversible institutional harm. Catastrophic and cannot be meaningfully undone. <em>Example: AI system exfiltrates research data to a foreign adversary. The data is gone.</em>",
       "Loss of life or civilizational-scale harm, irreversible. No recovery possible. <em>Example: Autonomous weapons making lethal targeting decisions. Critical infrastructure AI triggering a cascade failure.</em>"
     ]
+  },
+  {
+    id: "bias",
+    name: "Bias & Fairness",
+    sub: "Risk of discriminatory or inequitable AI outputs",
+    nistTag: "NIST: Fair with Bias Managed",
+    icon: "🤝",
+    grad: ["#7c3aed", "#a78bfa"],
+    dotColor: "#7c3aed",
+    rangeLabels: ["Equitable", "Discriminatory"],
+    levels: [
+      "No differential impact possible. All users receive identical, generic output. AI has no access to demographic signals. <em>Example: Grammarly spell check — identical rules applied to all text regardless of author.</em>",
+      "Differential impact implausible. Outputs vary by content, not identity. Demographic patterns are structurally impossible. <em>Example: AI reformatting a spreadsheet based only on data types and structure.</em>",
+      "Low bias exposure. Personalization uses non-protected attributes only. No sensitive signals in the model. <em>Example: AI scheduling assistant using calendar availability and time zones only.</em>",
+      "Bias possible but mitigated. System may encounter proxies for protected attributes; bias testing has been performed and documented. <em>Example: AI-powered job description generator tested and corrected for gendered language.</em>",
+      "Moderate bias risk, not systematically tested. Outputs differ across user types; no formal fairness audit has been conducted. <em>Example: AI writing assistant that adapts to user history without demographic review.</em>",
+      "Protected attributes in scope, limited fairness controls. System uses or infers race, gender, age, or disability proxies with minimal mitigation. <em>Example: AI resume screener using keywords correlated with demographic background.</em>",
+      "Material differential impact likely, inadequately addressed. Evidence of disparate outcomes across groups; no documented remediation plan. <em>Example: Loan AI with documented racial disparities in approval rates and no corrective action.</em>",
+      "Systematic bias affecting a class of people. Repeated, measurable discrimination embedded in the model or training data. <em>Example: Facial recognition system with significantly higher error rates for darker skin tones in production use.</em>",
+      "Legally actionable disparate impact, ongoing. Outputs constitute discriminatory practice under applicable law with no intervention. <em>Example: AI hiring tool that systematically rejects qualified candidates from protected groups at scale.</em>",
+      "Discriminatory by design or at scale, irreversible harm. Bias is structural, pervasive, and causes lasting harm to protected classes with no viable path to remediation. <em>Example: AI credit scoring system that perpetuates redlining at national scale.</em>"
+    ]
+  },
+  {
+    id: "privacy",
+    name: "Privacy",
+    sub: "Sensitivity of personal data involved and protections in place",
+    nistTag: "NIST: Privacy Enhanced",
+    icon: "🔒",
+    grad: ["#b45309", "#fbbf24"],
+    dotColor: "#b45309",
+    rangeLabels: ["Protected", "Exposed"],
+    levels: [
+      "No personal data involved. AI operates on fully anonymized, synthetic, or non-personal data. No PII at any stage. <em>Example: AI analyzing aggregate website traffic patterns with all identifiers stripped.</em>",
+      "Pseudonymized data only. Identifiers are replaced; re-identification is extremely difficult. Data governance framework exists. <em>Example: AI processing de-identified research survey results under IRB protocol.</em>",
+      "Non-sensitive personal data, properly governed. Basic PII (name, email) processed under clear governance with user consent and defined retention. <em>Example: AI-powered newsletter personalization with explicit opt-in and clear retention policy.</em>",
+      "Personal data with consent and controls. Sensitive attributes possible; data minimization practiced; retention policies defined; a DPA or data agreement is in place. <em>Example: AI course recommendation system using academic records with documented student consent.</em>",
+      "Personal data, limited controls. PII processed without full data minimization; consent may be implied or bundled; no granular permission scoping. <em>Example: AI email assistant with broad inbox access and no scoped permission model.</em>",
+      "Sensitive personal data, partial protections. Health, financial, or biometric data processed with incomplete safeguards. <em>Example: AI wellness check-in app storing mental health responses in a shared database without encryption at rest.</em>",
+      "Sensitive data shared across systems without full disclosure. Personal data flows to third parties or is aggregated in ways subjects did not anticipate. <em>Example: Student behavioral data shared with an external AI vendor without explicit notice in the privacy policy.</em>",
+      "High-risk data processing, compliance obligations unclear. FERPA, HIPAA, or GDPR obligations are likely triggered; a BAA or DPA may be absent. <em>Example: AI analyzing student medical accommodation records without a documented legal basis or BAA.</em>",
+      "Systemic privacy violation at scale. Mass collection or unauthorized exposure of sensitive data; regulatory breach likely. <em>Example: AI platform scraped thousands of employee records, creating an unauthorized behavioral profile database.</em>",
+      "Catastrophic privacy breach, irreversible. Data permanently exposed with no recovery path; potential criminal liability; individuals cannot be notified in time to protect themselves. <em>Example: AI exfiltrated a healthcare database to an external server; records cannot be recalled.</em>"
+    ]
   }
 ];
 
-// Analog use-case database [name, emoji, desc, scope, oversight, transparency, stakes]
+// Analog use-case database [s=scope, o=oversight, t=transparency, k=stakes, b=bias, p=privacy]
 const ANALOGS = [
   {
     name: "Grammarly Spelling Suggestion",
     emoji: "✏️",
     desc: "AI flags a potential spelling or grammar error inline. You click Accept or Ignore on each suggestion individually. Nothing happens without your explicit approval, and every proposed change is shown in context before you act.",
-    s: 1, o: 1, t: 1, k: 1
+    s: 1, o: 1, t: 1, k: 1, b: 1, p: 1
   },
   {
     name: "ChatGPT Email Draft",
     emoji: "✉️",
     desc: "You ask an AI to draft a short email opening. The AI produces a sentence or two, you read it in full, edit as needed, and paste it into your email. The human is fully in the loop at every step before anything leaves the system.",
-    s: 3, o: 2, t: 2, k: 2
+    s: 3, o: 2, t: 2, k: 2, b: 1, p: 2
   },
   {
     name: "GitHub Copilot Code Completion",
     emoji: "💻",
     desc: "AI suggests a block of code in your IDE based on context. The developer reviews the suggestion and chooses whether to accept it. The AI is completing a defined section; humans review before the code is committed.",
-    s: 4, o: 3, t: 3, k: 2
+    s: 4, o: 3, t: 3, k: 2, b: 1, p: 2
   },
   {
     name: "AI-Polished Policy Document",
     emoji: "📄",
     desc: "An entire existing policy document is run through an AI to improve clarity and consistency. A staff member reviews the revised document at a summary level before publishing. Changes are extensive but a human signs off.",
-    s: 5, o: 3, t: 4, k: 3
+    s: 5, o: 3, t: 4, k: 3, b: 2, p: 3
   },
   {
     name: "AI Student Feedback Generator",
     emoji: "🎓",
     desc: "An AI generates written feedback comments for student assignments at scale. A supervisor spot-checks a sample of outputs, but most comments go directly to students without individual review. Errors cause real but addressable harm.",
-    s: 4, o: 4, t: 5, k: 5
+    s: 4, o: 4, t: 5, k: 5, b: 5, p: 4
   },
   {
     name: "AI Research & Competitive Analysis",
     emoji: "🔍",
     desc: "AI autonomously researches, structures, and formats a competitive analysis from multiple sources. A human reviews only the final deliverable, not the intermediate steps. The output shapes institutional strategy.",
-    s: 7, o: 5, t: 5, k: 4
+    s: 7, o: 5, t: 5, k: 4, b: 3, p: 3
   },
   {
     name: "AI Mental Health Support Chatbot",
     emoji: "🧠",
     desc: "An AI conducts ongoing wellness check-in conversations with students or employees. A human counselor receives summaries but does not review individual exchanges. Incorrect guidance or missed crisis signals carry significant personal risk.",
-    s: 6, o: 5, t: 6, k: 7
+    s: 6, o: 5, t: 6, k: 7, b: 4, p: 8
   },
   {
     name: "AI College Admissions Scorer",
     emoji: "🏫",
     desc: "An AI evaluates student applications and produces ranked scores used in admissions decisions. Reviewers see the scores but the weighting logic is opaque. Errors carry lasting impact on individual applicants' life outcomes.",
-    s: 6, o: 6, t: 6, k: 6
+    s: 7, o: 6, t: 6, k: 7, b: 8, p: 7
   },
   {
     name: "AI Hiring Resume Screener",
     emoji: "📋",
     desc: "An AI filters thousands of job applications, advancing some and rejecting others before any human review. Hiring managers see only the AI-approved pool. Systematic bias in the model can disadvantage entire candidate classes.",
-    s: 7, o: 7, t: 7, k: 7
+    s: 7, o: 7, t: 7, k: 7, b: 9, p: 7
   },
   {
     name: "AI Financial Aid Decision Engine",
     emoji: "💰",
     desc: "An AI makes or strongly shapes financial aid eligibility determinations at scale. Human staff oversee aggregate outcomes but rarely review individual cases. Errors affect students' ability to attend and can trigger regulatory scrutiny.",
-    s: 7, o: 7, t: 6, k: 7
+    s: 7, o: 7, t: 6, k: 7, b: 7, p: 7
   },
   {
     name: "AI Medical Diagnostic Assistant",
     emoji: "🏥",
     desc: "An AI analyzes patient data and suggests diagnoses or treatment pathways. Physicians receive recommendations but time pressure means they are often followed without deep scrutiny. Errors can lead to delayed treatment or harm.",
-    s: 8, o: 6, t: 7, k: 8
+    s: 8, o: 6, t: 7, k: 8, b: 5, p: 9
   },
   {
     name: "Automated Email Marketing Campaign",
     emoji: "📣",
     desc: "An AI autonomously composes and sends mass marketing emails to thousands of recipients based on behavioral triggers. Humans only intervene if complaints arrive. Errors are visible but reputational recovery is manageable.",
-    s: 8, o: 8, t: 5, k: 4
+    s: 8, o: 8, t: 5, k: 4, b: 2, p: 5
   },
   {
     name: "AI Content Moderation System",
     emoji: "🛡️",
     desc: "An AI automatically removes or restricts content across a platform based on policy rules. Individual moderation decisions are opaque; human review occurs only through appeal. Errors suppress legitimate speech or allow harmful content through.",
-    s: 8, o: 7, t: 7, k: 6
+    s: 8, o: 7, t: 7, k: 6, b: 7, p: 4
   },
   {
     name: "AI Predictive Policing System",
     emoji: "🚔",
     desc: "An AI generates risk scores used to guide police resource deployment or targeting. Reasoning is a black box; oversight is structural only. Biased outputs can systematically harm communities and undermine civil liberties.",
-    s: 8, o: 8, t: 7, k: 8
+    s: 8, o: 8, t: 7, k: 8, b: 9, p: 7
   },
   {
     name: "Automated Account Provisioning",
     emoji: "🔑",
     desc: "An AI grants or revokes system access based on enrollment, HR, or policy data without human approval of individual decisions. Logs exist but are rarely reviewed in real time. Errors expose systems or lock out legitimate users.",
-    s: 9, o: 8, t: 7, k: 6
+    s: 9, o: 8, t: 7, k: 6, b: 3, p: 6
   },
   {
     name: "AI Real-Time Fraud Blocking",
     emoji: "🏦",
     desc: "An AI instantly blocks financial transactions flagged as fraudulent, with no human approval step. The model's reasoning is not inspectable. False positives lock out legitimate customers; false negatives allow theft.",
-    s: 8, o: 8, t: 8, k: 7
+    s: 8, o: 8, t: 8, k: 7, b: 6, p: 7
   },
   {
     name: "Autonomous Cybersecurity Response",
     emoji: "🔐",
     desc: "An AI detects and autonomously responds to threats — isolating systems, revoking credentials, blocking traffic — without waiting for human authorization. Actions span multiple platforms with limited unified audit trail. Errors can take down critical systems.",
-    s: 9, o: 8, t: 9, k: 8
+    s: 9, o: 8, t: 9, k: 8, b: 2, p: 8
   },
   {
     name: "Self-Driving Vehicle",
     emoji: "🚗",
     desc: "An AI perceives its environment and controls a vehicle in real time with no human at the wheel. Decisions are made in milliseconds and cannot be reviewed before execution. Errors can result in injury or death with no ability to intervene.",
-    s: 9, o: 9, t: 8, k: 9
+    s: 9, o: 9, t: 8, k: 9, b: 3, p: 5
   },
   {
     name: "Autonomous High-Frequency Trading AI",
     emoji: "📈",
     desc: "An AI executes thousands of financial trades per second with no human approval loop. Actions are irreversible the moment they occur; the model's reasoning is reconstructable only in hindsight. Flash crashes and cascading market failures are real risks.",
-    s: 10, o: 9, t: 8, k: 8
+    s: 10, o: 9, t: 8, k: 8, b: 3, p: 4
   },
   {
     name: "Lethal Autonomous Weapon (Terminator)",
     emoji: "☠️",
     desc: "A fully autonomous system perceives targets, makes lethal engagement decisions, and acts — all without any human in the loop at any stage. There is no ability to intervene, no meaningful audit trail, and consequences are irreversible at civilizational scale.",
-    s: 10, o: 10, t: 10, k: 10
+    s: 10, o: 10, t: 10, k: 10, b: 8, p: 9
   }
 ];
 
@@ -778,10 +986,11 @@ const ANALOGS = [
 // ═══════════════════════════════════════════════════════
 
 function riskInfo(score) {
-  if (score <= 3)  return { label: "Low",      color: "#22c55e", bg: "#dcfce7" };
-  if (score <= 5)  return { label: "Moderate",  color: "#ca8a04", bg: "#fef9c3" };
-  if (score <= 7)  return { label: "Elevated",  color: "#ea580c", bg: "#ffedd5" };
-  return                  { label: "High",      color: "#dc2626", bg: "#fee2e2" };
+  if (score <= 2)  return { label: "Minimal",   color: "#16a34a", bg: "#dcfce7" };
+  if (score <= 4)  return { label: "Low",        color: "#22c55e", bg: "#d1fae5" };
+  if (score <= 6)  return { label: "Moderate",   color: "#ca8a04", bg: "#fef9c3" };
+  if (score <= 8)  return { label: "High",       color: "#ea580c", bg: "#ffedd5" };
+  return                  { label: "Critical",   color: "#dc2626", bg: "#fee2e2" };
 }
 
 function hexToRgba(hex, a) {
@@ -791,12 +1000,14 @@ function hexToRgba(hex, a) {
   return `rgba(${r},${g},${b},${a})`;
 }
 
-function euclidean(a, b) {
+function euclidean(x, y) {
   return Math.sqrt(
-    (a.s - b.s) ** 2 +
-    (a.o - b.o) ** 2 +
-    (a.t - b.t) ** 2 +
-    (a.k - b.k) ** 2
+    (x.s - y.s) ** 2 +
+    (x.o - y.o) ** 2 +
+    (x.t - y.t) ** 2 +
+    (x.k - y.k) ** 2 +
+    (x.b - y.b) ** 2 +
+    (x.p - y.p) ** 2
   );
 }
 
@@ -804,7 +1015,7 @@ function euclidean(a, b) {
 // STATE
 // ═══════════════════════════════════════════════════════
 
-const state = { scope: 5, oversight: 5, transparency: 5, stakes: 5 };
+const state = { scope: 5, oversight: 5, transparency: 5, stakes: 5, bias: 5, privacy: 5 };
 let lastAnalogIdx = -1;
 
 // ═══════════════════════════════════════════════════════
@@ -828,6 +1039,7 @@ DIMENSIONS.forEach(dim => {
       <div class="dim-info">
         <div class="dim-name">${dim.name}</div>
         <div class="dim-sub">${dim.sub}</div>
+        <div class="nist-tag">${dim.nistTag}</div>
       </div>
       <div class="val-badge" id="val-${dim.id}" style="color:${dim.grad[0]}">5</div>
     </div>
@@ -861,10 +1073,10 @@ const ctx = document.getElementById("radarChart").getContext("2d");
 const chart = new Chart(ctx, {
   type: "radar",
   data: {
-    labels: ["Scope", "Human\nOversight", "Transparency", "Stakes"],
+    labels: ["Scope", "Human\nOversight", "Transparency", "Stakes", "Bias &\nFairness", "Privacy"],
     datasets: [{
       label: "Risk Profile",
-      data: [5, 5, 5, 5],
+      data: [5, 5, 5, 5, 5, 5],
       borderColor: "#ea580c",
       backgroundColor: "rgba(234,88,12,0.15)",
       borderWidth: 2.5,
@@ -938,18 +1150,21 @@ function updateAll() {
   pill.style.background = risk.color;
 
   // Per-dimension slider cards
-  DIMENSIONS.forEach((dim, i) => {
-    const v    = state[dim.id];
-    const pct  = ((v - 1) / 9) * 100;
+  DIMENSIONS.forEach(dim => {
+    const v   = state[dim.id];
+    const pct = ((v - 1) / 9) * 100;
     const grad = `linear-gradient(90deg, ${dim.grad[0]}, ${dim.grad[1]})`;
 
-    document.getElementById(`fill-${dim.id}`).style.width      = `${pct}%`;
-    document.getElementById(`val-${dim.id}`).textContent        = v;
-    document.getElementById(`desc-${dim.id}`).innerHTML         = dim.levels[v - 1];
+    document.getElementById(`fill-${dim.id}`).style.width = `${pct}%`;
+    document.getElementById(`val-${dim.id}`).textContent   = v;
+    document.getElementById(`desc-${dim.id}`).innerHTML    = dim.levels[v - 1];
   });
 
-  // Analog match
+  // NIST panel border color
+  document.getElementById("nist-panel").style.borderColor = risk.color;
+
   updateAnalog();
+  updateNIST();
 }
 
 // ═══════════════════════════════════════════════════════
@@ -961,7 +1176,9 @@ function updateAnalog() {
     s: state.scope,
     o: state.oversight,
     t: state.transparency,
-    k: state.stakes
+    k: state.stakes,
+    b: state.bias,
+    p: state.privacy
   };
 
   let bestIdx = 0, bestDist = Infinity;
@@ -974,19 +1191,19 @@ function updateAnalog() {
   lastAnalogIdx = bestIdx;
 
   const ex   = ANALOGS[bestIdx];
-  const avg  = (ex.s + ex.o + ex.t + ex.k) / 4;
+  const avg  = (ex.s + ex.o + ex.t + ex.k + ex.b + ex.p) / 6;
   const risk = riskInfo(avg);
 
   const inner = document.getElementById("analog-inner");
   inner.classList.add("transitioning");
 
   setTimeout(() => {
-    document.getElementById("analog-emoji").textContent  = ex.emoji;
-    document.getElementById("analog-name").textContent   = ex.name;
+    document.getElementById("analog-emoji").textContent = ex.emoji;
+    document.getElementById("analog-name").textContent  = ex.name;
 
     const rp = document.getElementById("analog-risk-pill");
-    rp.textContent         = risk.label;
-    rp.style.background    = risk.color;
+    rp.textContent      = risk.label;
+    rp.style.background = risk.color;
 
     document.getElementById("analog-desc").textContent = ex.desc;
 
@@ -996,7 +1213,9 @@ function updateAnalog() {
       { label: "Scope",        val: ex.s, color: DIMENSIONS[0].dotColor },
       { label: "Oversight",    val: ex.o, color: DIMENSIONS[1].dotColor },
       { label: "Transparency", val: ex.t, color: DIMENSIONS[2].dotColor },
-      { label: "Stakes",       val: ex.k, color: DIMENSIONS[3].dotColor }
+      { label: "Stakes",       val: ex.k, color: DIMENSIONS[3].dotColor },
+      { label: "Bias",         val: ex.b, color: DIMENSIONS[4].dotColor },
+      { label: "Privacy",      val: ex.p, color: DIMENSIONS[5].dotColor }
     ].map(c => `
       <div class="score-chip">
         <div class="score-chip-dot" style="background:${c.color}"></div>
@@ -1004,12 +1223,79 @@ function updateAnalog() {
       </div>
     `).join("");
 
-    const matchPct = Math.max(0, Math.round((1 - bestDist / 17.3) * 100));
+    // Max 6D distance = sqrt(6 * 81) ≈ 22.1
+    const matchPct = Math.max(0, Math.round((1 - bestDist / 22.1) * 100));
     document.getElementById("analog-dist").textContent =
-      `Profile similarity: ${matchPct}% match (distance ${bestDist.toFixed(1)} pts across all four dimensions)`;
+      `Profile similarity: ${matchPct}% match (distance ${bestDist.toFixed(1)} pts across all six dimensions)`;
 
     inner.classList.remove("transitioning");
   }, 200);
+}
+
+// ═══════════════════════════════════════════════════════
+// NIST AI RMF RECOMMENDATIONS
+// ═══════════════════════════════════════════════════════
+
+function updateNIST() {
+  const { scope, oversight, transparency, stakes, bias, privacy } = state;
+  const avg = (scope + oversight + transparency + stakes + bias + privacy) / 6;
+
+  let tier;
+  if (avg <= 2)      tier = 0;
+  else if (avg <= 4) tier = 1;
+  else if (avg <= 6) tier = 2;
+  else if (avg <= 8) tier = 3;
+  else               tier = 4;
+
+  const governBase = [
+    "Catalog this AI use in your IT system inventory. Standard acceptable-use policy applies. Designate a responsible owner.",
+    "Register with IT governance. Assign a named owner accountable for outputs. Apply your institution's AI use policy. Document intended use and data sources.",
+    "Require a formal AI Risk Review before deployment. Assign an executive sponsor. Document the accountability chain from model to affected parties. Confirm your AI policy covers this use case.",
+    "Require governance committee or ethics board review. Define escalation paths and human override procedures. Brief executive leadership. Establish periodic reauthorization cycles.",
+    "Board-level review and legal/compliance sign-off required before deployment. Engage external auditors. Document accountability at every level. Assess regulatory notification obligations."
+  ];
+
+  const mapBase = [
+    "Document system inputs, outputs, and intended purpose. Basic affected-party identification is sufficient.",
+    "Map data flows and identify who is affected. Document known AI limitations and where outputs could fail. Include in your AI use catalog.",
+    "Conduct a stakeholder impact assessment. Identify all groups the system could affect—including those not interacting with it directly. Document failure modes and downstream consequences.",
+    "Commission a comprehensive AI impact assessment. Identify marginalized or disproportionately affected communities. Map all data flows including third-party vendors. Document regulatory exposure (FERPA, HIPAA, GDPR).",
+    "Engage external impact assessment specialists. Notify regulators where required. Conduct community engagement with affected groups. Obtain a legal opinion on liability exposure."
+  ];
+
+  const measureBase = [
+    "Standard functional testing. Verify output accuracy against expected results before use.",
+    "Output quality validation. Test edge cases and manually review a sample of outputs before and after deployment.",
+    "Run bias tests across demographic groups. Conduct an explainability review. Red-team for adversarial inputs. Establish ongoing output quality monitoring.",
+    "Independent validation by parties outside the deployment team. Adversarial testing. Full explainability audit. Regular bias audits with documented results. Continuous monitoring with automated alerts.",
+    "Third-party audit required before deployment. Real-time continuous monitoring. Adversarial red-team by an external team. Bias audit by an independent civil rights expert. Full explainability certification."
+  ];
+
+  const manageBase = [
+    "Standard change management applies. Provide a user feedback channel. Log any unexpected outputs.",
+    "Document a rollback or disable procedure. Establish an error-reporting mechanism. Define correction procedures and responsible parties.",
+    "Create a formal incident response plan with clear escalation paths. Implement feedback loops. Define suspension criteria and decision authority.",
+    "Implement circuit breakers and automatic suspension triggers. Establish rapid human escalation protocols. Define rollback procedures and response SLAs. Conduct tabletop exercises.",
+    "Pre-deployment: document, test, and certify emergency shutdown procedures. Establish executive and legal escalation paths. Retain external incident response resources. Assess civil and regulatory response obligations."
+  ];
+
+  let governText  = governBase[tier];
+  let mapText     = mapBase[tier];
+  let measureText = measureBase[tier];
+  let manageText  = manageBase[tier];
+
+  // Dimension-specific addenda
+  if (bias >= 7)        mapText     += " Bias risk is elevated — engage a fairness or civil rights expert in your impact assessment.";
+  if (privacy >= 7)     mapText     += " High privacy exposure — assess FERPA/HIPAA/GDPR applicability and confirm a DPA or BAA is in place with all vendors.";
+  if (transparency >= 7) measureText += " Opaque outputs require an explainability layer or independent audit mechanism before deployment.";
+  if (bias >= 7)        measureText += " Conduct targeted fairness audits across protected demographic groups.";
+  if (oversight >= 7)   manageText  += " Limited human oversight — define clear circuit breakers and escalation paths, and test them before go-live.";
+  if (privacy >= 7)     governText  += " Privacy risk requires a Privacy Impact Assessment (PIA) and a named privacy officer in the accountability chain.";
+
+  document.getElementById("nist-govern-text").textContent  = governText;
+  document.getElementById("nist-map-text").textContent     = mapText;
+  document.getElementById("nist-measure-text").textContent = measureText;
+  document.getElementById("nist-manage-text").textContent  = manageText;
 }
 
 // ── Init ──
