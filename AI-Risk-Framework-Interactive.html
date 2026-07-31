@@ -241,6 +241,31 @@
 
     .howto-caveat strong { color: var(--text); font-weight: 700; }
 
+    .howto-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brand-blue);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(23,110,232,0.28);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+
+    .howto-more:hover { border-bottom-color: var(--brand-blue); }
+
+    .howto-more:focus-visible {
+      outline: 2px solid var(--brand-blue);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .howto-more-arrow { transition: transform 0.18s ease; }
+    .howto-more:hover .howto-more-arrow { transform: translateX(3px); }
+
     @media (max-width: 660px) {
       .howto-lede   { padding: 1.1rem 1.25rem; }
       .howto-summary { padding: 0.85rem 1.25rem; }
@@ -872,6 +897,11 @@
         prompt discussion, and prioritize effort &mdash; they do not substitute for legal review,
         a formal privacy or security assessment, or your organization's own governance process.
       </p>
+
+      <a class="howto-more" href="AI_Risk_Framework_About.html">
+        Read more about this framework and the benefits of using it
+        <span class="howto-more-arrow" aria-hidden="true">&rarr;</span>
+      </a>
 
     </div>
   </details>

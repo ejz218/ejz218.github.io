@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About the AI Risk Framework</title>
+  <meta name="description" content="What the AI Risk Framework measures, what it produces, and the benefits of using it to assess AI use cases against the NIST AI Risk Management Framework.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── Brand palette ── */
+      --brand-blue:  #176ee8;
+      --brand-navy:  #0f172a;
+
+      --bg:        #f6f7f8;
+      --surface:   #ffffff;
+      --surface2:  #f1f5f9;
+      --text:      #0f172a;
+      --body:      #475569;
+      --muted:     #64748b;
+      --border:    rgba(15,23,42,0.08);
+      --radius:    16px;
+      --shadow:    0 4px 24px rgba(15,23,42,0.09);
+      --shadow-sm: 0 2px 10px rgba(15,23,42,0.06);
+
+      /* Dimension colors — match the tool */
+      --c-scope:        #176ee8;
+      --c-oversight:    #0284c7;
+      --c-transparency: #0d9488;
+      --c-stakes:       #dc2626;
+      --c-bias:         #7c3aed;
+      --c-privacy:      #b45309;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2.5rem 1.25rem 3rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { max-width: 860px; margin: 0 auto; }
+
+    /* ── Back link ── */
+    .backlink {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--brand-blue);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: gap 0.18s;
+    }
+
+    .backlink:hover { gap: 0.6rem; }
+    .backlink span { font-size: 1rem; line-height: 1; }
+
+    /* ── Header ── */
+    header { text-align: center; margin-bottom: 2rem; }
+
+    header h1 {
+      font-size: 1.85rem;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+    }
+
+    header h1 span { color: var(--brand-blue); }
+
+    header .tagline {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-top: 0.45rem;
+      font-weight: 500;
+    }
+
+    .nist-align-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.7rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--brand-blue);
+      background: rgba(23,110,232,0.08);
+      border-radius: 99px;
+      padding: 0.25rem 0.75rem;
+    }
+
+    /* ── Card / section ── */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 1.6rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card.feature {
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--brand-blue);
+      padding-top: 1.5rem;
+    }
+
+    .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--brand-blue);
+      margin-bottom: 0.55rem;
+    }
+
+    h2 {
+      font-size: 1.12rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.7rem;
+    }
+
+    .card p {
+      font-size: 0.87rem;
+      line-height: 1.7;
+      color: var(--body);
+      font-weight: 400;
+    }
+
+    .card p + p { margin-top: 0.75rem; }
+
+    .lede {
+      font-size: 0.95rem !important;
+      line-height: 1.72 !important;
+    }
+
+    .lede strong { color: var(--text); font-weight: 700; }
+
+    /* ── Dimension table ── */
+    .table-scroll {
+      overflow-x: auto;
+      margin-top: 0.35rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+    }
+
+    thead th {
+      text-align: left;
+      font-size: 0.63rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      padding: 0 0.7rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 0.7rem;
+      font-size: 0.81rem;
+      line-height: 1.5;
+      color: var(--body);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    .dim-cell {
+      display: flex;
+      align-items: baseline;
+      gap: 0.45rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .dim-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      transform: translateY(-1px);
+    }
+
+    .nist-cell {
+      font-size: 0.75rem;
+      color: var(--brand-blue);
+      font-weight: 600;
+    }
+
+    /* ── Output list ── */
+    .outputs {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 0.3rem;
+    }
+
+    .outputs li {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--body);
+      padding-left: 1.05rem;
+      position: relative;
+    }
+
+    .outputs li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--brand-blue);
+      opacity: 0.5;
+    }
+
+    .outputs li strong { color: var(--text); font-weight: 700; }
+
+    /* ── Benefits grid ── */
+    .benefits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 700px) {
+      .benefits { grid-template-columns: 1fr; }
+    }
+
+    .benefit {
+      background: var(--surface);
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      padding: 1.25rem 1.35rem;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .benefit:hover {
+      box-shadow: 0 6px 26px rgba(80,80,120,0.12);
+      transform: translateY(-2px);
+    }
+
+    .benefit-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(23,110,232,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .benefit h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+      margin-bottom: 0.4rem;
+    }
+
+    .benefit p {
+      font-size: 0.8rem;
+      line-height: 1.62;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* ── Section heading between blocks ── */
+    .section-head {
+      text-align: center;
+      margin: 2rem 0 1.1rem;
+    }
+
+    .section-head h2 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.3rem;
+    }
+
+    .section-head p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── Caveat ── */
+    .caveat {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--brand-blue);
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .caveat h2 { font-size: 1rem; margin-bottom: 0.5rem; }
+
+    .caveat p {
+      font-size: 0.84rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ── CTA ── */
+    .cta {
+      text-align: center;
+      background: var(--brand-navy);
+      border-radius: var(--radius);
+      padding: 1.9rem 1.75rem;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.22);
+    }
+
+    .cta h2 {
+      color: #fff;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .cta p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      margin-bottom: 1.1rem;
+      font-weight: 400;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--brand-blue);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 0.7rem 1.5rem;
+      border-radius: 99px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .cta-btn:hover {
+      background: #1059c4;
+      transform: translateY(-1px);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <a class="backlink" href="AI_Risk_Framework.html"><span>&larr;</span> Back to the assessment</a>
+
+  <header>
+    <h1>About the <span>AI Risk Framework</span></h1>
+    <p class="tagline">What it measures, what it produces, and why it is worth using</p>
+    <div><span class="nist-align-badge">&#x2713; Aligned with NIST AI RMF 1.0</span></div>
+  </header>
+
+  <!-- What it is -->
+  <div class="card feature">
+    <div class="eyebrow">What it is</div>
+    <p class="lede">
+      A single-page interactive tool that assesses the risk of a proposed AI use case across
+      <strong>six dimensions</strong> and returns a risk score, a comparison against known AI systems,
+      and governance recommendations mapped to the <strong>NIST AI Risk Management Framework</strong>.
+      Everything runs in the browser from one self-contained file &mdash; no backend, no accounts,
+      and no data leaves the page.
+    </p>
+  </div>
+
+  <!-- What it measures -->
+  <div class="card">
+    <h2>What it measures</h2>
+    <p>
+      Six sliders, each scored from 1 to 10, with ten written levels and a concrete example at every
+      level so that scoring is a matter of recognition rather than guesswork.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Question it answers</th>
+            <th>NIST characteristic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="dim-cell"><span class="dim-dot" style="background:var(--c-scope)"></span>Scope</span></td>
+            <td>How much of the task is the AI doing?</td>
+            <td class="nist-cell">Reliable, Resilient &amp; Safe</td>
+          </tr>
+          <tr>
+            <td><span class="dim-cell"><span class="dim-dot" style="background:var(--c-oversight)"></span>Human Oversight</span></td>
+            <td>Whether and when a person is in the loop</td>
+            <td class="nist-cell">Accountable &amp; Transparent</td>
+          </tr>
+          <tr>
+            <td><span class="dim-cell"><span class="dim-dot" style="background:var(--c-transparency)"></span>Transparency</span></td>
+            <td>How visible and auditable the AI's actions are</td>
+            <td class="nist-cell">Explainable &amp; Interpretable</td>
+          </tr>
+          <tr>
+            <td><span class="dim-cell"><span class="dim-dot" style="background:var(--c-stakes)"></span>Stakes</span></td>
+            <td>Magnitude of harm, combined with reversibility</td>
+            <td class="nist-cell">Reliable, Resilient &amp; Safe</td>
+          </tr>
+          <tr>
+            <td><span class="dim-cell"><span class="dim-dot" style="background:var(--c-bias)"></span>Bias &amp; Fairness</span></td>
+            <td>Risk of discriminatory or inequitable outcomes</td>
+            <td class="nist-cell">Fair with Bias Managed</td>
+          </tr>
+          <tr>
+            <td><span class="dim-cell"><span class="dim-dot" style="background:var(--c-privacy)"></span>Privacy</span></td>
+            <td>Sensitivity of personal data and protections in place</td>
+            <td class="nist-cell">Privacy Enhanced</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- What it produces -->
+  <div class="card">
+    <h2>What it produces</h2>
+    <ul class="outputs">
+      <li><strong>A banded risk score</strong> &mdash; Minimal, Low, Moderate, High, or Critical.</li>
+      <li><strong>A six-axis radar chart</strong> that shows the shape of the risk, not just its magnitude.</li>
+      <li><strong>The closest real-world analog</strong> &mdash; the nearest match from a library of twenty well-understood AI systems, with a similarity percentage.</li>
+      <li><strong>NIST AI RMF guidance</strong> across all four functions &mdash; Govern, Map, Measure, and Manage &mdash; scaled to the score, with additional recommendations triggered when an individual dimension runs high.</li>
+    </ul>
+  </div>
+
+  <!-- Benefits -->
+  <div class="section-head">
+    <h2>Benefits</h2>
+    <p>Why teams find it useful in practice</p>
+  </div>
+
+  <div class="benefits">
+
+    <div class="benefit">
+      <div class="benefit-icon">🎯</div>
+      <h3>It makes an abstract argument concrete</h3>
+      <p>
+        "This feels risky" is hard to act on. "Oversight is a 7 and Stakes are an 8" identifies what
+        to change. The assessment ends with a list of specific conditions rather than a verdict.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">💬</div>
+      <h3>It gives non-specialists a shared vocabulary</h3>
+      <p>
+        Technical, legal, and business stakeholders routinely talk past each other because each is
+        weighing a different dimension. Six named axes let a mixed group disagree about inputs
+        instead of arguing from incompatible premises.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">📊</div>
+      <h3>It shows where the risk actually lives</h3>
+      <p>
+        Averages hide problems. A use case that scores Moderate overall but has Privacy at 9 is a
+        privacy problem, not a moderate one &mdash; and the shape of the radar chart says so at a glance.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">📉</div>
+      <h3>It quantifies what a control buys you</h3>
+      <p>
+        Score a proposal as designed, then re-score it with mitigations applied. Watching the number
+        fall when you add human review or an audit log turns a vague recommendation into a
+        measurable reduction &mdash; a far easier case to take to whoever funds it.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">🛡️</div>
+      <h3>It is defensible</h3>
+      <p>
+        Recommendations map to a published federal framework rather than institutional opinion.
+        That matters when an assessment is questioned by an auditor, a board, a vendor, or a
+        governance committee.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">🧭</div>
+      <h3>It calibrates intuition</h3>
+      <p>
+        The analog matcher is a reality check. If an internal productivity tool lands next to an
+        autonomous fraud-blocking system, either the scoring is wrong or the proposal is more
+        consequential than anyone realized. Both are worth knowing before development starts.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">⚖️</div>
+      <h3>It covers the dimensions people forget</h3>
+      <p>
+        Bias and privacy are the two risks most often omitted from informal AI reviews, and the two
+        most likely to create legal exposure. Here they are first-class axes, not footnotes.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">🪜</div>
+      <h3>It scales governance to actual risk</h3>
+      <p>
+        Low-risk uses get a catalog entry; high-risk uses get committee review, independent audit,
+        and tested circuit breakers. Proportionality keeps the process credible &mdash; a framework
+        that treats a grammar checker like an autonomous system gets ignored.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">⚡</div>
+      <h3>It has no adoption cost</h3>
+      <p>
+        One file. Runs offline, shares by link, requires no vendor review or security assessment,
+        and can be used on confidential proposals because nothing is transmitted or stored.
+      </p>
+    </div>
+
+    <div class="benefit">
+      <div class="benefit-icon">⏱️</div>
+      <h3>It works as a triage step</h3>
+      <p>
+        A first pass takes a few minutes, which makes it practical to screen every proposal and
+        reserve deep assessment for the cases that warrant it &mdash; instead of treating all of them
+        the same or none of them at all.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Caveat -->
+  <div class="caveat">
+    <h2>What it is not</h2>
+    <p>
+      A structured judgment aid, not a compliance determination. Scores reflect the assessor's own
+      inputs, so the output is only as honest as the person setting the sliders. It surfaces risk,
+      focuses discussion, and prioritizes effort &mdash; it does not replace legal review, a formal
+      privacy or security assessment, or your organization's governance process.
+    </p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready to assess a use case?</h2>
+    <p>Set six sliders and get a risk profile with NIST-aligned recommendations.</p>
+    <a class="cta-btn" href="AI_Risk_Framework.html">Open the assessment &rarr;</a>
+  </div>
+
+  <footer>
+    Six Dimensions of AI Risk &middot; Aligned with the NIST AI Risk Management Framework 1.0
+  </footer>
+
+</div>
+
+</body>
+</html>
