@@ -12,7 +12,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* ── PrudentCISO brand palette ── */
+      /* ── Brand palette ── */
       --brand-blue:  #176ee8;
       --brand-navy:  #0f172a;
 
@@ -56,26 +56,6 @@
       margin-bottom: 2rem;
     }
 
-    .header-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.6rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-    }
-
-    .header-brand-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--brand-blue);
-      display: inline-block;
-    }
-
     header h1 {
       font-size: 1.65rem;
       font-weight: 900;
@@ -107,6 +87,164 @@
       background: rgba(23,110,232,0.08);
       border-radius: 99px;
       padding: 0.25rem 0.75rem;
+    }
+
+    /* ── How-to panel ── */
+    .howto {
+      max-width: 960px;
+      margin: 0 auto 1.25rem;
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .howto-lede {
+      padding: 1.35rem 1.75rem;
+      font-size: 0.86rem;
+      line-height: 1.65;
+      color: #475569;
+      font-weight: 400;
+    }
+
+    .howto-details {
+      border-top: 1px solid var(--border);
+    }
+
+    .howto-summary {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.75rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--brand-blue);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .howto-summary::-webkit-details-marker { display: none; }
+
+    .howto-summary:hover { background: var(--surface2); }
+
+    .howto-summary:focus-visible {
+      outline: 2px solid var(--brand-blue);
+      outline-offset: -2px;
+    }
+
+    .howto-summary-icon {
+      display: inline-block;
+      font-size: 1.1rem;
+      line-height: 1;
+      transition: transform 0.22s ease;
+      transform: translateY(-1px);
+    }
+
+    .howto-details[open] .howto-summary-icon {
+      transform: rotate(90deg) translateX(-1px);
+    }
+
+    .howto-body {
+      padding: 0.35rem 1.75rem 1.6rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .howto-step {
+      display: flex;
+      gap: 0.9rem;
+      padding-top: 1.25rem;
+    }
+
+    .howto-step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(23,110,232,0.1);
+      color: var(--brand-blue);
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .howto-step-content { flex: 1; min-width: 0; }
+
+    .howto-step-content h3 {
+      font-size: 0.87rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .howto-step-content p {
+      font-size: 0.8rem;
+      line-height: 1.65;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .howto-step-content p + ul { margin-top: 0.55rem; }
+    .howto-step-content ul + p { margin-top: 0.55rem; }
+
+    .howto-dims,
+    .howto-fns {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .howto-dims li,
+    .howto-fns li {
+      font-size: 0.79rem;
+      line-height: 1.55;
+      color: var(--muted);
+      padding-left: 0.85rem;
+      position: relative;
+    }
+
+    .howto-dims li::before,
+    .howto-fns li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.52em;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--brand-blue);
+      opacity: 0.45;
+    }
+
+    .howto-dims li strong,
+    .howto-fns li strong { color: var(--text); font-weight: 600; }
+
+    .howto-caveat {
+      margin-top: 1.5rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--surface2);
+      border-radius: 10px;
+      border-left: 3px solid var(--brand-blue);
+      font-size: 0.78rem;
+      line-height: 1.65;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .howto-caveat strong { color: var(--text); font-weight: 700; }
+
+    @media (max-width: 660px) {
+      .howto-lede   { padding: 1.1rem 1.25rem; }
+      .howto-summary { padding: 0.85rem 1.25rem; }
+      .howto-body   { padding: 0.35rem 1.25rem 1.4rem; }
     }
 
     /* ── Main grid ── */
@@ -625,15 +763,119 @@
 <body>
 
 <header>
-  <div class="header-brand">
-    <span class="header-brand-dot"></span>
-    PRUDENT<strong style="color:var(--brand-blue)">CISO</strong>
-    <span class="header-brand-dot"></span>
-  </div>
   <h1>AI Risk <span>Framework</span></h1>
-  <p>Six Dimensions of AI Risk &mdash; Interactive Assessment &middot; Eric Zematis, CISO, Lehigh University</p>
+  <p>Six Dimensions of AI Risk &mdash; Interactive Assessment</p>
   <div><span class="nist-align-badge">&#x2713; Aligned with NIST AI RMF 1.0</span></div>
 </header>
+
+<!-- How to use — expandable -->
+<section class="howto" id="howto">
+  <p class="howto-lede">
+    This tool helps you assess the risk of a proposed AI use case across six dimensions
+    drawn from the NIST AI Risk Management Framework. Set each slider to match your
+    situation; the risk score, comparison case, and governance recommendations update as you go.
+  </p>
+
+  <details class="howto-details">
+    <summary class="howto-summary">
+      <span class="howto-summary-icon" aria-hidden="true">›</span>
+      How to use this tool
+    </summary>
+
+    <div class="howto-body">
+
+      <div class="howto-step">
+        <div class="howto-step-num">1</div>
+        <div class="howto-step-content">
+          <h3>Describe your use case with the six sliders</h3>
+          <p>
+            Each slider runs from 1 (lowest risk) to 10 (highest risk). As you move one, the text
+            below it describes exactly what that level means and gives a concrete example. Pick the
+            level whose description best matches what you are actually planning &mdash; not what you
+            hope to achieve later.
+          </p>
+          <ul class="howto-dims">
+            <li><strong>Scope</strong> &mdash; how much of the task the AI performs, from a single suggestion to fully autonomous operation.</li>
+            <li><strong>Human Oversight</strong> &mdash; whether and when a person reviews or approves the AI's work.</li>
+            <li><strong>Transparency</strong> &mdash; how visible and auditable the AI's actions and reasoning are.</li>
+            <li><strong>Stakes</strong> &mdash; how much harm an error causes, and how reversible that harm is.</li>
+            <li><strong>Bias &amp; Fairness</strong> &mdash; the risk of discriminatory or inequitable outcomes across groups.</li>
+            <li><strong>Privacy</strong> &mdash; how sensitive the personal data involved is, and what protections are in place.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="howto-step">
+        <div class="howto-step-num">2</div>
+        <div class="howto-step-content">
+          <h3>Read the risk score and the shape of the radar chart</h3>
+          <p>
+            The score is the average of all six dimensions, banded as Minimal, Low, Moderate, High,
+            or Critical. Pay attention to the <em>shape</em> of the radar chart, not just the number:
+            a single dimension at 9 is a real problem even when the average looks comfortable.
+            A spike on one axis tells you where to focus mitigation.
+          </p>
+        </div>
+      </div>
+
+      <div class="howto-step">
+        <div class="howto-step-num">3</div>
+        <div class="howto-step-content">
+          <h3>Compare against the closest real-world analog</h3>
+          <p>
+            The tool matches your profile against a library of well-understood AI use cases and shows
+            the nearest one, with a similarity percentage. This is a sanity check. If your proposed
+            internal tool lands next to an autonomous fraud-blocking system, that mismatch is worth a
+            conversation before you build anything.
+          </p>
+        </div>
+      </div>
+
+      <div class="howto-step">
+        <div class="howto-step-num">4</div>
+        <div class="howto-step-content">
+          <h3>Work through the NIST AI RMF guidance</h3>
+          <p>
+            The panel at the bottom maps your profile to the four functions of the NIST AI Risk
+            Management Framework, and its recommendations scale with your score:
+          </p>
+          <ul class="howto-fns">
+            <li><strong>Govern</strong> &mdash; the policy, ownership, and accountability you need in place.</li>
+            <li><strong>Map</strong> &mdash; the context to document and the stakeholders to identify.</li>
+            <li><strong>Measure</strong> &mdash; the testing, bias audits, and monitoring to perform.</li>
+            <li><strong>Manage</strong> &mdash; the mitigations, escalation paths, and incident response to build.</li>
+          </ul>
+          <p>
+            High scores on individual dimensions add targeted recommendations &mdash; elevated privacy
+            risk triggers a Privacy Impact Assessment, elevated bias risk calls for a fairness audit,
+            and so on.
+          </p>
+        </div>
+      </div>
+
+      <div class="howto-step">
+        <div class="howto-step-num">5</div>
+        <div class="howto-step-content">
+          <h3>Use it to structure the conversation</h3>
+          <p>
+            The most useful move is to score a use case twice: once as proposed, and once with
+            mitigations applied. Watching the score drop when you add human review or an audit log
+            makes the value of a control concrete, and turns an abstract debate into a specific
+            list of things to change.
+          </p>
+        </div>
+      </div>
+
+      <p class="howto-caveat">
+        <strong>A note on scope.</strong> This is a structured judgment aid, not a compliance
+        determination. The scores reflect the assessor's own inputs and are meant to surface risk,
+        prompt discussion, and prioritize effort &mdash; they do not substitute for legal review,
+        a formal privacy or security assessment, or your organization's own governance process.
+      </p>
+
+    </div>
+  </details>
+</section>
 
 <div class="grid">
   <!-- Left: Sliders column -->
@@ -713,8 +955,7 @@
 </div>
 
 <footer>
-  Drag each slider to reflect your AI use case &mdash; the chart and recommendations update live. &middot;
-  <a href="https://prudentciso.com" target="_blank" style="color:var(--brand-blue);text-decoration:none;font-weight:600;">PrudentCISO</a>
+  Drag each slider to reflect your AI use case &mdash; the chart and recommendations update live.
 </footer>
 
 <script>
