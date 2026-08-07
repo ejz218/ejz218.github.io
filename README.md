@@ -24,6 +24,14 @@ An interactive reference tool covering Lehigh University's five data classificat
 
 ---
 
+### [AI Selector Tool](https://ejz218.github.io/AI-selector-tool.html)
+
+An interactive reference tool covering Lehigh University's five data classification levels (Class IV through Class I PHI). Includes a **Classification Wizard** — a yes/no decision tree that guides users to the correct classification for their data — plus full handling requirements, regulatory drivers, and a side-by-side comparison table.
+
+→ **[Launch Tool](https://ejz218.github.io/AI-selector-tool.html)**
+
+---
+
 ## Educational Resources
 
 ### [Python for Data Analysts](https://github.com/ejz218/python-for-data-analysts)
