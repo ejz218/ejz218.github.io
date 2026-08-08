@@ -1458,6 +1458,13 @@ function updateAnalog() {
     if (d < bestDist) { bestDist = d; bestIdx = i; }
   });
 
+  // Similarity always reflects the current sliders, so it must update even when
+  // the nearest analog is unchanged — i.e. before the early return below.
+  // Max 6D distance = sqrt(6 * 81) ≈ 22.1
+  const matchPct = Math.max(0, Math.round((1 - bestDist / 22.1) * 100));
+  document.getElementById("analog-dist").textContent =
+    `Profile similarity: ${matchPct}% match (distance ${bestDist.toFixed(1)} pts across all six dimensions)`;
+
   if (bestIdx === lastAnalogIdx) return;
   lastAnalogIdx = bestIdx;
 
@@ -1493,11 +1500,6 @@ function updateAnalog() {
         ${c.label}: <strong style="color:${c.color};margin-left:0.15rem">${c.val}</strong>
       </div>
     `).join("");
-
-    // Max 6D distance = sqrt(6 * 81) ≈ 22.1
-    const matchPct = Math.max(0, Math.round((1 - bestDist / 22.1) * 100));
-    document.getElementById("analog-dist").textContent =
-      `Profile similarity: ${matchPct}% match (distance ${bestDist.toFixed(1)} pts across all six dimensions)`;
 
     inner.classList.remove("transitioning");
   }, 200);
