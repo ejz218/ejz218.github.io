@@ -10,7 +10,7 @@ Interactive tools and educational resources for security leaders navigating AI r
 
 ### [AI Risk Framework](https://ejz218.github.io/AI_Risk_Framework.html)
 
-A four-dimension risk assessment tool that lets you profile an AI use case — Scope, Human Oversight, Transparency, and Stakes — and see its risk posture visualized on a radar chart alongside the closest real-world analog. Built for security and governance teams that need to explain AI risk in board-level terms.
+A six-dimension risk assessment tool, aligned with the NIST AI Risk Management Framework, that lets you profile an AI use case — Scope, Human Oversight, Transparency, Stakes, Bias &amp; Fairness, and Privacy — and see its risk posture on a radar chart alongside the closest real-world analog. Produces GOVERN / MAP / MEASURE / MANAGE guidance scaled to the score. Built for security and governance teams that need to explain AI risk in board-level terms.
 
 → **[Launch Tool](https://ejz218.github.io/AI_Risk_Framework.html)**
 
@@ -24,11 +24,13 @@ An interactive reference tool covering Lehigh University's five data classificat
 
 ---
 
-### [AI Selector Tool](https://ejz218.github.io/AI-selector-tool.html)
+### [AI Tool Advisor](https://ejz218.github.io/AI-Tool-Selector/)
 
-An interactive reference tool covering Lehigh University's five data classification levels (Class IV through Class I PHI). Includes a **Classification Wizard** — a yes/no decision tree that guides users to the correct classification for their data — plus full handling requirements, regulatory drivers, and a side-by-side comparison table.
+A governed AI tool recommender. Pick your role, what you want to do, and the sensitivity of the data involved; get ranked tool matches with factor-level scoring, availability status, and a guardrail for each. Data classification is a hard gate — capability never overrides contract — and tools you can't get stay visible so unmet licensing demand is legible rather than hidden.
 
-→ **[Launch Tool](https://ejz218.github.io/AI-selector-tool.html)**
+**Draft:** the inventory tracks Lehigh's published data classification table, but role mappings and capability scores are placeholder judgments pending Information Security validation.
+
+→ **[Launch Tool](https://ejz218.github.io/AI-Tool-Selector/)**
 
 ---
 
