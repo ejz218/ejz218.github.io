@@ -12,42 +12,92 @@
   <title>Lehigh University Data Classification Framework</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
+    /* ════════════════════════════════════════════
+       Lehigh Dopis — self-hosted on lehigh.edu.
+       Sora (Google Fonts, above) is the brand's own
+       documented substitute if these ever 404.
+    ════════════════════════════════════════════ */
+    @font-face {
+      font-family: DopisRegular;
+      src: url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisRegular.woff2") format("woff2"),
+           url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisRegular.woff") format("woff");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: DopisBold;
+      src: url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisBold.woff2") format("woff2"),
+           url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisBold.woff") format("woff");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: DopisCondensedBold;
+      src: url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisCondensedBold.woff2") format("woff2"),
+           url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisCondensedBold.woff") format("woff");
+      font-display: swap;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* ── Lehigh University brand palette ── */
-      --brand-maroon: #8B1A1A;
-      --brand-brown:  #4A3728;
-      --brand-gold:   #C8962E;
-      --brand-dark:   #2d0808;
+      /* ── Core brand palette (Brand Hub — verified values) ── */
+      --lehigh-brown:     #502d0e;   /* Primary since 1867 */
+      --lehigh-gold:      #ffe41e;   /* Golden Hour */
+      --lehigh-light:     #f5e9ad;   /* First Light */
+      --lehigh-navy:      #12354c;   /* Night Sky */
+      --lehigh-green:     #1b3a24;   /* Serenity Garden */
+      --patina-green:     #afedc9;
+      --cherry-blossom:   #fcd8d6;
+      --mountaintop-mist: #d1e9e8;
 
-      /* ── Design system (matches AI Risk Framework) ── */
-      --bg:        #f6f7f8;
+      /* ── Lehigh web design tokens (tints + functional UI) ── */
+      --brown-80: #83541e;
+      --brown-02: #f6f4f2;
+      --gold-80:  #fde780;
+      --gold-20:  #fffbe1;
+      --gold-k20: #d5bf4d;
+      --red-20:   #ffded5;
+      --dark-red: #ac1d15;
+      --grey-20:  #f4f3f2;
+      --grey-60:  #e1dfda;
+      --grey-k60: #6a6764;
+
+      /* ── Semantic roles ── */
+      --bg:        var(--grey-20);
       --surface:   #ffffff;
-      --surface2:  #f1f5f9;
-      --text:      #1a0f09;
-      --muted:     #64748b;
-      --border:    rgba(74,55,40,0.1);
-      --radius:    16px;
-      --shadow:    0 4px 24px rgba(74,55,40,0.10);
-      --shadow-sm: 0 2px 10px rgba(74,55,40,0.07);
+      --surface2:  var(--brown-02);
+      --text:      #212529;      /* Brand base font color — not pure black */
+      --body-text: #212529;
+      --muted:     var(--grey-k60);
+      --border:    var(--grey-60);
+      --link:      #327d9a;      /* Brand hyperlink */
 
-      /* ── Classification level colors ── */
-      --c-iv:   #16a34a;
-      --c-iii:  #2563eb;
-      --c-ii:   #d97706;
-      --c-i:    #dc2626;
-      --c-phi:  #7c3aed;
+      /* Legacy aliases — these were referenced but never defined */
+      --brand-maroon: var(--lehigh-brown);
+      --brand-dark:   var(--lehigh-navy);
+
+      --radius:    99px;         /* Official style uses pill shapes */
+      --card-radius: 16px;
+      --shadow:    0 10px 30px rgba(80,45,14,0.08);
+      --shadow-sm: 0 4px 12px rgba(80,45,14,0.05);
+
+      /* Classification level colors — all from the core brand palette */
+      --c-iv:   var(--lehigh-green);
+      --c-iii:  var(--lehigh-navy);
+      --c-ii:   var(--lehigh-brown);
+      --c-i:    var(--dark-red);
+      --c-phi:  var(--dark-red);
     }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;           /* Brand base size */
       background: var(--bg);
-      color: var(--text);
+      color: var(--body-text);
       min-height: 100vh;
       padding: 2.5rem 1.25rem 3rem;
+      line-height: 1.7;
     }
 
     /* ── Header ── */
@@ -56,12 +106,23 @@
       margin-bottom: 2rem;
     }
 
+    /* Official Lehigh logo — primary lockup, full color on light background */
+    .header-logo {
+      display: block;
+      width: 260px;           /* ~2.7in — above the 1.75in minimum for this lockup */
+      max-width: 70%;
+      height: auto;
+      margin: 0 auto 1rem;
+    }
+
     .header-brand {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.6rem;
-      font-size: 0.78rem;
+      /* Dopis Condensed is uppercase-only — a hard brand rule */
+      font-family: DopisCondensedBold, "Barlow Condensed", 'Inter', sans-serif;
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.14em;
@@ -72,18 +133,20 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--brand-maroon);
+      background: var(--lehigh-gold);
       display: inline-block;
     }
 
     header h1 {
-      font-size: 1.65rem;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      color: var(--text);
+      font-family: DopisBold, 'Sora', 'Inter', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.15;      /* brand leading for display below 60pt */
+      color: var(--lehigh-brown);
     }
 
-    header h1 span { color: var(--brand-maroon); }
+    header h1 span { color: var(--lehigh-brown); }
 
     header p {
       color: var(--muted);
@@ -113,28 +176,29 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: var(--surface);
+      background: var(--lehigh-light);
       border: 1.5px solid var(--border);
-      border-radius: 99px;
+      border-radius: var(--radius);
       padding: 0.45rem 1.1rem;
       font-size: 0.78rem;
       font-weight: 700;
-      color: var(--brand-maroon);
+      color: var(--lehigh-brown);
       cursor: pointer;
       box-shadow: var(--shadow-sm);
-      transition: background 0.2s, box-shadow 0.2s;
+      transition: all 0.2s;
       letter-spacing: 0.03em;
     }
 
     .compare-btn:hover {
-      background: #fff7f7;
+      background: #f5e9ad;
       box-shadow: var(--shadow);
+      transform: translateY(-1px);
     }
 
     .compare-btn.active {
-      background: var(--brand-maroon);
+      background: var(--lehigh-brown);
       color: #fff;
-      border-color: var(--brand-maroon);
+      border-color: var(--lehigh-brown);
     }
 
     /* ── Selector cards ── */
@@ -154,7 +218,7 @@
 
     .sel-card {
       background: var(--surface);
-      border-radius: var(--radius);
+      border-radius: var(--card-radius);
       box-shadow: var(--shadow-sm);
       padding: 1rem 1rem 1rem 1.1rem;
       cursor: pointer;
@@ -203,8 +267,8 @@
       gap: 0.2rem;
       font-size: 0.6rem;
       font-weight: 700;
-      color: #7c3aed;
-      background: #f5f3ff;
+      color: #12354c;
+      background: #d1e9e8;
       border-radius: 99px;
       padding: 0.15rem 0.45rem;
       margin-top: 0.35rem;
@@ -213,7 +277,7 @@
     /* ── Detail panel ── */
     .detail-panel {
       background: var(--surface);
-      border-radius: var(--radius);
+      border-radius: var(--card-radius);
       box-shadow: var(--shadow);
       overflow: hidden;
       transition: opacity 0.25s, transform 0.25s;
@@ -222,6 +286,39 @@
     .detail-panel.transitioning {
       opacity: 0;
       transform: translateY(8px);
+    }
+
+    #wizard-context {
+      display: none;
+      background: #fffbe1;
+      border-bottom: 2px dashed #d5bf4d;
+      padding: 1rem 1.75rem;
+    }
+
+    .w-context-wrap {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .w-context-icon {
+      font-size: 1.5rem;
+      padding-top: 0.2rem;
+    }
+
+    .w-context-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #502d0e;
+      margin-bottom: 0.25rem;
+    }
+
+    .w-context-reason {
+      font-size: 0.9rem;
+      color: #502d0e;
+      line-height: 1.5;
     }
 
     .detail-accent {
@@ -275,6 +372,7 @@
     }
 
     .detail-class-title {
+      font-family: DopisBold, 'Sora', 'Inter', sans-serif;
       font-size: 1.35rem;
       font-weight: 900;
       letter-spacing: -0.025em;
@@ -338,7 +436,7 @@
 
     .section-body {
       font-size: 0.82rem;
-      color: #374151;
+      color: #212529;
       line-height: 1.6;
     }
 
@@ -362,9 +460,37 @@
       line-height: 1.6;
     }
 
+    .section-body a {
+      color: var(--link);       /* Brand hyperlink */
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .section-body a:hover { color: var(--lehigh-brown); }
+
+    /* ── Consequence-of-disclosure callout (Classes I–III) ── */
+    .consequence-note {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 10px;
+      background: #fffbe1;
+      border: 1px solid rgba(180,83,9,0.28);
+      border-left: 3px solid #502d0e;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #502d0e;
+      font-weight: 600;
+    }
+
+    .consequence-note .consequence-icon { flex-shrink: 0; font-size: 0.85rem; }
+
     /* ── Dark premium info panel (like the navy chart card) ── */
     .detail-info-bar {
-      background: var(--brand-dark);
+      background: var(--lehigh-brown);
       padding: 1rem 1.75rem;
       display: flex;
       align-items: center;
@@ -389,14 +515,14 @@
     /* ── Comparison table ── */
     .compare-view {
       background: var(--surface);
-      border-radius: var(--radius);
+      border-radius: var(--card-radius);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
     .compare-accent {
       height: 5px;
-      background: linear-gradient(90deg, var(--brand-maroon), var(--brand-gold));
+      background: linear-gradient(90deg, var(--lehigh-brown), var(--lehigh-gold));
     }
 
     .compare-header-bar {
@@ -408,6 +534,7 @@
     }
 
     .compare-title {
+      font-family: DopisBold, 'Sora', 'Inter', sans-serif;
       font-size: 1rem;
       font-weight: 800;
       letter-spacing: -0.02em;
@@ -419,7 +546,7 @@
       gap: 0.35rem;
       font-size: 0.78rem;
       font-weight: 700;
-      color: var(--brand-maroon);
+      color: var(--lehigh-brown);
       cursor: pointer;
       background: none;
       border: none;
@@ -462,7 +589,7 @@
       vertical-align: top;
       border-bottom: 1px solid rgba(0,0,0,0.05);
       line-height: 1.5;
-      color: #374151;
+      color: #212529;
     }
 
     .compare-table td.row-header {
@@ -473,19 +600,19 @@
     }
 
     .compare-table tr.baa-row td {
-      background: #fef9c3;
+      background: #fffbe1;
       font-weight: 600;
     }
 
     .compare-table tr.baa-row td.row-header {
-      color: #713f12;
+      color: #502d0e;
     }
 
     .baa-yes {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
-      background: #7c3aed;
+      background: #12354c;
       color: #fff;
       font-size: 0.68rem;
       font-weight: 700;
@@ -515,18 +642,20 @@
 
     /* ── Footer ── */
     footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.73rem;
-      color: var(--muted);
-      font-weight: 500;
-      line-height: 1.6;
+      background: var(--lehigh-brown);
+      color: rgba(255,255,255,0.85);
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
     }
 
     footer a {
-      color: var(--brand-maroon);
+      color: var(--lehigh-gold);
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     footer a:hover { text-decoration: underline; }
@@ -540,7 +669,7 @@
 
     .w-card {
       background: var(--surface);
-      border-radius: var(--radius);
+      border-radius: var(--card-radius);
       box-shadow: var(--shadow);
       overflow: hidden;
       transition: opacity 0.2s ease, transform 0.2s ease;
@@ -570,7 +699,7 @@
       color: var(--muted);
     }
 
-    .w-step-label strong { color: var(--brand-maroon); }
+    .w-step-label strong { color: var(--lehigh-brown); }
 
     .w-progress-track {
       height: 5px;
@@ -581,7 +710,7 @@
 
     .w-progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--brand-maroon), var(--brand-gold));
+      background: linear-gradient(90deg, var(--lehigh-brown), var(--lehigh-gold));
       border-radius: 99px;
       transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -599,7 +728,7 @@
       padding: 0.3rem 0.8rem;
       font-size: 0.7rem;
       font-weight: 700;
-      color: var(--brand-brown);
+      color: var(--lehigh-brown);
       letter-spacing: 0.04em;
       margin-bottom: 1.1rem;
       border: 1px solid var(--border);
@@ -628,16 +757,17 @@
       justify-content: center;
       gap: 0.3rem;
       padding: 1.1rem 1rem;
-      border-radius: 14px;
-      border: 2px solid transparent;
+      border-radius: var(--radius);
+      border: 2.5px solid transparent;
       cursor: pointer;
       font-family: inherit;
       font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: 0.06em;
-      transition: all 0.15s ease;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       user-select: none;
-      min-height: 86px;
+      min-height: 80px;
     }
 
     .w-answer-btn .w-btn-icon {
@@ -646,44 +776,44 @@
     }
 
     .w-btn-yes {
-      background: var(--brand-maroon);
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(139,26,26,0.28);
+      background: var(--lehigh-gold);
+      color: var(--lehigh-brown);
+      box-shadow: 0 4px 14px rgba(255,228,30,0.25);
     }
 
     .w-btn-yes:hover {
-      background: #7a1515;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(139,26,26,0.38);
+      background: #ffe41e;
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(255,228,30,0.35);
     }
 
     .w-btn-yes:active { transform: translateY(0); }
 
     .w-btn-no {
-      background: var(--surface);
-      color: var(--text);
-      border-color: rgba(74,55,40,0.18);
+      background: var(--lehigh-light);
+      color: var(--lehigh-brown);
+      border-color: rgba(80,45,14,0.1);
       box-shadow: var(--shadow-sm);
     }
 
     .w-btn-no:hover {
-      background: var(--surface2);
-      border-color: rgba(74,55,40,0.3);
-      transform: translateY(-2px);
+      background: #f5e9ad;
+      border-color: rgba(80,45,14,0.2);
+      transform: scale(1.03);
       box-shadow: var(--shadow);
     }
 
     .w-btn-no:active { transform: translateY(0); }
 
     .w-btn-yes.w-prev-yes {
-      outline: 3px solid var(--brand-gold);
+      outline: 3px solid var(--lehigh-brown);
       outline-offset: 2px;
     }
 
     .w-btn-no.w-prev-no {
-      border-color: var(--brand-maroon);
-      background: #fff7f7;
-      color: var(--brand-maroon);
+      border-color: var(--lehigh-brown);
+      background: #fff;
+      color: var(--lehigh-brown);
     }
 
     .w-back-row {
@@ -706,7 +836,7 @@
       transition: color 0.15s;
     }
 
-    .w-back-btn:hover { color: var(--brand-maroon); }
+    .w-back-btn:hover { color: var(--lehigh-brown); }
     .w-back-btn:disabled { opacity: 0; pointer-events: none; }
 
     /* Result card */
@@ -793,7 +923,7 @@
     .w-reason-text {
       font-size: 0.87rem;
       line-height: 1.65;
-      color: #374151;
+      color: #212529;
     }
 
     .w-answer-path {
@@ -811,7 +941,7 @@
 
     .w-path-q {
       flex: 1;
-      color: #374151;
+      color: #212529;
       font-weight: 500;
     }
 
@@ -825,13 +955,13 @@
       flex-shrink: 0;
     }
 
-    .w-path-yes { background: #fee2e2; color: #991b1b; }
-    .w-path-no  { background: #e2e8f0; color: #475569; }
+    .w-path-yes { background: #ffded5; color: #ac1d15; }
+    .w-path-no  { background: #e1dfda; color: #6a6764; }
 
     .w-handling-box {
       font-size: 0.85rem;
       line-height: 1.65;
-      color: #374151;
+      color: #212529;
       background: var(--surface2);
       border-radius: 10px;
       padding: 1rem 1.1rem;
@@ -879,7 +1009,7 @@
       transition: background 0.2s, box-shadow 0.2s;
     }
 
-    .w-btn-start-over:hover { background: #fff7f7; box-shadow: var(--shadow); }
+    .w-btn-start-over:hover { background: #f6f4f2; box-shadow: var(--shadow); }
 
     .w-btn-view-details {
       display: inline-flex;
@@ -898,7 +1028,7 @@
       transition: background 0.2s, box-shadow 0.2s;
     }
 
-    .w-btn-view-details:hover { background: #7a1515; box-shadow: 0 6px 18px rgba(139,26,26,0.38); }
+    .w-btn-view-details:hover { background: #83541e; box-shadow: 0 6px 18px rgba(80,45,14,0.30); }
 
     /* ════════════════════════════════════════════
        STORAGE GUIDANCE (sg-*)
@@ -918,6 +1048,7 @@
     .sg-title-icon { font-size: 0.95rem; }
 
     .sg-heading {
+      font-family: DopisBold, 'Sora', 'Inter', sans-serif;
       font-size: 1rem;
       font-weight: 800;
       letter-spacing: -0.02em;
@@ -949,19 +1080,30 @@
     }
 
     .sg-row {
-      border-bottom: 1px solid rgba(74,55,40,0.06);
+      border-bottom: 1px solid rgba(80,45,14,0.10);
     }
 
     .sg-row:last-child { border-bottom: none; }
 
     .sg-icon-cell {
-      width: 2rem;
+      width: 2.4rem;
       text-align: center;
-      padding: 0.45rem 0.3rem;
-      font-size: 0.9rem;
+      padding: 0.4rem 0.3rem;
       vertical-align: top;
-      line-height: 1.6;
     }
+
+    .sg-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 1.1rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .sg-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .sg-legend .sg-icon-cell { width: auto; padding: 0; }
 
     .sg-name {
       padding: 0.45rem 0.25rem;
@@ -970,13 +1112,33 @@
       line-height: 1.5;
     }
 
-    /* Status colors */
-    .sg-ok   .sg-icon-cell { color: #16a34a; }
-    .sg-warn .sg-icon-cell { color: #d97706; }
-    .sg-no   .sg-icon-cell { color: #94a3b8; }
+    /* ── Status chips ──
+       Filled brand-palette circles so approved / conditional / not-approved
+       are distinguishable at a glance. Every pairing below clears WCAG AA
+       (all ≥ 7:1), which plain Golden Hour or Autumn Dusk glyphs would not. */
+    .sg-icon-cell span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 50%;
+      font-size: 0.82rem;
+      font-weight: 800;
+      line-height: 1;
+    }
 
-    /* Gray out not-approved rows */
-    .sg-no .sg-name { color: #94a3b8; }
+    .sg-ok          .sg-icon-cell span { background: var(--patina-green); color: var(--lehigh-green); }
+    .sg-conditional .sg-icon-cell span { background: var(--gold-80);      color: var(--lehigh-brown); }
+    .sg-no          .sg-icon-cell span { background: var(--red-20);       color: var(--dark-red); }
+
+    /* Not-approved rows: keep the red chip prominent, soften the label */
+    .sg-no .sg-name { color: var(--muted); }
+
+    /* Group separator between status bands */
+    .sg-row.sg-band-start { border-top: 2px solid rgba(80,45,14,0.16); }
+    .sg-row.sg-band-start .sg-icon-cell,
+    .sg-row.sg-band-start .sg-name { padding-top: 0.7rem; }
 
     .sg-note {
       display: block;
@@ -1008,18 +1170,21 @@
       .toolbar, .compare-btn, .back-btn { display: none !important; }
       .card, .sel-card, .detail-panel, .compare-view {
         box-shadow: none !important;
-        border: 1px solid #ddd !important;
+        border: 1px solid #e1dfda !important;
       }
-      .detail-info-bar { background: #4A3728 !important; -webkit-print-color-adjust: exact; }
+      .detail-info-bar { background: #502d0e !important; -webkit-print-color-adjust: exact; }
     }
   </style>
 </head>
 <body>
 
 <header>
+  <img class="header-logo"
+       src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGVoaWdoX1VuaXZlcnNpdHk6X0Z1bGxfQ29sb3VyX1JHQl9mb3JfZGlnaXRhbF8iIGRhdGEtbmFtZT0iTGVoaWdoIFVuaXZlcnNpdHk6IEZ1bGwgQ29sb3VyIChSR0IsIGZvciBkaWdpdGFsKSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyMTYuNDEiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNmMDRjM2M7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQoKICAgICAgLmNscy0zIHsKICAgICAgICBmaWxsOiAjZmZlNDFlOwogICAgICB9CgogICAgICAuY2xzLTQgewogICAgICAgIGZpbGw6ICM1MDJkMGU7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNC4yNyw4LjE4VjExMy4yMWMwLDM2LjIyLDQxLjg1LDc4LjQ5LDcyLjg0LDk4LjE2LDMwLjk5LTE5LjY2LDcyLjg0LTYxLjk0LDcyLjg0LTk4LjE2VjguMThINC4yN1pNMTQ1LjY3LDExMy4yMWMwLDMzLjMyLTM5LjMzLDczLjc0LTY4LjU2LDkzLjA2QzQ3Ljg4LDE4Ni45NCw4LjU1LDE0Ni41Myw4LjU1LDExMy4yMVYxMi40NkgxNDUuNjdWMTEzLjIxWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTcuNzQsMTcxLjE2Yy02LjE1LTMuMjktMTMuNDMtNS41OC0yMS4yNi01LjEsMS40NiwxLjcxLDIuOTEsMy40NCw0LjQ0LDUuMWgxNi44M1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTk2LjQ4LDE3MS4xNmgxNi44M2MxLjUyLTEuNjYsMi45Ny0zLjM5LDQuNDMtNS4xLTcuODQtLjQ4LTE1LjExLDEuODEtMjEuMjYsNS4xWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTI0Ljg3LDExMi44N2gtNC4wMXY0OS40MWMxLjM2LTEuNywyLjc0LTMuMzksNC4wMS01LjEzdi00NC4yOFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMzLjM2LDExMi44N2gtNC4wMXY0NC4yOGMxLjI4LDEuNzQsMi42NSwzLjQzLDQuMDEsNS4xM3YtNDkuNDFaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03Ni4xNSwxNTguMTNoMS45M3YyMS40NWM2Ljg0LTYuNzksMjEuMTEtMTguMzcsMzguNDUtMTcuOTd2LTU2LjQ1Yy0zLjcyLS4zNC05LjQ0LS43Ny0xMy44Ny0uNzctMTUuODQsMC0yMi40MSw2LjI0LTIyLjQ3LDYuMywwLDAtMS44MSwxLjkyLTEuODEsOC43NWgtMi41M2MwLTYuODItMS44LTguNzUtMS44LTguNzUtLjA2LS4wNi02LjYzLTYuMy0yMi40Ny02LjMtNC40NCwwLTEwLjE0LC40My0xMy44OCwuNzd2NTYuNDVjMTcuMzUtLjQsMzEuNjEsMTEuMTgsMzguNDYsMTcuOTd2LTIxLjQ1Wm0tMTcuNDMtMjYuNzNjMC0yLjk0LDIuMzktOS43Nyw5LjAyLTkuNzdzOS4zOCw1LjM0LDkuMzgsNS4zNGMwLDAsMi43NS01LjM0LDkuMzctNS4zNHM5LjAyLDYuODQsOS4wMiw5Ljc3YzAsOS42Mi0xOC4zOSwyMC4wOC0xOC4zOSwyMi44NSwwLTIuNzctMTguNC0xMy4yMy0xOC40LTIyLjg1WiIvPgogIDwvZz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTE0MC4yOCw5Ny43czIuNjMtMy42MywyLjYzLTcuNTljMC01LjgxLTYuNzktMTQuNjMtMTcuMjItMTQuNjMtMi41NywwLTUuMTksLjUtNy43NCwxLjNsMjEuMDMtMzIuNzctMzQuMzQsMjEuNTFjLjMxLTQuNDYsMC04LjYyLDIuNzQtMTEuNTEsMi43Ni0yLjkxLDguNTktMi42MSw4LjU5LTIuNjEsMCwwLS42OS00LjE0LTMuNTctNi44Ny00LjIyLTQtMTUuMjgtNS4xNS0yMi40NiwyLjQxLTEuNjcsMS43Ni0zLjA0LDMuODYtNC4xOCw2LjA5bC04LjY2LTM3LjcyLTkuNzIsNDIuMjdjLTIuOTctMy4yLTYuMDgtNS44MS02LjI4LTkuNzItLjItNC4wMSw0LjA5LTguMDYsNC4wOS04LjA2LDAsMC0zLjU0LTIuMzEtNy41LTIuMTEtNS44LC4zLTE0LjI2LDcuNTQtMTMuNzIsMTcuOTUsLjEzLDIuNDcsLjcyLDQuOTYsMS41OSw3LjM3TDE1LjIzLDQ0LjAxbDIzLjE4LDM2LjEyYy01LjYyLS4xNS0xMC42NiwxLjkzLTE0LjYzLS45MS0zLjI2LTIuMzMtMy41Mi04LjMxLTMuNTItOC4zMSwwLDAtNC4yNSwxLjQyLTYuNTYsNC42NC0zLjM4LDQuNzMtMi45OSwxNS44NSw1LjUsMjEuOTIsNC4wMSwyLjg3LDkuMjgsNC4zNCwxNC4xNiw1LjA3di0xLjMxczYuNzQtLjc0LDEzLjI1LTEuMDRjLjA3LS43NSwuMTYtMS40OSwuMjgtMi4yMi02Ljk1LC42Ni0xNy4wOCwuNTgtMjIuNzctMy40OS03LjM5LTUuMjgtNi4zNy0xMi40NS02LjM3LTEyLjQ1LDAsMCwxLjA3LDEuODUsMi44OSwzLjE2LDguNDEsNiwxNi40Ni0xLjk3LDI0LjIyLDMuNTgsMS42NCwxLjE3LDIuNzgsMi41MSwzLjUyLDMuNTgsLjY1LTEuNzQsMS40NS0zLjQyLDIuMzktNWwtMTguNTMtMjUuNDQsMjQuNzMsMTcuOTljMS4yNi0xLjEsMi42MS0yLjEsNC4wNC0yLjk4LTIuNTEtMi4zLTExLjA4LTEyLjM3LTExLjA4LTE5Ljk1LDAtOS4wOCw1LjgzLTExLjgzLDUuODMtMTEuODMsMCwwLS43OCwxLjk5LS42Nyw0LjIzLC41MywxMC4zMSwxMS41OSwxMC45NSwxMi4wOCwyMC40OCwuMDksMS42Ni0uMTMsMy4xNC0uNDMsNC4zMSwxLjY5LS42MSwzLjQ0LTEuMDcsNS4yNC0xLjM4bDUuMTUtMzIuNTIsNS4xNCwzMi41MmMxLjY2LC4yOCwzLjI4LC42OSw0Ljg0LDEuMjMtLjEzLTQuNjQsLjktMTUuMDcsNi40OS0yMS4zMiw1LjY5LTYuMzUsMTIuNTUtNC4xMywxMi41NS00LjEzLDAsMC0xLjk4LC44LTMuNTIsMi40Mi03LjExLDcuNDksLjI0LDE2LjM0LTYuMzIsMjMuMjYtMS4wOSwxLjE1LTIuMjUsMS45OC0zLjI2LDIuNTgsMS41LC45MSwyLjkyLDEuOTUsNC4yMywzLjA5bDI0LjczLTE3Ljk5LTE4LjUzLDI1LjQ0Yy44LDEuMzUsMS41MSwyLjc2LDIuMDksNC4yMywzLjU4LTMuNzUsMTAuNDEtOS41MSwxOC40OC05LjUxLDkuMDksMCwxMi40NCw2LjcsMTIuNDQsNi43LDAsMC0xLjk1LS44OS00LjE4LS44OS0xMC4zMywwLTEyLjQ4LDEwLjk5LTIyLjAxLDEwLjk5LTEuMDMsMC0xLjk5LS4xMS0yLjg0LS4yOSwuMDcsLjUzLC4wNiwxLjA4LC4xMSwxLjYxLDQuNzIsLjIyLDkuNTUsLjY3LDExLjg3LC45LDQuOTYtMy4xNSw4LjEtOC4xMSwxMy4xNi04LjExLDQuMDEsMCw3LjcsNC43MSw3LjcsNC43MVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTEyMC44NiwxMDkuNTVoNy4zMnY0Mi45YzguNzQtMTIuOTMsMTQuNjQtMjYuNTMsMTQuNjQtMzkuMjV2LTguOTFoLTIxLjk2djUuMjVaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTMiIGQ9Ik0xMS40LDExMy4yMWMwLDEyLjcyLDUuOSwyNi4zMiwxNC42NCwzOS4yNXYtNDIuOWg3LjMydi01LjI1SDExLjR2OC45MVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTc3LjEyLDEwNy42NHMxLjU3LTEuNjEsNS4wMy0zLjM0YzMuOTEtMS45NiwxMC4yNS00LjA3LDE5LjUzLTQuMjItMS40My0xMi4yOS0xMS44OC0yMS44NS0yNC41Ni0yMS44NXMtMjMuMTMsOS41NS0yNC41NywyMS44NWM5LjI4LC4xNSwxNS42MiwyLjI2LDE5LjUzLDQuMjIsMy40NiwxLjc0LDUuMDQsMy4zNCw1LjA0LDMuMzRaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTMiIGQ9Ik03Ny4xMiwxODcuMDJzLTUuNC02LjY5LTEzLjk3LTEyLjU0aC0xOS4xNWMxMS4wMywxMS41NiwyMy4wOCwyMS41MywzMy4xMiwyOC4zNSwxMC4wMy02LjgyLDIyLjA4LTE2Ljc5LDMzLjExLTI4LjM1aC0xOS4xNWMtOC41OCw1Ljg0LTEzLjk2LDEyLjU0LTEzLjk2LDEyLjU0WiIvPgogIDwvZz4KICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04Ni40OCwxMjEuNjNjLTYuNjIsMC05LjM3LDUuMzQtOS4zNyw1LjM0LDAsMC0yLjc3LTUuMzQtOS4zOC01LjM0cy05LjAyLDYuODQtOS4wMiw5Ljc3YzAsOS42MiwxOC40LDIwLjA4LDE4LjQsMjIuODUsMC0yLjc3LDE4LjM5LTEzLjIzLDE4LjM5LTIyLjg1LDAtMi45NC0yLjQtOS43Ny05LjAyLTkuNzdaIi8+CiAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNMCwxMTMuMjFjMCw0MC4zNiw0OC4wNCw4NS40OCw3Ny4xMiwxMDMuMiwyOS4wNi0xNy43Miw3Ny4xMS02Mi44NCw3Ny4xMS0xMDMuMlYzLjlIMFYxMTMuMjFaTTQuMjcsOC4xOEgxNDkuOTVWMTEzLjIxYzAsMzYuMjItNDEuODUsNzguNDktNzIuODQsOTguMTZDNDYuMTIsMTkxLjcsNC4yNywxNDkuNDMsNC4yNywxMTMuMjFWOC4xOFoiLz4KICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik03Ny4xMiwyMDYuMjdjMjkuMjMtMTkuMzMsNjguNTYtNTkuNzQsNjguNTYtOTMuMDZWMTIuNDZIOC41NVYxMTMuMjFjMCwzMy4zMiwzOS4zMiw3My43NCw2OC41Niw5My4wNlptMzYuMi0zNS4xMWgtMTYuODNjNi4xNS0zLjI5LDEzLjQyLTUuNTgsMjEuMjYtNS4xLTEuNDYsMS43MS0yLjkxLDMuNDQtNC40Myw1LjFabS0zNy4xNy0xMy4wM3YyMS40NWMtNi44NS02Ljc5LTIxLjExLTE4LjM3LTM4LjQ2LTE3Ljk3di01Ni40NWMzLjczLS4zNCw5LjQ0LS43NywxMy44OC0uNzcsMTUuODQsMCwyMi40MSw2LjI0LDIyLjQ3LDYuMywwLDAsMS44LDEuOTIsMS44LDguNzVoMi41M2MwLTYuODIsMS44MS04Ljc1LDEuODEtOC43NSwuMDYtLjA2LDYuNjMtNi4zLDIyLjQ3LTYuMyw0LjQzLDAsMTAuMTUsLjQzLDEzLjg3LC43N3Y1Ni40NWMtMTcuMzQtLjQtMzEuNjEsMTEuMTgtMzguNDUsMTcuOTd2LTIxLjQ1aC0xLjkzWm0tMjMuNi01OC4wNWMxLjQ0LTEyLjI5LDExLjg4LTIxLjg1LDI0LjU3LTIxLjg1czIzLjEzLDkuNTUsMjQuNTYsMjEuODVjLTkuMjgsLjE1LTE1LjYyLDIuMjYtMTkuNTMsNC4yMi0zLjQ1LDEuNzQtNS4wMywzLjM0LTUuMDMsMy4zNCwwLDAtMS41OC0xLjYxLTUuMDQtMy4zNC0zLjkxLTEuOTYtMTAuMjYtNC4wNy0xOS41My00LjIyWm03Mi4zMiw1Ny4wNmMtMS4yNywxLjc0LTIuNjUsMy40My00LjAxLDUuMTN2LTQ5LjQxaDQuMDF2NDQuMjhabTE3Ljk1LTQzLjk0YzAsMTIuNzItNS45LDI2LjMyLTE0LjY0LDM5LjI1di00Mi45aC03LjMydi01LjI1aDIxLjk2djguOTFaTTEzLjcxLDc1LjU1YzIuMzEtMy4yMyw2LjU2LTQuNjQsNi41Ni00LjY0LDAsMCwuMjYsNS45OCwzLjUyLDguMzEsMy45NywyLjgzLDkuMDEsLjc2LDE0LjYzLC45MUwxNS4yMyw0NC4wMWwzMC4zNCwxOS4wMmMtLjg3LTIuNDItMS40Ni00LjkxLTEuNTktNy4zNy0uNTQtMTAuNDEsNy45Mi0xNy42NSwxMy43Mi0xNy45NSwzLjk2LS4yLDcuNSwyLjExLDcuNSwyLjExLDAsMC00LjI5LDQuMDYtNC4wOSw4LjA2LC4yLDMuOTEsMy4zMSw2LjUyLDYuMjgsOS43Mmw5LjcyLTQyLjI3LDguNjYsMzcuNzJjMS4xMy0yLjI0LDIuNTEtNC4zNCw0LjE4LTYuMDksNy4xOC03LjU2LDE4LjI0LTYuNDEsMjIuNDYtMi40MSwyLjg4LDIuNzMsMy41Nyw2Ljg3LDMuNTcsNi44NywwLDAtNS44My0uMy04LjU5LDIuNjEtMi43NSwyLjg5LTIuNDMsNy4wNS0yLjc0LDExLjUxbDM0LjM0LTIxLjUxLTIxLjAzLDMyLjc3YzIuNTUtLjgsNS4xNy0xLjMsNy43NC0xLjMsMTAuNDMsMCwxNy4yMiw4LjgxLDE3LjIyLDE0LjYzLDAsMy45Ni0yLjYzLDcuNTktMi42Myw3LjU5LDAsMC0zLjY5LTQuNzEtNy43LTQuNzEtNS4wNSwwLTguMTksNC45Ni0xMy4xNiw4LjExLTIuMzItLjIzLTcuMTUtLjY3LTExLjg3LS45LS4wNS0uNTMtLjA0LTEuMDgtLjExLTEuNjEsLjg1LC4xOCwxLjgxLC4yOSwyLjg0LC4yOSw5LjUzLDAsMTEuNjgtMTAuOTksMjIuMDEtMTAuOTksMi4yNCwwLDQuMTgsLjg5LDQuMTgsLjg5LDAsMC0zLjM2LTYuNy0xMi40NC02LjctOC4wNywwLTE0LjksNS43Ni0xOC40OCw5LjUxLS41OC0xLjQ3LTEuMjgtMi44OC0yLjA5LTQuMjNsMTguNTMtMjUuNDQtMjQuNzMsMTcuOTljLTEuMzEtMS4xNC0yLjczLTIuMTktNC4yMy0zLjA5LDEuMDEtLjU5LDIuMTctMS40MywzLjI2LTIuNTgsNi41Ni02LjkxLS43OS0xNS43Niw2LjMyLTIzLjI2LDEuNTQtMS42MiwzLjUyLTIuNDIsMy41Mi0yLjQyLDAsMC02Ljg2LTIuMjItMTIuNTUsNC4xMy01LjU5LDYuMjUtNi42MiwxNi42OC02LjQ5LDIxLjMyLTEuNTYtLjU0LTMuMTgtLjk1LTQuODQtMS4yM2wtNS4xNC0zMi41Mi01LjE1LDMyLjUyYy0xLjgxLC4zMS0zLjU2LC43Ny01LjI0LDEuMzgsLjMtMS4xNywuNTEtMi42NSwuNDMtNC4zMS0uNDktOS41Mi0xMS41NC0xMC4xNy0xMi4wOC0yMC40OC0uMTEtMi4yNCwuNjctNC4yMywuNjctNC4yMywwLDAtNS44MywyLjc1LTUuODMsMTEuODMsMCw3LjU4LDguNTcsMTcuNjYsMTEuMDgsMTkuOTUtMS40MiwuODgtMi43OCwxLjg5LTQuMDQsMi45OGwtMjQuNzMtMTcuOTksMTguNTMsMjUuNDRjLS45NCwxLjU4LTEuNzQsMy4yNi0yLjM5LDUtLjc0LTEuMDctMS44OC0yLjQxLTMuNTItMy41OC03Ljc2LTUuNTUtMTUuODEsMi40Mi0yNC4yMi0zLjU4LTEuODItMS4zMS0yLjg5LTMuMTYtMi44OS0zLjE2LDAsMC0xLjAyLDcuMTYsNi4zNywxMi40NSw1LjY5LDQuMDcsMTUuODMsNC4xNCwyMi43NywzLjQ5LS4xMiwuNzQtLjIxLDEuNDctLjI4LDIuMjItNi41MSwuMzEtMTMuMjUsMS4wNC0xMy4yNSwxLjA0djEuMzFjLTQuODgtLjc0LTEwLjE0LTIuMjEtMTQuMTYtNS4wNy04LjQ5LTYuMDctOC44OC0xNy4xOS01LjUtMjEuOTJabTEyLjMzLDc2LjkxYy04Ljc0LTEyLjkzLTE0LjY0LTI2LjUzLTE0LjY0LTM5LjI1di04LjkxaDIxLjk2djUuMjVoLTcuMzJ2NDIuOVptMy4zMS0zOS41OGg0LjAxdjQ5LjQxYy0xLjM2LTEuNy0yLjczLTMuMzktNC4wMS01LjEzdi00NC4yOFptNy4xMiw1My4xOWM3Ljg0LS40OCwxNS4xMiwxLjgxLDIxLjI2LDUuMWgtMTYuODNjLTEuNTItMS42Ni0yLjk4LTMuMzktNC40NC01LjFabTI2LjY3LDguNDJjOC41OCw1Ljg0LDEzLjk3LDEyLjU0LDEzLjk3LDEyLjU0LDAsMCw1LjM4LTYuNjksMTMuOTYtMTIuNTRoMTkuMTVjLTExLjAzLDExLjU2LTIzLjA4LDIxLjUzLTMzLjExLDI4LjM1LTEwLjA1LTYuODItMjIuMDktMTYuNzktMzMuMTItMjguMzVoMTkuMTVaIi8+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik0yMzcuNjksMTMxLjY5YzUuNTcsMS4zOSwxMS4zNCwxLjU5LDE2LjcxLDEuNTksMTYuMzEsMCw0MC41OC0uNTksNDMuOTYtMy43OCwxLjk5LTEuNzksMy4xOC04LjU1LDQuMTgtMTIuNzNsMi4zOS05Ljk1aDYuMzdjLTEuMTksMTAuOTQtMi41OSwyNC4yNy00LjE4LDM0LjIyLTcuNTYsLjItMjAuMjksLjU5LTMzLjAyLC41OWgtNi4xN2MtMTcuOS0uMi0zMS4wMy0uNTktNDMuMzctLjU5LTYuNzYsMC0xMS43NCwuNC0xNi45MSwuNTl2LTQuNTdsNi4xNy0zLjE4YzMuMzgtMS43OSw0Ljk3LTYuMzcsNC45Ny0xMS43NFYyNy44NWMwLTcuNTYtLjQtMTIuNzMtMS43OS0xNC45Mi0xLjE5LTEuOTktMy41OC0yLjc4LTguMzUtMi45OGwtOS41NS0uNlYzLjM4YzEwLjM0LC40LDE5LjY5LC42LDI5LjQ0LC42LDkuMTUsMCwxOC41LS4yLDI4Ljg0LS42djUuOTdsLTkuNTUsLjZjLTQuNzcsLjItNy4xNiwxLTguMzYsMi45OC0xLjM5LDIuMTktMS43OSw3LjM2LTEuNzksMTQuOTJ2MTAzLjg0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNMzQwLjEzLDI3Ljg1YzAtNy41Ni0uNC0xMi43My0xLjc5LTE0LjkyLTEuMTktMS45OS0zLjU4LTIuNzgtOC4zNS0yLjk4bC05LjU1LS42VjMuMzhjNS41NywwLDExLjE0LC4yLDE2LjcxLC40LDUuNTcsMCwxMS4zNCwuMiwxNi45MSwuMiwxNy4zMSwwLDM1LjYxLS42LDQ2Ljk1LS42LDguOTUsMCwxNy45LC4yLDI1LjY2LC42LTIuMTksOC43NS0zLjE4LDIwLjA5LTMuMTgsMzAuMjRoLTYuOTZ2LTEyLjkzYzAtMi41OS0uMi00Ljc3LTEuNzktNS4zNy0xMC41NC0zLjk4LTI2LjI2LTQuMTgtMzguOTktNC4xOC01LjM3LDAtMTEuMTQsLjItMTYuNzEsMS41OXY1My4xMWM2LjM3LC40LDEzLjUzLC42LDIzLjA3LC42LDEyLjEzLDAsMTguOS0uOCwyMS4wOS0yLjE5LC45OS0uOCwxLjM5LTIuNTksMS41OS01LjE3bC45OS0xMC4zNGg1Ljk3Yy0uMiw4LjE2LS42LDE1LjcxLS42LDIzLjA3cy40LDE0LjkyLC42LDIyLjA4aC01Ljk3bC0uOTktMTEuNzRjLS4yLTIuNTktLjYtNC4zNy0xLjU5LTQuOTctMi4xOS0xLjU5LTguOTUtMi4zOS0yMS4wOS0yLjM5LTkuNTUsMC0xNi45MSwwLTIzLjA3LC42djU1LjdjNS41NywxLjM5LDExLjM0LDEuNTksMTYuNzEsMS41OSwxNi4zMSwwLDM2LjYtLjU5LDQwLjE4LTIuNTksMi45OC0xLjU5LDUuNTctMTAuMzUsNi45Ni0yMi4yOGg2Ljk2Yy0xLjk5LDkuNTUtMy4xOCwyMS44OC0zLjE4LDMyLjYyLTcuNTYsLjItMjAuMjksLjU5LTMzLjAyLC41OWgtNi4xN2MtMTUuMzItLjItMzEuMDMtLjU5LTQzLjM3LS41OS03LjU2LDAtMTQuMTIsLjQtMjEuMjksLjU5di01Ljk2bDcuMTYtLjZjNC43Ny0uNCw3LjE2LS45OSw4LjM1LTIuOTgsMS4zOS0yLjE5LDEuNzktNy4zNiwxLjc5LTE0LjkyVjI3Ljg1WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNTgxLjQxLDExNy4xN2MwLDcuNTYsLjQsMTIuNzMsMS43OSwxNC45MiwxLjIsMS45OSwzLjU4LDIuNzgsOC4zNiwyLjk4bDkuNTUsLjZ2NS45NmMtMTAuMzUtLjQtMTkuNjktLjU5LTI4Ljg1LS41OS05Ljc1LDAtMTkuMSwuMi0yOS40NCwuNTl2LTUuOTZsOS41NS0uNmM0Ljc4LS4yLDcuMTYtLjk5LDguMzUtMi45OCwxLjM5LTIuMTksMS43OS03LjM2LDEuNzktMTQuOTJ2LTQ0LjM2Yy0yLjM5LS4yLTcuNzYtLjQtMTYuNTEtLjRoLTQ2LjU1Yy04Ljc1LDAtMTQuMTIsLjItMTYuNTEsLjR2NDQuMzZjMCw3LjU2LC40LDEyLjczLDEuNzksMTQuOTIsMS4xOSwxLjk5LDMuNTgsMi43OCw4LjM1LDIuOThsOS41NSwuNnY1Ljk2Yy0xMC4zNC0uNC0xOS42OS0uNTktMjguODQtLjU5LTkuNzUsMC0xOS4xLC4yLTI5LjQ0LC41OXYtNS45Nmw5LjU1LS42YzQuNzctLjIsNy4xNi0uOTksOC4zNS0yLjk4LDEuMzktMi4xOSwxLjc5LTcuMzYsMS43OS0xNC45MlYyNy44NWMwLTcuNTYtLjQtMTIuNzMtMS43OS0xNC45Mi0xLjE5LTEuOTktMy41OC0yLjc4LTguMzUtMi45OGwtOS41NS0uNlYzLjM4YzEwLjM0LC40LDE5LjY5LC42LDI5LjQ0LC42LDkuMTUsMCwxOC41LS4yLDI4Ljg0LS42djUuOTdsLTkuNTUsLjZjLTQuNzcsLjItNy4xNiwxLTguMzUsMi45OC0xLjM5LDIuMTktMS43OSw3LjM2LTEuNzksMTQuOTJWNjMuMjZjMi4zOSwuMiw3Ljc2LC40LDE2LjUxLC40aDQ2LjU1YzguNzUsMCwxNC4xMi0uMiwxNi41MS0uNFYyNy44NWMwLTcuNTYtLjQtMTIuNzMtMS43OS0xNC45Mi0xLjE5LTEuOTktMy41OC0yLjc4LTguMzUtMi45OGwtOS41NS0uNlYzLjM4YzEwLjM1LC40LDE5LjY5LC42LDI5LjQ0LC42LDkuMTUsMCwxOC41LS4yLDI4Ljg1LS42djUuOTdsLTkuNTUsLjZjLTQuNzgsLjItNy4xNiwxLTguMzYsMi45OC0xLjM5LDIuMTktMS43OSw3LjM2LTEuNzksMTQuOTJWMTE3LjE3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNjU2Ljk5LDExNy4xN2MwLDcuNTYsLjQsMTIuNzMsMS43OSwxNC45MiwxLjE5LDEuOTksMy41OCwyLjc4LDguMzUsMi45OGw5LjU1LC42djUuOTZjLTEwLjM0LS40LTE5LjY5LS41OS0yOC44NC0uNTktOS43NSwwLTE5LjEsLjItMjkuNDQsLjU5di01Ljk2bDkuNTUtLjZjNC43OC0uMiw3LjE2LS45OSw4LjM1LTIuOTgsMS4zOS0yLjE5LDEuNzktNy4zNiwxLjc5LTE0LjkyVjI3Ljg1YzAtNy41Ni0uNC0xMi43My0xLjc5LTE0LjkyLTEuMTktMS45OS0zLjU4LTIuNzgtOC4zNS0yLjk4bC05LjU1LS42VjMuMzhjMTAuMzQsLjQsMTkuNjksLjYsMjkuNDQsLjYsOS4xNSwwLDE4LjUtLjIsMjguODQtLjZ2NS45N2wtOS41NSwuNmMtNC43NywuMi03LjE2LDEtOC4zNSwyLjk4LTEuMzksMi4xOS0xLjc5LDcuMzYtMS43OSwxNC45MlYxMTcuMTdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik04MDQuMzksMTAxLjQ1YzAtNC41OC0xLjU5LTYuNTctNi43Ni02Ljk2bC0xNi41MS0xLjM5di01Ljk3YzguMTYsLjIsMTYuMzEsLjQsMjQuMjcsLjRzMTYuMzEtLjIsMjQuNDctLjRsLjc5LDQuOTctNS43NywxLjk5Yy0yLjE5LC44LTIuMTksMS41OS0yLjE5LDcuMzZ2MzMuNDJjLTE3LjExLDQuOTctMzguNTksMTAuMTUtNTIuMzIsMTAuMTUtNDQuMzYsMC04MC4xNy0yMy4wOC04MC4xNy03MywwLTQzLjc3LDM2LTcyLjAxLDgzLjk0LTcyLjAxLDI0LjY3LDAsNDAuMTgsNS41Nyw0OS4zMyw4LjE2LTIuMzksOS4zNS0zLjk4LDE5Ljg5LTMuOTgsMzAuMjRoLTYuMTZ2LTEwLjU0YzAtOS4zNS03LjE2LTEyLjUzLTE2LjUxLTE1LjkxLTYuMzYtMi4xOS0xNC45Mi0zLjU4LTI3Ljg1LTMuNTgtMzcuNzksMC01Ny40OSwyNC44Ni01Ny40OSw2MC4yNywwLDM5LjU5LDIzLjA3LDY4LjAzLDY0LjA1LDY4LjAzLDE1LjMyLDAsMjYuNjYtMy4zOCwyNy44NS02Ljk2LC43OS0yLjE5LC45OS0zLjE4LC45OS04LjE2di0yMC4wOVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtNCIgZD0iTTk3OS42MywxMTcuMTdjMCw3LjU2LC40LDEyLjczLDEuNzksMTQuOTIsMS4yLDEuOTksMy41OCwyLjc4LDguMzYsMi45OGw5LjU1LC42djUuOTZjLTEwLjM1LS40LTE5LjY5LS41OS0yOC44NS0uNTktOS43NSwwLTE5LjA5LC4yLTI5LjQ0LC41OXYtNS45Nmw5LjU1LS42YzQuNzgtLjIsNy4xNi0uOTksOC4zNS0yLjk4LDEuMzktMi4xOSwxLjc5LTcuMzYsMS43OS0xNC45MnYtNDQuMzZjLTIuMzktLjItNy43Ni0uNC0xNi41MS0uNGgtNDYuNTVjLTguNzUsMC0xNC4xMiwuMi0xNi41MSwuNHY0NC4zNmMwLDcuNTYsLjQsMTIuNzMsMS43OSwxNC45MiwxLjE5LDEuOTksMy41OCwyLjc4LDguMzUsMi45OGw5LjU1LC42djUuOTZjLTEwLjM0LS40LTE5LjY5LS41OS0yOC44NC0uNTktOS43NSwwLTE5LjEsLjItMjkuNDQsLjU5di01Ljk2bDkuNTUtLjZjNC43OC0uMiw3LjE2LS45OSw4LjM1LTIuOTgsMS4zOS0yLjE5LDEuNzktNy4zNiwxLjc5LTE0LjkyVjI3Ljg1YzAtNy41Ni0uNC0xMi43My0xLjc5LTE0LjkyLTEuMTktMS45OS0zLjU4LTIuNzgtOC4zNS0yLjk4bC05LjU1LS42VjMuMzhjMTAuMzQsLjQsMTkuNjksLjYsMjkuNDQsLjYsOS4xNSwwLDE4LjUtLjIsMjguODQtLjZ2NS45N2wtOS41NSwuNmMtNC43NywuMi03LjE2LDEtOC4zNSwyLjk4LTEuMzksMi4xOS0xLjc5LDcuMzYtMS43OSwxNC45MlY2My4yNmMyLjM5LC4yLDcuNzYsLjQsMTYuNTEsLjRoNDYuNTVjOC43NSwwLDE0LjEyLS4yLDE2LjUxLS40VjI3Ljg1YzAtNy41Ni0uNC0xMi43My0xLjc5LTE0LjkyLTEuMTktMS45OS0zLjU4LTIuNzgtOC4zNS0yLjk4bC05LjU1LS42VjMuMzhjMTAuMzUsLjQsMTkuNjksLjYsMjkuNDQsLjYsOS4xNSwwLDE4LjUtLjIsMjguODUtLjZ2NS45N2wtOS41NSwuNmMtNC43OCwuMi03LjE2LDEtOC4zNiwyLjk4LTEuMzksMi4xOS0xLjc5LDcuMzYtMS43OSwxNC45MlYxMTcuMTdaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNMjEyLjc3LDE3My42NWMwLTIuMjEtLjEyLTMuNzItLjUyLTQuMzYtLjM1LS41OC0xLjA1LS44MS0yLjQ0LS44N2wtMi43OS0uMTh2LTEuNzRjMy4wMiwuMTIsNS43NSwuMTgsOC42LC4xOCwyLjY3LDAsNS40LS4wNiw4LjQyLS4xOHYxLjc0bC0yLjc5LC4xOGMtMS40LC4wNi0yLjA5LC4yOS0yLjQ0LC44Ny0uNDEsLjY0LS41MiwyLjE1LS41Miw0LjM2djE5Ljk5YzAsOC4yNSw0LjMsMTAuNjMsMTEuOTcsMTAuNjMsNi4yNywwLDExLjk3LTIuMzgsMTEuOTctMTIuMDN2LTE4LjU5YzAtMi4yMS0uMTItMy43Mi0uNTItNC4zNi0uMzUtLjU4LTEuMDUtLjc1LTIuNDQtLjg3bC0yLjU2LS4xOHYtMS43NGMyLjMyLC4wNiw0LjY1LC4xOCw2Ljc0LC4xOCwyLjMyLDAsNC40Mi0uMTIsNi45Ny0uMTh2MS43NGwtMi41NiwuMThjLTEuNCwuMTItMi4wOSwuMjktMi40NCwuODctLjQxLC42NC0uNTIsMi4xNS0uNTIsNC4zNnYxNi43OWMwLDEyLjQzLTQuNzEsMTcuNDMtMTYuNDQsMTcuNDMtOS44OCwwLTE1LjY5LTIuOTYtMTUuNjktMTMuNTl2LTIwLjYzWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNMzA2Ljk5LDE3My42NWMwLTIuMjEtLjEyLTMuNzItLjUyLTQuMzYtLjM1LS41OC0xLjA1LS43NS0yLjQ0LS44N2wtMi41Ni0uMTh2LTEuNzRjMi41NiwuMDYsNC44OCwuMTgsNi45NywuMTgsMS4wNSwwLDIuMDktLjEyLDMuMTQtLjE4bDI3Ljc3LDM0LjI4aC4xN3YtMjcuMTNjMC0yLjIxLS4xMi0zLjcyLS41Mi00LjM2LS4zNS0uNTgtMS4wNS0uNzUtMi40NC0uODdsLTIuNTYtLjE4di0xLjc0YzIuMzIsLjA2LDQuNjUsLjE4LDYuNzQsLjE4LDIuMzIsMCw0LjQyLS4xMiw2Ljk3LS4xOHYxLjc0bC0yLjU2LC4xOGMtMS40LC4xMi0yLjA5LC4yOS0yLjQ0LC44Ny0uNDEsLjY0LS41MiwyLjE1LS41Miw0LjM2djMyLjA3YzAsLjcsLjEyLDEuNDUsLjE3LDIuMTVsLTUuMjMtLjkzLTI3LjM2LTMzLjk5aC0uMTJ2MjYuNzhjMCwyLjIxLC4xMiwzLjcyLC41Miw0LjM2LC4zNSwuNTgsMS4wNSwuNzUsMi40NCwuODdsMi41NiwuMTh2MS43NGMtMi41Ni0uMDYtNC42NS0uMTgtNi45Ny0uMTgtMi4wOSwwLTQuNDIsLjEyLTYuNzQsLjE4di0xLjc0bDIuNTYtLjE4YzEuMzktLjEyLDIuMDktLjI5LDIuNDQtLjg3LC40MS0uNjQsLjUyLTIuMTUsLjUyLTQuMzZ2LTI2LjA4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNDEwLjI3LDE5OS43M2MwLDIuMjEsLjEyLDMuNzIsLjUyLDQuMzYsLjM1LC41OCwxLjA1LC44MSwyLjQ0LC44N2wyLjc5LC4xOHYxLjc0Yy0zLjAyLS4xMi01Ljc1LS4xOC04LjQyLS4xOC0yLjg1LDAtNS41OCwuMDYtOC42LC4xOHYtMS43NGwyLjc5LS4xOGMxLjM5LS4wNiwyLjA5LS4yOSwyLjQ0LS44NywuNDEtLjY0LC41Mi0yLjE1LC41Mi00LjM2di0yNi4wOGMwLTIuMjEtLjEyLTMuNzItLjUyLTQuMzYtLjM1LS41OC0xLjA1LS44MS0yLjQ0LS44N2wtMi43OS0uMTh2LTEuNzRjMy4wMiwuMTIsNS43NSwuMTgsOC42LC4xOCwyLjY3LDAsNS40LS4wNiw4LjQyLS4xOHYxLjc0bC0yLjc5LC4xOGMtMS40LC4wNi0yLjA5LC4yOS0yLjQ0LC44Ny0uNDEsLjY0LS41MiwyLjE1LS41Miw0LjM2djI2LjA4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNDg4LjY0LDE5OS42N2wxMC42My0yNy40OGMuMzUtLjg3LC41Mi0xLjU3LC41Mi0yLjA5LDAtMS4zNC0uOTMtMS42My0yLjA0LTEuNjhsLTMuMDItLjE4di0xLjc0YzIuMDksLjA2LDQuMTIsLjE4LDYuMjcsLjE4czQuMTgtLjEyLDYuMjctLjE4djEuNzRsLTEuNzQsLjE4Yy0xLjIyLC4xMi0xLjk4LDEuMzktMy4xNCw0LjE4bC0xMC4xMSwyNC40NmMtMS4zOSwzLjMxLTIuNjcsNi42Mi0zLjcyLDEwLjE3aC0yLjkxYy0uOTMtMy40My0yLjIxLTYuNzQtMy4zNy05LjU5bC0xMC45Mi0yNi44NGMtLjc1LTEuODYtMS41Ny0yLjMyLTIuNTYtMi4zOGwtMi4wOS0uMTh2LTEuNzRjMi41NiwuMDYsNS4xMSwuMTgsNy43MywuMThzNS4xNy0uMTIsNy43My0uMTh2MS43NGwtMy4yNSwuMThjLS45MywuMDYtMS44NiwuMjktMS44NiwxLjE2LDAsLjE3LDAsLjQxLC4xMiwuNjRsMTEuNDUsMjkuNDVaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik01NjQuMjEsMTczLjY1YzAtMi4yMS0uMTItMy43Mi0uNTItNC4zNi0uMzUtLjU4LTEuMDUtLjgxLTIuNDQtLjg3bC0yLjc5LS4xOHYtMS43NGMxLjYzLDAsMy4yNSwuMDYsNC44OCwuMTIsMS42MywwLDMuMzEsLjA2LDQuOTQsLjA2LDUuMDUsMCwxMC40LS4xOCwxMy43MS0uMTgsMi42MSwwLDUuMjMsLjA2LDcuNDksLjE4LS42NCwyLjU2LS45Myw1Ljg3LS45Myw4LjgzaC0yLjAzdi0zLjc4YzAtLjc1LS4wNi0xLjM5LS41Mi0xLjU3LTMuMDgtMS4xNi03LjY3LTEuMjItMTEuMzktMS4yMi0xLjU3LDAtMy4yNSwuMDYtNC44OCwuNDZ2MTUuNTFjMS44NiwuMTIsMy45NSwuMTgsNi43NCwuMTgsMy41NCwwLDUuNTItLjIzLDYuMTYtLjY0LC4yOS0uMjMsLjQxLS43NiwuNDYtMS41MWwuMjktMy4wMmgxLjc0Yy0uMDYsMi4zOC0uMTcsNC41OS0uMTcsNi43NHMuMTIsNC4zNiwuMTcsNi40NWgtMS43NGwtLjI5LTMuNDNjLS4wNi0uNzYtLjE4LTEuMjgtLjQ2LTEuNDUtLjY0LS40Ni0yLjYyLS43LTYuMTYtLjctMi43OSwwLTQuOTQsMC02Ljc0LC4xN3YxNi4yN2MxLjYzLC40MSwzLjMxLC40Niw0Ljg4LC40Niw0Ljc2LDAsMTAuNjktLjE4LDExLjczLS43NiwuODctLjQ2LDEuNjMtMy4wMiwyLjA0LTYuNWgyLjAzYy0uNTgsMi43OS0uOTMsNi4zOS0uOTMsOS41My0yLjIxLC4wNi01LjkzLC4xOC05LjY0LC4xOGgtMS44Yy00LjQ3LS4wNi05LjA2LS4xOC0xMi42Ny0uMTgtMi4yMSwwLTQuMTMsLjEyLTYuMjIsLjE4di0xLjc0bDIuMDktLjE4YzEuNC0uMTIsMi4wOS0uMjksMi40NC0uODcsLjQxLS42NCwuNTItMi4xNSwuNTItNC4zNnYtMjYuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik02NTQuMTksMTk5LjczYzAsMi4yMSwuMTIsMy43MiwuNTIsNC4zNiwuMzUsLjU4LDEuMDUsLjgxLDIuNDQsLjg3bDIuNzksLjE4djEuNzRjLTMuMDItLjEyLTUuNzUtLjE4LTguNDItLjE4LTIuODUsMC01LjU4LC4wNi04LjYsLjE4di0xLjc0bDIuNzktLjE4YzEuMzktLjA2LDIuMDktLjI5LDIuNDQtLjg3LC40MS0uNjQsLjUyLTIuMTUsLjUyLTQuMzZ2LTI2LjA4YzAtMi4yMS0uMTItMy43Mi0uNTItNC4zNi0uMzUtLjU4LTEuMDUtLjc1LTIuNDQtLjg3bC0yLjM4LS4xOHYtMS43NGMzLjA4LC4wNiw2LjQ1LC4xOCw5Ljg4LC4xOHM2LjgtLjEyLDEwLjE3LS4xOGguNTJjOC44OSwwLDExLjIxLDQuNTksMTEuMjEsOC43MiwwLDYuMzMtNS42OSwxMC4xMS0xMS4zMywxMS4yMWwxMy4xOSwxNy4yYy44NywxLjE2LDIuMTUsMS4zOSwzLjU0LDEuNTF2MS43NGMtMS41MS0uMDYtMi44NS0uMTgtNC4xOC0uMThzLTIuNjEsLjEyLTMuOTUsLjE4Yy0uNzYtMS4xMS0xLjYzLTIuMDktMi4zOC0zLjE0bC0xMC42OS0xNC4zNWMtLjkzLTEuMjgtMi4wMy0yLjM4LTMuMDItMy42bC4zNS0uN2MuNTIsLjA2LC45OSwuMDYsMS41NywuMDYsMS4xNiwwLDIuMzItLjEyLDMuNTQtLjI5LDQuMDctLjcsNy41NS0zLjgzLDcuNTUtOC4xMywwLTYuMjctNC42NS04LjAyLTkuMTgtOC4wMi0yLjYxLDAtNC4zLC4yOS01LjkzLC43djMwLjMzWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNzUzLjUzLDE3Ni4xNGwtLjM1LTMuMzFjLS4xNy0xLjU3LS40MS0yLjE1LTIuNTYtMy40OS0xLjYzLS45OS00LjA3LTEuMzktNi4zMy0xLjM5LTQuMDcsMC04LjYsMi43My04LjYsOC40OCwwLDMuOTUsMi4zMiw2LjM5LDkuNTksNy4yLDguMTksLjg3LDEzLjM2LDIuOTEsMTMuMzYsOS41MywwLDkuOTMtOC44OSwxNC43LTE3LjU1LDE0LjctNC4wNywwLTguMDItMS4yOC05LjkzLTIuMjEsLjM1LTIuMjEsLjQxLTQuNTMsLjQxLTYuNjh2LTIuMjFoMS44NmwuNDYsMy44OWMuMjksMi40NCw0Ljg4LDQuNjUsOS40Nyw0LjY1LDUuMjMsMCwxMC40LTMuMiwxMC40LTguOTVzLTQuMy03LjA5LTEwLjIyLTcuNzhjLTkuMTItMS4wNS0xMi43Mi0zLjg5LTEyLjcyLTkuOTQsMC05LDcuOS0xMy4xMywxNC44Ny0xMy4xMyw0LjY1LDAsOC4xMywxLjUxLDEwLjUyLDIuNDQtLjU4LDIuOTYtLjgxLDUuNDYtLjgxLDguMTloLTEuODZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik04MjEuNDMsMTk5LjczYzAsMi4yMSwuMTIsMy43MiwuNTIsNC4zNiwuMzUsLjU4LDEuMDUsLjgxLDIuNDQsLjg3bDIuNzksLjE4djEuNzRjLTMuMDItLjEyLTUuNzUtLjE4LTguNDMtLjE4LTIuODUsMC01LjU4LC4wNi04LjYsLjE4di0xLjc0bDIuNzktLjE4YzEuMzktLjA2LDIuMDktLjI5LDIuNDQtLjg3LC40MS0uNjQsLjUyLTIuMTUsLjUyLTQuMzZ2LTI2LjA4YzAtMi4yMS0uMTItMy43Mi0uNTItNC4zNi0uMzUtLjU4LTEuMDUtLjgxLTIuNDQtLjg3bC0yLjc5LS4xOHYtMS43NGMzLjAyLC4xMiw1Ljc1LC4xOCw4LjYsLjE4LDIuNjcsMCw1LjQtLjA2LDguNDMtLjE4djEuNzRsLTIuNzksLjE4Yy0xLjM5LC4wNi0yLjA5LC4yOS0yLjQ0LC44Ny0uNDEsLjY0LS41MiwyLjE1LS41Miw0LjM2djI2LjA4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNODkyLjQ3LDE3NS4xNmMwLTIuMjEtLjA2LTQuMDctLjIzLTUuODFoLTljLTEuNzQsMC0yLjIxLC41Mi0yLjMyLDEuOTJsLS4yMyw0LjU5aC0xLjhjMC0zLjE0LS4xMi02LjMzLS40MS05LjM2LDQuMTgsMCw4LjM3LC4xOCwxMi41NSwuMThoOC40MmMyLjA5LDAsNC4xOC0uMDYsNi4yNy0uMTIsMi4wOSwwLDQuMTgtLjA2LDYuMjctLjA2LS4yOSwzLjAyLS40MSw2LjIyLS40MSw5LjM2aC0xLjhsLS4yMy00LjU5Yy0uMTItMS4zOS0uNTgtMS45Mi0yLjMyLTEuOTJoLTkuMDFjLS4xNywxLjc0LS4yMywzLjYtLjIzLDUuODF2MjQuNThjMCwyLjIxLC4xMiwzLjcyLC41Miw0LjM2LC4zNSwuNTgsMS4wNSwuODEsMi40NCwuODdsMi43OSwuMTh2MS43NGMtMy4wMi0uMTItNS43NS0uMTgtOC40Mi0uMTgtMi44NSwwLTUuNTgsLjA2LTguNiwuMTh2LTEuNzRsMi43OS0uMThjMS4zOS0uMDYsMi4wOS0uMjksMi40NC0uODcsLjQxLS42NCwuNTItMi4xNSwuNTItNC4zNnYtMjQuNThaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik05ODMuMDksMTg2Ljg5bDUuOTgtOS40N2MyLjMyLTMuNjYsNC4zNi03LjMyLDYuMjctMTEuMDRoNC42NXYuODdjLTQuODgsNS42NC0xMS45MSwxNS40NS0xNC4yOSwyMC42My0uNywxLjUxLS44MSwyLjk2LS44MSw0LjM2djcuNDljMCwyLjIxLC4xMiwzLjcyLC41Miw0LjM2LC4zNSwuNTgsMS4wNSwuODEsMi40NCwuODdsMi43OSwuMTh2MS43NGMtMy4wMi0uMTItNS43NS0uMTgtOC40Mi0uMTgtMi44NSwwLTUuNTgsLjA2LTguNiwuMTh2LTEuNzRsMi43OS0uMThjMS4zOS0uMDYsMi4wOS0uMjksMi40NC0uODcsLjQxLS42NCwuNTItMi4xNSwuNTItNC4zNnYtOC4yNWMwLS45My0uMTctMS43NC0uNTItMi4zMmwtNy4yLTEyLjU1Yy0zLjAyLTUuMjMtNS45OC03LjM4LTcuNDQtNy41NWwtMS42OC0uMTh2LTEuNjhsNi42OC0xLjM5Yy4xMiwwLC4xNy0uMDYsLjI5LS4wNiwxLjA1LDAsMS44LDEuMTEsMi43MywyLjIxLC45OSwxLjIyLDEuOCwyLjM4LDIuNTYsMy43N2w4LjMxLDE1LjE3WiIvPgogIDwvZz4KPC9zdmc+"
+       alt="Lehigh University">
   <div class="header-brand">
     <span class="header-brand-dot"></span>
-    Lehigh <strong style="color:var(--brand-maroon)">University</strong>
+    Information Security
     <span class="header-brand-dot"></span>
   </div>
   <h1>Data <span>Classification</span> Framework</h1>
@@ -1044,6 +1209,7 @@
   <!-- Detail panel -->
   <div class="detail-panel" id="detail-panel">
     <div class="detail-accent" id="detail-accent"></div>
+    <div id="wizard-context"></div>
     <div class="detail-header">
       <div class="detail-class-badge" id="detail-badge">
         <span class="badge-num" id="badge-num"></span>
@@ -1153,9 +1319,6 @@
       </div>
       <div class="w-result-actions">
         <button class="w-btn-start-over" onclick="wStartOver()">↺ Start Over</button>
-        <button class="w-btn-view-details" id="w-view-details-btn" onclick="wViewDetails()">
-          View Full Classification Details →
-        </button>
       </div>
     </div>
 
@@ -1175,15 +1338,15 @@
 
 </div>
 
-<footer>
-  Developed by Eric Zematis, CISO — Lehigh University &middot;
-  Based on <a href="https://data.lehigh.edu" target="_blank">data.lehigh.edu</a> classification policy
-</footer>
+
 
 <script>
 // ═══════════════════════════════════════════════════════
 // DATA
 // ═══════════════════════════════════════════════════════
+
+// Official Lehigh Record Management and Retention Policy — referenced by every class
+const RETENTION_POLICY_URL = "https://policy.lehigh.edu/record-management-and-retention-policy";
 
 const CLASSES = [
   {
@@ -1191,8 +1354,8 @@ const CLASSES = [
     num: "Class IV",
     name: "Public / Unrestricted",
     short: "No harm if disclosed; no access controls required",
-    color: "#16a34a",
-    colorBg: "#f0fdf4",
+    color: "#1B3A24",
+    colorBg: "#afedc9",
     icon: "🌐",
     definition: "Data that is intentionally made available to the public or that would cause no harm if disclosed. No access controls are required.",
     examples: [
@@ -1205,6 +1368,7 @@ const CLASSES = [
       "No restrictions on storage, transmission, or sharing",
       "May be posted publicly, emailed freely, and stored in any system",
       "No encryption required",
+      `Retention and disposal still follow the <a href="${RETENTION_POLICY_URL}" target="_blank" rel="noopener">Record Management and Retention Policy</a>`,
     ],
     regulations: [
       "No specific regulatory driver",
@@ -1218,8 +1382,8 @@ const CLASSES = [
     num: "Class III",
     name: "Institutional / Proprietary",
     short: "Internal use only; unauthorized disclosure causes operational or reputational harm",
-    color: "#2563eb",
-    colorBg: "#eff6ff",
+    color: "#12354C",
+    colorBg: "#d1e9e8",
     icon: "🏛️",
     definition: "Data intended for use within Lehigh University that is not meant for public disclosure. No regulatory requirement protects it, but unauthorized disclosure could cause operational, reputational, or competitive harm.",
     examples: [
@@ -1227,14 +1391,21 @@ const CLASSES = [
       "Budget drafts and internal meeting notes",
       "Employee performance discussions",
       "IT system documentation and network diagrams",
-      "Vendor contracts and internal project plans",
+      "Vendor contracts, including non-disclosure agreements",
+      "Internal project plans",
+      "Unpublished research data",
+      "Aggregated, de-identified data about people",
+      "Internal Personal Identification Number (PIDM)",
+      "Personal information used to verify identity — birth dates, mother's maiden name, photographs",
     ],
     handling: [
       "Must not be shared outside Lehigh without authorization",
       "May be stored on Lehigh systems and shared internally without special controls",
       "Not required to be encrypted at rest",
       "Must not be posted publicly or sent to personal email accounts",
+      `Retention and secure disposal follow the <a href="${RETENTION_POLICY_URL}" target="_blank" rel="noopener">Record Management and Retention Policy</a>`,
     ],
+    consequence: "Unauthorized release of this type of data could result in disciplinary action.",
     regulations: [
       "No specific regulatory driver",
       "Contractual obligations such as vendor NDAs may elevate specific documents",
@@ -1248,14 +1419,15 @@ const CLASSES = [
     num: "Class II",
     name: "Restricted Information",
     short: "Sensitive; unauthorized disclosure harms individuals or the institution",
-    color: "#d97706",
-    colorBg: "#fffbeb",
+    color: "#502D0E",
+    colorBg: "#f5e9ad",
     icon: "🔐",
     definition: "Data that is sensitive in nature and whose unauthorized disclosure could cause harm to individuals, the institution, or both. Access should be limited to those with a legitimate need. This is where most regulatory obligations begin.",
     examples: [
       "Student educational records (FERPA)",
       "Employee personnel files",
-      "Unpublished research data and legal correspondence",
+      "Legal records &amp; correspondence",
+      "Human subjects research information",
       "Audit findings and information security configurations",
       "Donor records and non-public institutional financial data",
       "Immigration records and ITAR/EAR controlled research data",
@@ -1267,7 +1439,9 @@ const CLASSES = [
       "Encryption required in transit; strongly recommended at rest",
       "Must not be stored in personal cloud accounts or emailed to personal addresses",
       "Third-party sharing requires a data use agreement or appropriate contract language",
+      `Retention and secure disposal follow the <a href="${RETENTION_POLICY_URL}" target="_blank" rel="noopener">Record Management and Retention Policy</a>`,
     ],
+    consequence: "Unauthorized release of this type of data could result in termination from University employment.",
     regulations: [
       "FERPA (student records including student health and counseling)",
       "GLBA (non-account financial data)",
@@ -1283,10 +1457,10 @@ const CLASSES = [
     num: "Class I",
     name: "Critical Information",
     short: "Highest non-health class; directly monetizable or subject to maximum regulatory penalties",
-    color: "#dc2626",
-    colorBg: "#fff1f2",
+    color: "#ac1d15",
+    colorBg: "#ffded5",
     icon: "🛡️",
-    definition: "Data whose unauthorized disclosure would cause serious harm to individuals or the institution, and that is directly monetizable by attackers or subject to the most stringent regulatory penalties. Access must be tightly controlled, logged, and audited. Lehigh's highest classification for non-health data.",
+    definition: "Information legally classified as breach notifiable, where Lehigh University is required to self-report to the government and/or provide notice to the individual if the information is inappropriately accessed. Unauthorized disclosure would cause serious harm to individuals or the institution, and this data is directly monetizable by attackers or subject to the most stringent regulatory penalties. Access must be tightly controlled, logged, and audited. Lehigh's highest classification for non-health data.",
     examples: [
       "Social security numbers and government-issued ID numbers (passport, driver's license)",
       "Financial account numbers and payment card data (PCI)",
@@ -1299,10 +1473,12 @@ const CLASSES = [
       "Access restricted to minimum required authorized personnel",
       "Must be stored on Lehigh-approved systems with strong access controls, logging, and audit trails",
       "Encryption required in transit and at rest",
-      "Must not be stored in email, spreadsheets, or unmanaged systems",
+      "Must not be stored in email or on unmanaged systems",
+      "Spreadsheets and other loose files are permitted only when kept on an approved access-controlled system — for example, an approved LAN drive. They must not be emailed, downloaded to a local or personal device, or stored in personal cloud accounts",
       "Third-party sharing requires formal data sharing agreement, security review, and legal review",
-      "Retention must follow defined schedules with secure destruction at end of life",
+      `Retention must follow the defined schedules in the <a href="${RETENTION_POLICY_URL}" target="_blank" rel="noopener">Record Management and Retention Policy</a>, with secure destruction at end of life`,
     ],
+    consequence: "Unauthorized release of this type of data could result in termination from University employment.",
     regulations: [
       "GLBA (financial account data)",
       "Pennsylvania breach notification law (Act 14 of 2023 — 73 Pa. Stat. § 2301 et seq.)",
@@ -1318,8 +1494,8 @@ const CLASSES = [
     num: "Class I PHI",
     name: "Protected Health Information",
     short: "Most restrictive; HIPAA-covered health data — BAA required for all third-party vendors",
-    color: "#7c3aed",
-    colorBg: "#faf5ff",
+    color: "#ac1d15",
+    colorBg: "#fcd8d6",
     icon: "🏥",
     definition: "A special operational subset of Class I covering health information created, received, maintained, or transmitted by Lehigh in its capacity as a HIPAA-covered entity or business associate. Applies to non-student health contexts: faculty/staff health plan data, third-party health provider relationships, and any situation where a Business Associate Agreement (BAA) is required. Student health and counseling records are Class II (FERPA), not this class.",
     examples: [
@@ -1336,7 +1512,9 @@ const CLASSES = [
       "Encryption required in transit and at rest",
       "Business Associate Agreements (BAA) required for any third-party vendor that touches this data",
       "Incident response for suspected breach must involve the HIPAA Security and Privacy Officer within 24 hours",
+      `Retention must follow the defined schedules in the <a href="${RETENTION_POLICY_URL}" target="_blank" rel="noopener">Record Management and Retention Policy</a>, with secure destruction at end of life`,
     ],
+    consequence: "Unauthorized release of this type of data could result in termination from University employment.",
     regulations: [
       "HIPAA Privacy Rule",
       "HIPAA Security Rule",
@@ -1355,6 +1533,24 @@ const CLASSES = [
 // ═══════════════════════════════════════════════════════
 
 let activeId = "iv";
+let wizardResult = null;
+// Check LocalStorage for wizard result transfer
+const storedRes = localStorage.getItem('lehigh_wizard_result');
+if (storedRes && W_RESULTS[storedRes]) {
+  wizardResult = W_RESULTS[storedRes];
+  activeId = wizardResult.classId;
+  localStorage.removeItem('lehigh_wizard_result'); // Clear after use
+} else {
+  // Parse URL parameter or Hash as fallback
+  const urlParams = new URLSearchParams(window.location.search);
+  let classParam = urlParams.get('class') || window.location.hash.replace('#', '');
+  if (classParam) {
+    classParam = classParam.toLowerCase();
+    if (CLASSES.some(c => c.id === classParam)) {
+      activeId = classParam;
+    }
+  }
+}
 let compareOpen = false;
 
 // ═══════════════════════════════════════════════════════
@@ -1421,6 +1617,23 @@ function selectClass(id) {
 // ═══════════════════════════════════════════════════════
 
 function renderDetail(cls) {
+  // Wizard Result Branding (if landing from wizard)
+  const ctx = document.getElementById("wizard-context");
+  if (wizardResult && wizardResult.classId === cls.id) {
+    ctx.style.display = "block";
+    ctx.innerHTML = `
+      <div class="w-context-wrap">
+        <div class="w-context-icon">🧭</div>
+        <div>
+          <div class="w-context-title">Your Wizard Result — ${wizardResult.classNum}</div>
+          <div class="w-context-reason">${wizardResult.reason}</div>
+        </div>
+      </div>
+    `;
+  } else {
+    ctx.style.display = "none";
+  }
+
   // Accent bar
   document.getElementById("detail-accent").style.background =
     `linear-gradient(90deg, ${cls.color}, ${cls.color}99)`;
@@ -1451,9 +1664,12 @@ function renderDetail(cls) {
   document.getElementById("sec-examples").innerHTML =
     `<ul>${cls.examples.map(e => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${e}</span></li>`).join("")}</ul>`;
 
-  // Handling
+  // Handling — plus the consequence-of-disclosure statement for Classes I–III
+  const consequenceHTML = cls.consequence
+    ? `<div class="consequence-note"><span class="consequence-icon">⚠️</span><span>${cls.consequence}</span></div>`
+    : "";
   document.getElementById("sec-handling").innerHTML =
-    `<ul>${cls.handling.map(h => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${h}</span></li>`).join("")}</ul>`;
+    `<ul>${cls.handling.map(h => `<li><span class="bullet" style="color:${cls.color}">•</span><span>${h}</span></li>`).join("")}</ul>${consequenceHTML}`;
 
   // Regulations
   document.getElementById("sec-regulations").innerHTML =
@@ -1669,63 +1885,63 @@ const W_QUESTIONS = {
 const W_RESULTS = {
   r_ii_student: {
     classId: "ii", classNum: "Class II", className: "Restricted Information",
-    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
+    icon: "🔐", color: "#502D0E", colorBg: "#f5e9ad",
     reason: "Student health and counseling records at Lehigh are covered under FERPA, not HIPAA. These records are treated as part of the student's educational record and classified as Class II Restricted. A Business Associate Agreement (BAA) is not required for these records.",
     handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
     phi: false
   },
   r_phi_baa: {
     classId: "phi", classNum: "Class I PHI", className: "Protected Health Information",
-    icon: "🏥", color: "#7c3aed", colorBg: "#faf5ff",
+    icon: "🏥", color: "#ac1d15", colorBg: "#fcd8d6",
     reason: "This data constitutes Protected Health Information (PHI) under HIPAA. Lehigh is acting as a covered entity or business associate. A BAA is required for any vendor or third party that touches this data. This is the most restrictive classification at Lehigh.",
     handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
     phi: true
   },
   r_phi_no_baa: {
     classId: "phi", classNum: "Class I PHI", className: "Protected Health Information",
-    icon: "🏥", color: "#7c3aed", colorBg: "#faf5ff",
+    icon: "🏥", color: "#ac1d15", colorBg: "#fcd8d6",
     reason: "This data constitutes Protected Health Information (PHI) under HIPAA because Lehigh is creating, receiving, maintaining, or transmitting health information for a non-student population in its capacity as a covered entity. Even without an immediate vendor relationship, PHI handling rules and HIPAA compliance requirements apply.",
     handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
     phi: true
   },
   r_i: {
     classId: "i", classNum: "Class I", className: "Critical Information",
-    icon: "🛡️", color: "#dc2626", colorBg: "#fff1f2",
+    icon: "🛡️", color: "#ac1d15", colorBg: "#ffded5",
     reason: "This data is directly monetizable by attackers and is breach-notifiable under Pennsylvania law (73 Pa. Stat. § 2301 et seq.) and applicable federal regulations including GLBA and PCI-DSS. It requires the highest level of protection for non-health data at Lehigh.",
     handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires formal data sharing agreement, security review, and legal review.",
     phi: false
   },
   r_ii_ferpa: {
     classId: "ii", classNum: "Class II", className: "Restricted Information",
-    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
+    icon: "🔐", color: "#502D0E", colorBg: "#f5e9ad",
     reason: "Student academic records are protected under the Family Educational Rights and Privacy Act (FERPA). Access is restricted to those with a legitimate educational interest. This data may not be shared externally without student consent except as permitted by FERPA.",
     handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
     phi: false
   },
   r_ii_export: {
     classId: "ii", classNum: "Class II", className: "Restricted Information",
-    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
+    icon: "🔐", color: "#502D0E", colorBg: "#f5e9ad",
     reason: "Export-controlled research data is subject to federal regulations under the International Traffic in Arms Regulations (ITAR), Export Administration Regulations (EAR), or the Defense Federal Acquisition Regulation Supplement (DFARS). Unauthorized disclosure could result in federal penalties and loss of research funding.",
     handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
     phi: false
   },
   r_ii_other: {
     classId: "ii", classNum: "Class II", className: "Restricted Information",
-    icon: "🔐", color: "#d97706", colorBg: "#fffbeb",
+    icon: "🔐", color: "#502D0E", colorBg: "#f5e9ad",
     reason: "This data is regulated or restricted by federal law, state law, or contractual obligation. Access should be limited to those with a legitimate need to know. External sharing requires a data use agreement or appropriate contract language.",
     handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
     phi: false
   },
   r_iii: {
     classId: "iii", classNum: "Class III", className: "Institutional / Proprietary Information",
-    icon: "🏛️", color: "#2563eb", colorBg: "#eff6ff",
+    icon: "🏛️", color: "#12354C", colorBg: "#d1e9e8",
     reason: "This data is not regulated but is sensitive to Lehigh's operations. Examples include budget drafts, org charts, internal policies, network diagrams, and vendor contracts. It should not be shared outside Lehigh without authorization.",
     handling: "For internal use only. Store on Lehigh-approved systems. Do not post publicly or send to personal email accounts. No encryption required but avoid external sharing without authorization.",
     phi: false
   },
   r_iv: {
     classId: "iv", classNum: "Class IV", className: "Public / Unrestricted Information",
-    icon: "🌐", color: "#16a34a", colorBg: "#f0fdf4",
+    icon: "🌐", color: "#1B3A24", colorBg: "#afedc9",
     reason: "This data can be freely shared and disclosed. No access controls, encryption, or special handling are required. Examples include published research, the course catalog, public event information, and press releases.",
     handling: "No restrictions. May be stored anywhere, shared freely, and posted publicly. No encryption required.",
     phi: false
@@ -1859,20 +2075,6 @@ function wStartOver() {
   }, 200);
 }
 
-function wViewDetails() {
-  if (!wCurrentResultClassId) return;
-  const classId = wCurrentResultClassId;
-  // Close wizard
-  wizardOpen = false;
-  document.getElementById("wizard-area").style.display = "none";
-  document.getElementById("wizard-btn").classList.remove("active");
-  document.getElementById("wizard-btn").innerHTML = "🧭 Classification Wizard";
-  // Show selector + detail panel
-  document.getElementById("selector").style.display = "grid";
-  // Select the result class
-  selectClass(classId);
-}
-
 function wFadeCard(id, callback) {
   const card = document.getElementById(id);
   card.classList.add("fade-out");
@@ -1897,8 +2099,14 @@ const STORAGE_PLATFORMS = [
     status: { c1phi: "ok", c1: "ok", c2: "ok", c3: "ok", c4: "ok" }
   },
   {
-    name: "AWS – Lehigh Administrative Data Lake (LADL)",
-    status: { c1phi: "ok", c1: "ok", c2: "ok", c3: "ok", c4: "ok" }
+    name: "AWS – Lehigh Enterprise Analytics Platform (LEAP)",
+    status: { c1phi: "ok", c1: "ok", c2: "ok", c3: "ok", c4: "ok" },
+    note: "Formerly the Lehigh Administrative Data Lake (LADL)."
+  },
+  {
+    name: "Lehigh-Owned, LTS-Managed Whole-Disk-Encrypted Devices",
+    status: { c1phi: "no", c1: "conditional", c2: "ok", c3: "ok", c4: "ok" },
+    note: "Device must be enrolled in LTS management with whole-disk encryption verified. Class I use requires Information Security approval and is limited to the minimum data necessary."
   },
   {
     name: "REDCap",
@@ -1973,11 +2181,13 @@ const STORAGE_PLATFORMS = [
   },
   {
     name: "Drupal and Lehigh Hosted Webpages",
-    status: { c1phi: "no", c1: "no", c2: "no", c3: "ok", c4: "ok" }
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "conditional", c4: "ok" },
+    note: "Class III content is permitted only on pages restricted behind Lehigh authentication. Publicly accessible pages may carry Class IV information only."
   },
   {
     name: "Web and Storage Space",
-    status: { c1phi: "no", c1: "no", c2: "no", c3: "ok", c4: "ok" }
+    status: { c1phi: "no", c1: "no", c2: "no", c3: "conditional", c4: "ok" },
+    note: "Class III content is permitted only where access is restricted behind Lehigh authentication. Publicly accessible pages and directories may carry Class IV information only."
   },
   {
     name: "Unmanaged Devices (Lehigh or Personal)",
@@ -2042,16 +2252,30 @@ function renderStorageGuidance(classKey) {
 
   // Resolve accent color from active class
   const cls = CLASSES.find(c => CLASS_TO_SG_KEY[c.id] === classKey);
-  const accent = cls ? cls.color : "var(--brand-maroon)";
+  const accent = cls ? cls.color : "var(--lehigh-brown)";
+
+  // Sort order: approved → conditional → not approved, then alphabetically by name
+  const STATUS_RANK = { ok: 0, conditional: 1, no: 2 };
 
   function buildRows(platforms) {
-    return platforms.map(p => {
+    const sorted = [...platforms].sort((a, b) => {
+      const rankDiff = STATUS_RANK[a.status[classKey]] - STATUS_RANK[b.status[classKey]];
+      if (rankDiff !== 0) return rankDiff;
+      // Alphabetize on the name as displayed, ignoring any trailing footnote marker
+      const key = n => n.replace(/\*+$/, "");
+      return key(a.name).localeCompare(key(b.name), "en", { sensitivity: "base" });
+    });
+
+    let prevStatus = null;
+    return sorted.map(p => {
       const s = p.status[classKey];
       const icon = statusIcon[s];
+      const bandStart = (prevStatus !== null && prevStatus !== s) ? " sg-band-start" : "";
+      prevStatus = s;
       const noteHTML = (s !== "no" && p.note)
         ? `<span class="sg-note">${p.note}</span>`
         : "";
-      return `<tr class="sg-row sg-${s}">
+      return `<tr class="sg-row sg-${s}${bandStart}">
         <td class="sg-icon-cell">${icon}</td>
         <td class="sg-name">${p.name}${noteHTML}</td>
       </tr>`;
@@ -2064,7 +2288,12 @@ function renderStorageGuidance(classKey) {
         <span class="sg-title-icon">💾</span>
         <h2 class="sg-heading" style="color:${accent}">Where can I store or use this data?</h2>
       </div>
-      <p class="sg-subhead">Based on your classification result. ⚠ Conditional approvals require additional steps — see the note inline.</p>
+      <p class="sg-subhead">Based on your classification result. Listed approved first, then conditional, then not approved — alphabetically within each group.</p>
+      <p class="sg-legend">
+        <span class="sg-legend-item sg-ok"><span class="sg-icon-cell"><span>✔</span></span> Approved</span>
+        <span class="sg-legend-item sg-conditional"><span class="sg-icon-cell"><span>⚠</span></span> Conditional — see the note inline</span>
+        <span class="sg-legend-item sg-no"><span class="sg-icon-cell"><span>✘</span></span> Not approved</span>
+      </p>
 
       <h3 class="sg-section-title" style="color:${accent}">
         <span>🗄️</span> Storage &amp; Collaboration
@@ -2076,7 +2305,7 @@ function renderStorageGuidance(classKey) {
       </h3>
       <table class="sg-table"><tbody>${buildRows(AI_PLATFORMS)}</tbody></table>
 
-      <p class="sg-footer">Questions? Contact <a href="mailto:infosec@lehigh.edu">infosec@lehigh.edu</a> &middot; Information Security.</p>
+      <p class="sg-footer">Questions? Contact <a href="mailto:security@lehigh.edu">security@lehigh.edu</a> &middot; Information Security.</p>
     </div>
   `;
 
@@ -2086,9 +2315,32 @@ function renderStorageGuidance(classKey) {
 
 // ═══════════════════════════════════════════════════════
 // INIT
-// ═══════════════════════════════════════════════════════
+function initFramework() {
+  const target = CLASSES.find(c => c.id === activeId);
+  if (target) {
+    // Force panel visibility
+    const panel = document.getElementById("detail-panel");
+    if (panel) panel.style.display = "block";
+    
+    // Perform initial render
+    renderDetail(target);
+    
+    // Auto-scroll logic for deep-links or wizard results
+    const isFromWizard = !!wizardResult;
+    if (isFromWizard || window.location.search || window.location.hash) {
+      setTimeout(() => {
+        const dest = isFromWizard ? panel : document.getElementById(`sel-${activeId}`);
+        if (dest) dest.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 400);
+    }
+  }
+}
 
-renderDetail(CLASSES.find(c => c.id === activeId));
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initFramework);
+} else {
+  initFramework();
+}
 </script>
 </body>
 </html>
