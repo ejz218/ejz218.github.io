@@ -12,24 +12,55 @@
   <title>Lehigh University Data Classification Wizard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: DopisRegular;
+      src: url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisRegular.woff2") format("woff2"),
+           url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisRegular.woff") format("woff");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: DopisBold;
+      src: url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisBold.woff2") format("woff2"),
+           url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisBold.woff") format("woff");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: DopisCondensedBold;
+      src: url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisCondensedBold.woff2") format("woff2"),
+           url("https://www.lehigh.edu/~inis/fonts/Web-Dopis-Family-Pack/DopisCondensedBold.woff") format("woff");
+      font-display: swap;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --brand-maroon: #8B1A1A;
-      --brand-brown:  #4A3728;
-      --brand-gold:   #C8962E;
-      --brand-dark:   #2d0808;
-      --bg:        #f6f7f8;
+      /* ── Official Lehigh palette (Brand Hub — verified values) ──
+         This page previously used approximations (#8B1A1A firebrick,
+         #4A3728 brown, #C8962E gold, slate greys). Every token below is an
+         official value, matching the framework page. */
+      --lehigh-brown: #502d0e;   /* Primary since 1867 */
+      --lehigh-gold:  #ffe41e;   /* Golden Hour */
+      --night-sky:    #12354c;
+      --gold-k20:     #d5bf4d;
+      --autumn-dusk:  #eba033;   /* Core secondary — Class II severity accent */
+
+      /* Aliases kept so existing rules resolve; both point at official values */
+      --brand-maroon: var(--lehigh-brown);
+      --brand-brown:  var(--lehigh-brown);
+      --brand-gold:   var(--lehigh-gold);
+      --brand-dark:   var(--night-sky);
+
+      --bg:        #f4f3f2;   /* Grey 20 */
       --surface:   #ffffff;
-      --surface2:  #f1f5f9;
-      --text:      #1a0f09;
-      --muted:     #64748b;
-      --border:    rgba(74,55,40,0.1);
+      --surface2:  #f6f4f2;   /* Lehigh Brown 02 */
+      --text:      #212529;   /* Base font color */
+      --muted:     #6a6764;   /* Grey K60 */
+      --border:    rgba(80,45,14,0.10);
       --radius:    16px;
-      --shadow:    0 4px 24px rgba(74,55,40,0.10);
-      --shadow-sm: 0 2px 10px rgba(74,55,40,0.07);
+      --shadow:    0 4px 24px rgba(80,45,14,0.10);
+      --shadow-sm: 0 2px 10px rgba(80,45,14,0.07);
     }
 
     body {
@@ -46,16 +77,63 @@
       margin-bottom: 2.25rem;
     }
 
+    /* Official Lehigh logo — primary lockup, full color on light background */
+    .header-logo {
+      display: block;
+      width: 240px;
+      max-width: 70%;
+      height: auto;
+      /* Clear space: at least the height of the mark on all sides */
+      margin: 0 auto 3rem;
+    }
+
     .header-brand {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.6rem;
-      font-size: 0.78rem;
+      /* Dopis Condensed is uppercase-only — a hard brand rule */
+      font-family: DopisCondensedBold, "Barlow Condensed", 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--muted);
+    }
+
+    /* Screen-reader-only utility for live-region announcements */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* Visible focus indicator (WCAG 2.1 AA, SC 2.4.7) */
+    :where(button, a[href], [tabindex]):focus-visible {
+      outline: 3px solid var(--brand-dark);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    /* Respect the operating system reduced-motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+      .btn-yes:hover, .btn-no:hover, .btn-start-over:hover, .btn-learn-more:hover {
+        transform: none;
+      }
+    }
+
+    .footer-meta {
+      font-size: 0.72rem;
+      opacity: 0.85;
+      max-width: 46rem;
+      margin: 0.35rem auto 0;
+      line-height: 1.5;
     }
 
     .header-brand-dot {
@@ -67,9 +145,10 @@
     }
 
     header h1 {
+      font-family: DopisBold, 'Sora', 'Inter', sans-serif;
       font-size: 1.65rem;
-      font-weight: 900;
-      letter-spacing: -0.03em;
+      font-weight: 800;
+      letter-spacing: 0;
       color: var(--text);
     }
 
@@ -132,7 +211,7 @@
 
     .wizard-progress-track {
       height: 5px;
-      background: rgba(74,55,40,0.1);
+      background: rgba(80,45,14,0.1);
       border-radius: 99px;
       overflow: hidden;
     }
@@ -168,7 +247,7 @@
       font-size: 1.15rem;
       font-weight: 700;
       line-height: 1.55;
-      letter-spacing: -0.015em;
+      letter-spacing: 0;
       color: var(--text);
       margin-bottom: 2rem;
     }
@@ -208,13 +287,13 @@
     .btn-yes {
       background: var(--brand-maroon);
       color: #fff;
-      box-shadow: 0 4px 16px rgba(139,26,26,0.28);
+      box-shadow: 0 4px 16px rgba(80,45,14,0.28);
     }
 
     .btn-yes:hover {
       background: #7a1515;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(139,26,26,0.38);
+      box-shadow: 0 6px 20px rgba(80,45,14,0.38);
     }
 
     .btn-yes:active { transform: translateY(0); }
@@ -222,13 +301,13 @@
     .btn-no {
       background: var(--surface);
       color: var(--text);
-      border-color: rgba(74,55,40,0.18);
+      border-color: rgba(80,45,14,0.18);
       box-shadow: var(--shadow-sm);
     }
 
     .btn-no:hover {
       background: var(--surface2);
-      border-color: rgba(74,55,40,0.3);
+      border-color: rgba(80,45,14,0.3);
       transform: translateY(-2px);
       box-shadow: var(--shadow);
     }
@@ -237,7 +316,7 @@
 
     /* Previously selected answer highlighting */
     .btn-yes.prev-selected {
-      outline: 3px solid var(--brand-gold);
+      box-shadow: inset 0 0 0 3px var(--lehigh-brown);
       outline-offset: 2px;
     }
 
@@ -326,8 +405,8 @@
 
     .result-class-name {
       font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: -0.025em;
+      font-weight: 800;
+      letter-spacing: 0;
       line-height: 1.2;
       color: var(--text);
       margin-bottom: 0.4rem;
@@ -492,13 +571,13 @@
       color: #fff;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 4px 14px rgba(139,26,26,0.28);
+      box-shadow: 0 4px 14px rgba(80,45,14,0.28);
       transition: background 0.2s, box-shadow 0.2s;
     }
 
     .btn-learn-more:hover {
       background: #7a1515;
-      box-shadow: 0 6px 18px rgba(139,26,26,0.38);
+      box-shadow: 0 6px 18px rgba(80,45,14,0.38);
     }
 
     /* ── Footer ── */
@@ -537,10 +616,13 @@
 <body>
 
 <header>
+  <img class="header-logo"
+       src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGVoaWdoX1VuaXZlcnNpdHk6X0Z1bGxfQ29sb3VyX1JHQl9mb3JfZGlnaXRhbF8iIGRhdGEtbmFtZT0iTGVoaWdoIFVuaXZlcnNpdHk6IEZ1bGwgQ29sb3VyIChSR0IsIGZvciBkaWdpdGFsKSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyMTYuNDEiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNmMDRjM2M7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQoKICAgICAgLmNscy0zIHsKICAgICAgICBmaWxsOiAjZmZlNDFlOwogICAgICB9CgogICAgICAuY2xzLTQgewogICAgICAgIGZpbGw6ICM1MDJkMGU7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNC4yNyw4LjE4VjExMy4yMWMwLDM2LjIyLDQxLjg1LDc4LjQ5LDcyLjg0LDk4LjE2LDMwLjk5LTE5LjY2LDcyLjg0LTYxLjk0LDcyLjg0LTk4LjE2VjguMThINC4yN1pNMTQ1LjY3LDExMy4yMWMwLDMzLjMyLTM5LjMzLDczLjc0LTY4LjU2LDkzLjA2QzQ3Ljg4LDE4Ni45NCw4LjU1LDE0Ni41Myw4LjU1LDExMy4yMVYxMi40NkgxNDUuNjdWMTEzLjIxWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTcuNzQsMTcxLjE2Yy02LjE1LTMuMjktMTMuNDMtNS41OC0yMS4yNi01LjEsMS40NiwxLjcxLDIuOTEsMy40NCw0LjQ0LDUuMWgxNi44M1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTk2LjQ4LDE3MS4xNmgxNi44M2MxLjUyLTEuNjYsMi45Ny0zLjM5LDQuNDMtNS4xLTcuODQtLjQ4LTE1LjExLDEuODEtMjEuMjYsNS4xWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTI0Ljg3LDExMi44N2gtNC4wMXY0OS40MWMxLjM2LTEuNywyLjc0LTMuMzksNC4wMS01LjEzdi00NC4yOFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMzLjM2LDExMi44N2gtNC4wMXY0NC4yOGMxLjI4LDEuNzQsMi42NSwzLjQzLDQuMDEsNS4xM3YtNDkuNDFaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03Ni4xNSwxNTguMTNoMS45M3YyMS40NWM2Ljg0LTYuNzksMjEuMTEtMTguMzcsMzguNDUtMTcuOTd2LTU2LjQ1Yy0zLjcyLS4zNC05LjQ0LS43Ny0xMy44Ny0uNzctMTUuODQsMC0yMi40MSw2LjI0LTIyLjQ3LDYuMywwLDAtMS44MSwxLjkyLTEuODEsOC43NWgtMi41M2MwLTYuODItMS44LTguNzUtMS44LTguNzUtLjA2LS4wNi02LjYzLTYuMy0yMi40Ny02LjMtNC40NCwwLTEwLjE0LC40My0xMy44OCwuNzd2NTYuNDVjMTcuMzUtLjQsMzEuNjEsMTEuMTgsMzguNDYsMTcuOTd2LTIxLjQ1Wm0tMTcuNDMtMjYuNzNjMC0yLjk0LDIuMzktOS43Nyw5LjAyLTkuNzdzOS4zOCw1LjM0LDkuMzgsNS4zNGMwLDAsMi43NS01LjM0LDkuMzctNS4zNHM5LjAyLDYuODQsOS4wMiw5Ljc3YzAsOS42Mi0xOC4zOSwyMC4wOC0xOC4zOSwyMi44NSwwLTIuNzctMTguNC0xMy4yMy0xOC40LTIyLjg1WiIvPgogIDwvZz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTE0MC4yOCw5Ny43czIuNjMtMy42MywyLjYzLTcuNTljMC01LjgxLTYuNzktMTQuNjMtMTcuMjItMTQuNjMtMi41NywwLTUuMTksLjUtNy43NCwxLjNsMjEuMDMtMzIuNzctMzQuMzQsMjEuNTFjLjMxLTQuNDYsMC04LjYyLDIuNzQtMTEuNTEsMi43Ni0yLjkxLDguNTktMi42MSw4LjU5LTIuNjEsMCwwLS42OS00LjE0LTMuNTctNi44Ny00LjIyLTQtMTUuMjgtNS4xNS0yMi40NiwyLjQxLTEuNjcsMS43Ni0zLjA0LDMuODYtNC4xOCw2LjA5bC04LjY2LTM3LjcyLTkuNzIsNDIuMjdjLTIuOTctMy4yLTYuMDgtNS44MS02LjI4LTkuNzItLjItNC4wMSw0LjA5LTguMDYsNC4wOS04LjA2LDAsMC0zLjU0LTIuMzEtNy41LTIuMTEtNS44LC4zLTE0LjI2LDcuNTQtMTMuNzIsMTcuOTUsLjEzLDIuNDcsLjcyLDQuOTYsMS41OSw3LjM3TDE1LjIzLDQ0LjAxbDIzLjE4LDM2LjEyYy01LjYyLS4xNS0xMC42NiwxLjkzLTE0LjYzLS45MS0zLjI2LTIuMzMtMy41Mi04LjMxLTMuNTItOC4zMSwwLDAtNC4yNSwxLjQyLTYuNTYsNC42NC0zLjM4LDQuNzMtMi45OSwxNS44NSw1LjUsMjEuOTIsNC4wMSwyLjg3LDkuMjgsNC4zNCwxNC4xNiw1LjA3di0xLjMxczYuNzQtLjc0LDEzLjI1LTEuMDRjLjA3LS43NSwuMTYtMS40OSwuMjgtMi4yMi02Ljk1LC42Ni0xNy4wOCwuNTgtMjIuNzctMy40OS03LjM5LTUuMjgtNi4zNy0xMi40NS02LjM3LTEyLjQ1LDAsMCwxLjA3LDEuODUsMi44OSwzLjE2LDguNDEsNiwxNi40Ni0xLjk3LDI0LjIyLDMuNTgsMS42NCwxLjE3LDIuNzgsMi41MSwzLjUyLDMuNTgsLjY1LTEuNzQsMS40NS0zLjQyLDIuMzktNWwtMTguNTMtMjUuNDQsMjQuNzMsMTcuOTljMS4yNi0xLjEsMi42MS0yLjEsNC4wNC0yLjk4LTIuNTEtMi4zLTExLjA4LTEyLjM3LTExLjA4LTE5Ljk1LDAtOS4wOCw1LjgzLTExLjgzLDUuODMtMTEuODMsMCwwLS43OCwxLjk5LS42Nyw0LjIzLC41MywxMC4zMSwxMS41OSwxMC45NSwxMi4wOCwyMC40OCwuMDksMS42Ni0uMTMsMy4xNC0uNDMsNC4zMSwxLjY5LS42MSwzLjQ0LTEuMDcsNS4yNC0xLjM4bDUuMTUtMzIuNTIsNS4xNCwzMi41MmMxLjY2LC4yOCwzLjI4LC42OSw0Ljg0LDEuMjMtLjEzLTQuNjQsLjktMTUuMDcsNi40OS0yMS4zMiw1LjY5LTYuMzUsMTIuNTUtNC4xMywxMi41NS00LjEzLDAsMC0xLjk4LC44LTMuNTIsMi40Mi03LjExLDcuNDksLjI0LDE2LjM0LTYuMzIsMjMuMjYtMS4wOSwxLjE1LTIuMjUsMS45OC0zLjI2LDIuNTgsMS41LC45MSwyLjkyLDEuOTUsNC4yMywzLjA5bDI0LjczLTE3Ljk5LTE4LjUzLDI1LjQ0Yy44LDEuMzUsMS41MSwyLjc2LDIuMDksNC4yMywzLjU4LTMuNzUsMTAuNDEtOS41MSwxOC40OC05LjUxLDkuMDksMCwxMi40NCw2LjcsMTIuNDQsNi43LDAsMC0xLjk1LS44OS00LjE4LS44OS0xMC4zMywwLTEyLjQ4LDEwLjk5LTIyLjAxLDEwLjk5LTEuMDMsMC0xLjk5LS4xMS0yLjg0LS4yOSwuMDcsLjUzLC4wNiwxLjA4LC4xMSwxLjYxLDQuNzIsLjIyLDkuNTUsLjY3LDExLjg3LC45LDQuOTYtMy4xNSw4LjEtOC4xMSwxMy4xNi04LjExLDQuMDEsMCw3LjcsNC43MSw3LjcsNC43MVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTEyMC44NiwxMDkuNTVoNy4zMnY0Mi45YzguNzQtMTIuOTMsMTQuNjQtMjYuNTMsMTQuNjQtMzkuMjV2LTguOTFoLTIxLjk2djUuMjVaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTMiIGQ9Ik0xMS40LDExMy4yMWMwLDEyLjcyLDUuOSwyNi4zMiwxNC42NCwzOS4yNXYtNDIuOWg3LjMydi01LjI1SDExLjR2OC45MVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTc3LjEyLDEwNy42NHMxLjU3LTEuNjEsNS4wMy0zLjM0YzMuOTEtMS45NiwxMC4yNS00LjA3LDE5LjUzLTQuMjItMS40My0xMi4yOS0xMS44OC0yMS44NS0yNC41Ni0yMS44NXMtMjMuMTMsOS41NS0yNC41NywyMS44NWM5LjI4LC4xNSwxNS42MiwyLjI2LDE5LjUzLDQuMjIsMy40NiwxLjc0LDUuMDQsMy4zNCw1LjA0LDMuMzRaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTMiIGQ9Ik03Ny4xMiwxODcuMDJzLTUuNC02LjY5LTEzLjk3LTEyLjU0aC0xOS4xNWMxMS4wMywxMS41NiwyMy4wOCwyMS41MywzMy4xMiwyOC4zNSwxMC4wMy02LjgyLDIyLjA4LTE2Ljc5LDMzLjExLTI4LjM1aC0xOS4xNWMtOC41OCw1Ljg0LTEzLjk2LDEyLjU0LTEzLjk2LDEyLjU0WiIvPgogIDwvZz4KICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04Ni40OCwxMjEuNjNjLTYuNjIsMC05LjM3LDUuMzQtOS4zNyw1LjM0LDAsMC0yLjc3LTUuMzQtOS4zOC01LjM0cy05LjAyLDYuODQtOS4wMiw5Ljc3YzAsOS42MiwxOC40LDIwLjA4LDE4LjQsMjIuODUsMC0yLjc3LDE4LjM5LTEzLjIzLDE4LjM5LTIyLjg1LDAtMi45NC0yLjQtOS43Ny05LjAyLTkuNzdaIi8+CiAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNMCwxMTMuMjFjMCw0MC4zNiw0OC4wNCw4NS40OCw3Ny4xMiwxMDMuMiwyOS4wNi0xNy43Miw3Ny4xMS02Mi44NCw3Ny4xMS0xMDMuMlYzLjlIMFYxMTMuMjFaTTQuMjcsOC4xOEgxNDkuOTVWMTEzLjIxYzAsMzYuMjItNDEuODUsNzguNDktNzIuODQsOTguMTZDNDYuMTIsMTkxLjcsNC4yNywxNDkuNDMsNC4yNywxMTMuMjFWOC4xOFoiLz4KICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik03Ny4xMiwyMDYuMjdjMjkuMjMtMTkuMzMsNjguNTYtNTkuNzQsNjguNTYtOTMuMDZWMTIuNDZIOC41NVYxMTMuMjFjMCwzMy4zMiwzOS4zMiw3My43NCw2OC41Niw5My4wNlptMzYuMi0zNS4xMWgtMTYuODNjNi4xNS0zLjI5LDEzLjQyLTUuNTgsMjEuMjYtNS4xLTEuNDYsMS43MS0yLjkxLDMuNDQtNC40Myw1LjFabS0zNy4xNy0xMy4wM3YyMS40NWMtNi44NS02Ljc5LTIxLjExLTE4LjM3LTM4LjQ2LTE3Ljk3di01Ni40NWMzLjczLS4zNCw5LjQ0LS43NywxMy44OC0uNzcsMTUuODQsMCwyMi40MSw2LjI0LDIyLjQ3LDYuMywwLDAsMS44LDEuOTIsMS44LDguNzVoMi41M2MwLTYuODIsMS44MS04Ljc1LDEuODEtOC43NSwuMDYtLjA2LDYuNjMtNi4zLDIyLjQ3LTYuMyw0LjQzLDAsMTAuMTUsLjQzLDEzLjg3LC43N3Y1Ni40NWMtMTcuMzQtLjQtMzEuNjEsMTEuMTgtMzguNDUsMTcuOTd2LTIxLjQ1aC0xLjkzWm0tMjMuNi01OC4wNWMxLjQ0LTEyLjI5LDExLjg4LTIxLjg1LDI0LjU3LTIxLjg1czIzLjEzLDkuNTUsMjQuNTYsMjEuODVjLTkuMjgsLjE1LTE1LjYyLDIuMjYtMTkuNTMsNC4yMi0zLjQ1LDEuNzQtNS4wMywzLjM0LTUuMDMsMy4zNCwwLDAtMS41OC0xLjYxLTUuMDQtMy4zNC0zLjkxLTEuOTYtMTAuMjYtNC4wNy0xOS41My00LjIyWm03Mi4zMiw1Ny4wNmMtMS4yNywxLjc0LTIuNjUsMy40My00LjAxLDUuMTN2LTQ5LjQxaDQuMDF2NDQuMjhabTE3Ljk1LTQzLjk0YzAsMTIuNzItNS45LDI2LjMyLTE0LjY0LDM5LjI1di00Mi45aC03LjMydi01LjI1aDIxLjk2djguOTFaTTEzLjcxLDc1LjU1YzIuMzEtMy4yMyw2LjU2LTQuNjQsNi41Ni00LjY0LDAsMCwuMjYsNS45OCwzLjUyLDguMzEsMy45NywyLjgzLDkuMDEsLjc2LDE0LjYzLC45MUwxNS4yMyw0NC4wMWwzMC4zNCwxOS4wMmMtLjg3LTIuNDItMS40Ni00LjkxLTEuNTktNy4zNy0uNTQtMTAuNDEsNy45Mi0xNy42NSwxMy43Mi0xNy45NSwzLjk2LS4yLDcuNSwyLjExLDcuNSwyLjExLDAsMC00LjI5LDQuMDYtNC4wOSw4LjA2LC4yLDMuOTEsMy4zMSw2LjUyLDYuMjgsOS43Mmw5LjcyLTQyLjI3LDguNjYsMzcuNzJjMS4xMy0yLjI0LDIuNTEtNC4zNCw0LjE4LTYuMDksNy4xOC03LjU2LDE4LjI0LTYuNDEsMjIuNDYtMi40MSwyLjg4LDIuNzMsMy41Nyw2Ljg3LDMuNTcsNi44NywwLDAtNS44My0uMy04LjU5LDIuNjEtMi43NSwyLjg5LTIuNDMsNy4wNS0yLjc0LDExLjUxbDM0LjM0LTIxLjUxLTIxLjAzLDMyLjc3YzIuNTUtLjgsNS4xNy0xLjMsNy43NC0xLjMsMTAuNDMsMCwxNy4yMiw4LjgxLDE3LjIyLDE0LjYzLDAsMy45Ni0yLjYzLDcuNTktMi42Myw3LjU5LDAsMC0zLjY5LTQuNzEtNy43LTQuNzEtNS4wNSwwLTguMTksNC45Ni0xMy4xNiw4LjExLTIuMzItLjIzLTcuMTUtLjY3LTExLjg3LS45LS4wNS0uNTMtLjA0LTEuMDgtLjExLTEuNjEsLjg1LC4xOCwxLjgxLC4yOSwyLjg0LC4yOSw5LjUzLDAsMTEuNjgtMTAuOTksMjIuMDEtMTAuOTksMi4yNCwwLDQuMTgsLjg5LDQuMTgsLjg5LDAsMC0zLjM2LTYuNy0xMi40NC02LjctOC4wNywwLTE0LjksNS43Ni0xOC40OCw5LjUxLS41OC0xLjQ3LTEuMjgtMi44OC0yLjA5LTQuMjNsMTguNTMtMjUuNDQtMjQuNzMsMTcuOTljLTEuMzEtMS4xNC0yLjczLTIuMTktNC4yMy0zLjA5LDEuMDEtLjU5LDIuMTctMS40MywzLjI2LTIuNTgsNi41Ni02LjkxLS43OS0xNS43Niw2LjMyLTIzLjI2LDEuNTQtMS42MiwzLjUyLTIuNDIsMy41Mi0yLjQyLDAsMC02Ljg2LTIuMjItMTIuNTUsNC4xMy01LjU5LDYuMjUtNi42MiwxNi42OC02LjQ5LDIxLjMyLTEuNTYtLjU0LTMuMTgtLjk1LTQuODQtMS4yM2wtNS4xNC0zMi41Mi01LjE1LDMyLjUyYy0xLjgxLC4zMS0zLjU2LC43Ny01LjI0LDEuMzgsLjMtMS4xNywuNTEtMi42NSwuNDMtNC4zMS0uNDktOS41Mi0xMS41NC0xMC4xNy0xMi4wOC0yMC40OC0uMTEtMi4yNCwuNjctNC4yMywuNjctNC4yMywwLDAtNS44MywyLjc1LTUuODMsMTEuODMsMCw3LjU4LDguNTcsMTcuNjYsMTEuMDgsMTkuOTUtMS40MiwuODgtMi43OCwxLjg5LTQuMDQsMi45OGwtMjQuNzMtMTcuOTksMTguNTMsMjUuNDRjLS45NCwxLjU4LTEuNzQsMy4yNi0yLjM5LDUtLjc0LTEuMDctMS44OC0yLjQxLTMuNTItMy41OC03Ljc2LTUuNTUtMTUuODEsMi40Mi0yNC4yMi0zLjU4LTEuODItMS4zMS0yLjg5LTMuMTYtMi44OS0zLjE2LDAsMC0xLjAyLDcuMTYsNi4zNywxMi40NSw1LjY5LDQuMDcsMTUuODMsNC4xNCwyMi43NywzLjQ5LS4xMiwuNzQtLjIxLDEuNDctLjI4LDIuMjItNi41MSwuMzEtMTMuMjUsMS4wNC0xMy4yNSwxLjA0djEuMzFjLTQuODgtLjc0LTEwLjE0LTIuMjEtMTQuMTYtNS4wNy04LjQ5LTYuMDctOC44OC0xNy4xOS01LjUtMjEuOTJabTEyLjMzLDc2LjkxYy04Ljc0LTEyLjkzLTE0LjY0LTI2LjUzLTE0LjY0LTM5LjI1di04LjkxaDIxLjk2djUuMjVoLTcuMzJ2NDIuOVptMy4zMS0zOS41OGg0LjAxdjQ5LjQxYy0xLjM2LTEuNy0yLjczLTMuMzktNC4wMS01LjEzdi00NC4yOFptNy4xMiw1My4xOWM3Ljg0LS40OCwxNS4xMiwxLjgxLDIxLjI2LDUuMWgtMTYuODNjLTEuNTItMS42Ni0yLjk4LTMuMzktNC40NC01LjFabTI2LjY3LDguNDJjOC41OCw1Ljg0LDEzLjk3LDEyLjU0LDEzLjk3LDEyLjU0LDAsMCw1LjM4LTYuNjksMTMuOTYtMTIuNTRoMTkuMTVjLTExLjAzLDExLjU2LTIzLjA4LDIxLjUzLTMzLjExLDI4LjM1LTEwLjA1LTYuODItMjIuMDktMTYuNzktMzMuMTItMjguMzVoMTkuMTVaIi8+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik0yMzcuNjksMTMxLjY5YzUuNTcsMS4zOSwxMS4zNCwxLjU5LDE2LjcxLDEuNTksMTYuMzEsMCw0MC41OC0uNTksNDMuOTYtMy43OCwxLjk5LTEuNzksMy4xOC04LjU1LDQuMTgtMTIuNzNsMi4zOS05Ljk1aDYuMzdjLTEuMTksMTAuOTQtMi41OSwyNC4yNy00LjE4LDM0LjIyLTcuNTYsLjItMjAuMjksLjU5LTMzLjAyLC41OWgtNi4xN2MtMTcuOS0uMi0zMS4wMy0uNTktNDMuMzctLjU5LTYuNzYsMC0xMS43NCwuNC0xNi45MSwuNTl2LTQuNTdsNi4xNy0zLjE4YzMuMzgtMS43OSw0Ljk3LTYuMzcsNC45Ny0xMS43NFYyNy44NWMwLTcuNTYtLjQtMTIuNzMtMS43OS0xNC45Mi0xLjE5LTEuOTktMy41OC0yLjc4LTguMzUtMi45OGwtOS41NS0uNlYzLjM4YzEwLjM0LC40LDE5LjY5LC42LDI5LjQ0LC42LDkuMTUsMCwxOC41LS4yLDI4Ljg0LS42djUuOTdsLTkuNTUsLjZjLTQuNzcsLjItNy4xNiwxLTguMzYsMi45OC0xLjM5LDIuMTktMS43OSw3LjM2LTEuNzksMTQuOTJ2MTAzLjg0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNMzQwLjEzLDI3Ljg1YzAtNy41Ni0uNC0xMi43My0xLjc5LTE0LjkyLTEuMTktMS45OS0zLjU4LTIuNzgtOC4zNS0yLjk4bC05LjU1LS42VjMuMzhjNS41NywwLDExLjE0LC4yLDE2LjcxLC40LDUuNTcsMCwxMS4zNCwuMiwxNi45MSwuMiwxNy4zMSwwLDM1LjYxLS42LDQ2Ljk1LS42LDguOTUsMCwxNy45LC4yLDI1LjY2LC42LTIuMTksOC43NS0zLjE4LDIwLjA5LTMuMTgsMzAuMjRoLTYuOTZ2LTEyLjkzYzAtMi41OS0uMi00Ljc3LTEuNzktNS4zNy0xMC41NC0zLjk4LTI2LjI2LTQuMTgtMzguOTktNC4xOC01LjM3LDAtMTEuMTQsLjItMTYuNzEsMS41OXY1My4xMWM2LjM3LC40LDEzLjUzLC42LDIzLjA3LC42LDEyLjEzLDAsMTguOS0uOCwyMS4wOS0yLjE5LC45OS0uOCwxLjM5LTIuNTksMS41OS01LjE3bC45OS0xMC4zNGg1Ljk3Yy0uMiw4LjE2LS42LDE1LjcxLS42LDIzLjA3cy40LDE0LjkyLC42LDIyLjA4aC01Ljk3bC0uOTktMTEuNzRjLS4yLTIuNTktLjYtNC4zNy0xLjU5LTQuOTctMi4xOS0xLjU5LTguOTUtMi4zOS0yMS4wOS0yLjM5LTkuNTUsMC0xNi45MSwwLTIzLjA3LC42djU1LjdjNS41NywxLjM5LDExLjM0LDEuNTksMTYuNzEsMS41OSwxNi4zMSwwLDM2LjYtLjU5LDQwLjE4LTIuNTksMi45OC0xLjU5LDUuNTctMTAuMzUsNi45Ni0yMi4yOGg2Ljk2Yy0xLjk5LDkuNTUtMy4xOCwyMS44OC0zLjE4LDMyLjYyLTcuNTYsLjItMjAuMjksLjU5LTMzLjAyLC41OWgtNi4xN2MtMTUuMzItLjItMzEuMDMtLjU5LTQzLjM3LS41OS03LjU2LDAtMTQuMTIsLjQtMjEuMjksLjU5di01Ljk2bDcuMTYtLjZjNC43Ny0uNCw3LjE2LS45OSw4LjM1LTIuOTgsMS4zOS0yLjE5LDEuNzktNy4zNiwxLjc5LTE0LjkyVjI3Ljg1WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNTgxLjQxLDExNy4xN2MwLDcuNTYsLjQsMTIuNzMsMS43OSwxNC45MiwxLjIsMS45OSwzLjU4LDIuNzgsOC4zNiwyLjk4bDkuNTUsLjZ2NS45NmMtMTAuMzUtLjQtMTkuNjktLjU5LTI4Ljg1LS41OS05Ljc1LDAtMTkuMSwuMi0yOS40NCwuNTl2LTUuOTZsOS41NS0uNmM0Ljc4LS4yLDcuMTYtLjk5LDguMzUtMi45OCwxLjM5LTIuMTksMS43OS03LjM2LDEuNzktMTQuOTJ2LTQ0LjM2Yy0yLjM5LS4yLTcuNzYtLjQtMTYuNTEtLjRoLTQ2LjU1Yy04Ljc1LDAtMTQuMTIsLjItMTYuNTEsLjR2NDQuMzZjMCw3LjU2LC40LDEyLjczLDEuNzksMTQuOTIsMS4xOSwxLjk5LDMuNTgsMi43OCw4LjM1LDIuOThsOS41NSwuNnY1Ljk2Yy0xMC4zNC0uNC0xOS42OS0uNTktMjguODQtLjU5LTkuNzUsMC0xOS4xLC4yLTI5LjQ0LC41OXYtNS45Nmw5LjU1LS42YzQuNzctLjIsNy4xNi0uOTksOC4zNS0yLjk4LDEuMzktMi4xOSwxLjc5LTcuMzYsMS43OS0xNC45MlYyNy44NWMwLTcuNTYtLjQtMTIuNzMtMS43OS0xNC45Mi0xLjE5LTEuOTktMy41OC0yLjc4LTguMzUtMi45OGwtOS41NS0uNlYzLjM4YzEwLjM0LC40LDE5LjY5LC42LDI5LjQ0LC42LDkuMTUsMCwxOC41LS4yLDI4Ljg0LS42djUuOTdsLTkuNTUsLjZjLTQuNzcsLjItNy4xNiwxLTguMzUsMi45OC0xLjM5LDIuMTktMS43OSw3LjM2LTEuNzksMTQuOTJWNjMuMjZjMi4zOSwuMiw3Ljc2LC40LDE2LjUxLC40aDQ2LjU1YzguNzUsMCwxNC4xMi0uMiwxNi41MS0uNFYyNy44NWMwLTcuNTYtLjQtMTIuNzMtMS43OS0xNC45Mi0xLjE5LTEuOTktMy41OC0yLjc4LTguMzUtMi45OGwtOS41NS0uNlYzLjM4YzEwLjM1LC40LDE5LjY5LC42LDI5LjQ0LC42LDkuMTUsMCwxOC41LS4yLDI4Ljg1LS42djUuOTdsLTkuNTUsLjZjLTQuNzgsLjItNy4xNiwxLTguMzYsMi45OC0xLjM5LDIuMTktMS43OSw3LjM2LTEuNzksMTQuOTJWMTE3LjE3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNjU2Ljk5LDExNy4xN2MwLDcuNTYsLjQsMTIuNzMsMS43OSwxNC45MiwxLjE5LDEuOTksMy41OCwyLjc4LDguMzUsMi45OGw5LjU1LC42djUuOTZjLTEwLjM0LS40LTE5LjY5LS41OS0yOC44NC0uNTktOS43NSwwLTE5LjEsLjItMjkuNDQsLjU5di01Ljk2bDkuNTUtLjZjNC43OC0uMiw3LjE2LS45OSw4LjM1LTIuOTgsMS4zOS0yLjE5LDEuNzktNy4zNiwxLjc5LTE0LjkyVjI3Ljg1YzAtNy41Ni0uNC0xMi43My0xLjc5LTE0LjkyLTEuMTktMS45OS0zLjU4LTIuNzgtOC4zNS0yLjk4bC05LjU1LS42VjMuMzhjMTAuMzQsLjQsMTkuNjksLjYsMjkuNDQsLjYsOS4xNSwwLDE4LjUtLjIsMjguODQtLjZ2NS45N2wtOS41NSwuNmMtNC43NywuMi03LjE2LDEtOC4zNSwyLjk4LTEuMzksMi4xOS0xLjc5LDcuMzYtMS43OSwxNC45MlYxMTcuMTdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik04MDQuMzksMTAxLjQ1YzAtNC41OC0xLjU5LTYuNTctNi43Ni02Ljk2bC0xNi41MS0xLjM5di01Ljk3YzguMTYsLjIsMTYuMzEsLjQsMjQuMjcsLjRzMTYuMzEtLjIsMjQuNDctLjRsLjc5LDQuOTctNS43NywxLjk5Yy0yLjE5LC44LTIuMTksMS41OS0yLjE5LDcuMzZ2MzMuNDJjLTE3LjExLDQuOTctMzguNTksMTAuMTUtNTIuMzIsMTAuMTUtNDQuMzYsMC04MC4xNy0yMy4wOC04MC4xNy03MywwLTQzLjc3LDM2LTcyLjAxLDgzLjk0LTcyLjAxLDI0LjY3LDAsNDAuMTgsNS41Nyw0OS4zMyw4LjE2LTIuMzksOS4zNS0zLjk4LDE5Ljg5LTMuOTgsMzAuMjRoLTYuMTZ2LTEwLjU0YzAtOS4zNS03LjE2LTEyLjUzLTE2LjUxLTE1LjkxLTYuMzYtMi4xOS0xNC45Mi0zLjU4LTI3Ljg1LTMuNTgtMzcuNzksMC01Ny40OSwyNC44Ni01Ny40OSw2MC4yNywwLDM5LjU5LDIzLjA3LDY4LjAzLDY0LjA1LDY4LjAzLDE1LjMyLDAsMjYuNjYtMy4zOCwyNy44NS02Ljk2LC43OS0yLjE5LC45OS0zLjE4LC45OS04LjE2di0yMC4wOVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtNCIgZD0iTTk3OS42MywxMTcuMTdjMCw3LjU2LC40LDEyLjczLDEuNzksMTQuOTIsMS4yLDEuOTksMy41OCwyLjc4LDguMzYsMi45OGw5LjU1LC42djUuOTZjLTEwLjM1LS40LTE5LjY5LS41OS0yOC44NS0uNTktOS43NSwwLTE5LjA5LC4yLTI5LjQ0LC41OXYtNS45Nmw5LjU1LS42YzQuNzgtLjIsNy4xNi0uOTksOC4zNS0yLjk4LDEuMzktMi4xOSwxLjc5LTcuMzYsMS43OS0xNC45MnYtNDQuMzZjLTIuMzktLjItNy43Ni0uNC0xNi41MS0uNGgtNDYuNTVjLTguNzUsMC0xNC4xMiwuMi0xNi41MSwuNHY0NC4zNmMwLDcuNTYsLjQsMTIuNzMsMS43OSwxNC45MiwxLjE5LDEuOTksMy41OCwyLjc4LDguMzUsMi45OGw5LjU1LC42djUuOTZjLTEwLjM0LS40LTE5LjY5LS41OS0yOC44NC0uNTktOS43NSwwLTE5LjEsLjItMjkuNDQsLjU5di01Ljk2bDkuNTUtLjZjNC43OC0uMiw3LjE2LS45OSw4LjM1LTIuOTgsMS4zOS0yLjE5LDEuNzktNy4zNiwxLjc5LTE0LjkyVjI3Ljg1YzAtNy41Ni0uNC0xMi43My0xLjc5LTE0LjkyLTEuMTktMS45OS0zLjU4LTIuNzgtOC4zNS0yLjk4bC05LjU1LS42VjMuMzhjMTAuMzQsLjQsMTkuNjksLjYsMjkuNDQsLjYsOS4xNSwwLDE4LjUtLjIsMjguODQtLjZ2NS45N2wtOS41NSwuNmMtNC43NywuMi03LjE2LDEtOC4zNSwyLjk4LTEuMzksMi4xOS0xLjc5LDcuMzYtMS43OSwxNC45MlY2My4yNmMyLjM5LC4yLDcuNzYsLjQsMTYuNTEsLjRoNDYuNTVjOC43NSwwLDE0LjEyLS4yLDE2LjUxLS40VjI3Ljg1YzAtNy41Ni0uNC0xMi43My0xLjc5LTE0LjkyLTEuMTktMS45OS0zLjU4LTIuNzgtOC4zNS0yLjk4bC05LjU1LS42VjMuMzhjMTAuMzUsLjQsMTkuNjksLjYsMjkuNDQsLjYsOS4xNSwwLDE4LjUtLjIsMjguODUtLjZ2NS45N2wtOS41NSwuNmMtNC43OCwuMi03LjE2LDEtOC4zNiwyLjk4LTEuMzksMi4xOS0xLjc5LDcuMzYtMS43OSwxNC45MlYxMTcuMTdaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNMjEyLjc3LDE3My42NWMwLTIuMjEtLjEyLTMuNzItLjUyLTQuMzYtLjM1LS41OC0xLjA1LS44MS0yLjQ0LS44N2wtMi43OS0uMTh2LTEuNzRjMy4wMiwuMTIsNS43NSwuMTgsOC42LC4xOCwyLjY3LDAsNS40LS4wNiw4LjQyLS4xOHYxLjc0bC0yLjc5LC4xOGMtMS40LC4wNi0yLjA5LC4yOS0yLjQ0LC44Ny0uNDEsLjY0LS41MiwyLjE1LS41Miw0LjM2djE5Ljk5YzAsOC4yNSw0LjMsMTAuNjMsMTEuOTcsMTAuNjMsNi4yNywwLDExLjk3LTIuMzgsMTEuOTctMTIuMDN2LTE4LjU5YzAtMi4yMS0uMTItMy43Mi0uNTItNC4zNi0uMzUtLjU4LTEuMDUtLjc1LTIuNDQtLjg3bC0yLjU2LS4xOHYtMS43NGMyLjMyLC4wNiw0LjY1LC4xOCw2Ljc0LC4xOCwyLjMyLDAsNC40Mi0uMTIsNi45Ny0uMTh2MS43NGwtMi41NiwuMThjLTEuNCwuMTItMi4wOSwuMjktMi40NCwuODctLjQxLC42NC0uNTIsMi4xNS0uNTIsNC4zNnYxNi43OWMwLDEyLjQzLTQuNzEsMTcuNDMtMTYuNDQsMTcuNDMtOS44OCwwLTE1LjY5LTIuOTYtMTUuNjktMTMuNTl2LTIwLjYzWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNMzA2Ljk5LDE3My42NWMwLTIuMjEtLjEyLTMuNzItLjUyLTQuMzYtLjM1LS41OC0xLjA1LS43NS0yLjQ0LS44N2wtMi41Ni0uMTh2LTEuNzRjMi41NiwuMDYsNC44OCwuMTgsNi45NywuMTgsMS4wNSwwLDIuMDktLjEyLDMuMTQtLjE4bDI3Ljc3LDM0LjI4aC4xN3YtMjcuMTNjMC0yLjIxLS4xMi0zLjcyLS41Mi00LjM2LS4zNS0uNTgtMS4wNS0uNzUtMi40NC0uODdsLTIuNTYtLjE4di0xLjc0YzIuMzIsLjA2LDQuNjUsLjE4LDYuNzQsLjE4LDIuMzIsMCw0LjQyLS4xMiw2Ljk3LS4xOHYxLjc0bC0yLjU2LC4xOGMtMS40LC4xMi0yLjA5LC4yOS0yLjQ0LC44Ny0uNDEsLjY0LS41MiwyLjE1LS41Miw0LjM2djMyLjA3YzAsLjcsLjEyLDEuNDUsLjE3LDIuMTVsLTUuMjMtLjkzLTI3LjM2LTMzLjk5aC0uMTJ2MjYuNzhjMCwyLjIxLC4xMiwzLjcyLC41Miw0LjM2LC4zNSwuNTgsMS4wNSwuNzUsMi40NCwuODdsMi41NiwuMTh2MS43NGMtMi41Ni0uMDYtNC42NS0uMTgtNi45Ny0uMTgtMi4wOSwwLTQuNDIsLjEyLTYuNzQsLjE4di0xLjc0bDIuNTYtLjE4YzEuMzktLjEyLDIuMDktLjI5LDIuNDQtLjg3LC40MS0uNjQsLjUyLTIuMTUsLjUyLTQuMzZ2LTI2LjA4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNDEwLjI3LDE5OS43M2MwLDIuMjEsLjEyLDMuNzIsLjUyLDQuMzYsLjM1LC41OCwxLjA1LC44MSwyLjQ0LC44N2wyLjc5LC4xOHYxLjc0Yy0zLjAyLS4xMi01Ljc1LS4xOC04LjQyLS4xOC0yLjg1LDAtNS41OCwuMDYtOC42LC4xOHYtMS43NGwyLjc5LS4xOGMxLjM5LS4wNiwyLjA5LS4yOSwyLjQ0LS44NywuNDEtLjY0LC41Mi0yLjE1LC41Mi00LjM2di0yNi4wOGMwLTIuMjEtLjEyLTMuNzItLjUyLTQuMzYtLjM1LS41OC0xLjA1LS44MS0yLjQ0LS44N2wtMi43OS0uMTh2LTEuNzRjMy4wMiwuMTIsNS43NSwuMTgsOC42LC4xOCwyLjY3LDAsNS40LS4wNiw4LjQyLS4xOHYxLjc0bC0yLjc5LC4xOGMtMS40LC4wNi0yLjA5LC4yOS0yLjQ0LC44Ny0uNDEsLjY0LS41MiwyLjE1LS41Miw0LjM2djI2LjA4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNDg4LjY0LDE5OS42N2wxMC42My0yNy40OGMuMzUtLjg3LC41Mi0xLjU3LC41Mi0yLjA5LDAtMS4zNC0uOTMtMS42My0yLjA0LTEuNjhsLTMuMDItLjE4di0xLjc0YzIuMDksLjA2LDQuMTIsLjE4LDYuMjcsLjE4czQuMTgtLjEyLDYuMjctLjE4djEuNzRsLTEuNzQsLjE4Yy0xLjIyLC4xMi0xLjk4LDEuMzktMy4xNCw0LjE4bC0xMC4xMSwyNC40NmMtMS4zOSwzLjMxLTIuNjcsNi42Mi0zLjcyLDEwLjE3aC0yLjkxYy0uOTMtMy40My0yLjIxLTYuNzQtMy4zNy05LjU5bC0xMC45Mi0yNi44NGMtLjc1LTEuODYtMS41Ny0yLjMyLTIuNTYtMi4zOGwtMi4wOS0uMTh2LTEuNzRjMi41NiwuMDYsNS4xMSwuMTgsNy43MywuMThzNS4xNy0uMTIsNy43My0uMTh2MS43NGwtMy4yNSwuMThjLS45MywuMDYtMS44NiwuMjktMS44NiwxLjE2LDAsLjE3LDAsLjQxLC4xMiwuNjRsMTEuNDUsMjkuNDVaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik01NjQuMjEsMTczLjY1YzAtMi4yMS0uMTItMy43Mi0uNTItNC4zNi0uMzUtLjU4LTEuMDUtLjgxLTIuNDQtLjg3bC0yLjc5LS4xOHYtMS43NGMxLjYzLDAsMy4yNSwuMDYsNC44OCwuMTIsMS42MywwLDMuMzEsLjA2LDQuOTQsLjA2LDUuMDUsMCwxMC40LS4xOCwxMy43MS0uMTgsMi42MSwwLDUuMjMsLjA2LDcuNDksLjE4LS42NCwyLjU2LS45Myw1Ljg3LS45Myw4LjgzaC0yLjAzdi0zLjc4YzAtLjc1LS4wNi0xLjM5LS41Mi0xLjU3LTMuMDgtMS4xNi03LjY3LTEuMjItMTEuMzktMS4yMi0xLjU3LDAtMy4yNSwuMDYtNC44OCwuNDZ2MTUuNTFjMS44NiwuMTIsMy45NSwuMTgsNi43NCwuMTgsMy41NCwwLDUuNTItLjIzLDYuMTYtLjY0LC4yOS0uMjMsLjQxLS43NiwuNDYtMS41MWwuMjktMy4wMmgxLjc0Yy0uMDYsMi4zOC0uMTcsNC41OS0uMTcsNi43NHMuMTIsNC4zNiwuMTcsNi40NWgtMS43NGwtLjI5LTMuNDNjLS4wNi0uNzYtLjE4LTEuMjgtLjQ2LTEuNDUtLjY0LS40Ni0yLjYyLS43LTYuMTYtLjctMi43OSwwLTQuOTQsMC02Ljc0LC4xN3YxNi4yN2MxLjYzLC40MSwzLjMxLC40Niw0Ljg4LC40Niw0Ljc2LDAsMTAuNjktLjE4LDExLjczLS43NiwuODctLjQ2LDEuNjMtMy4wMiwyLjA0LTYuNWgyLjAzYy0uNTgsMi43OS0uOTMsNi4zOS0uOTMsOS41My0yLjIxLC4wNi01LjkzLC4xOC05LjY0LC4xOGgtMS44Yy00LjQ3LS4wNi05LjA2LS4xOC0xMi42Ny0uMTgtMi4yMSwwLTQuMTMsLjEyLTYuMjIsLjE4di0xLjc0bDIuMDktLjE4YzEuNC0uMTIsMi4wOS0uMjksMi40NC0uODcsLjQxLS42NCwuNTItMi4xNSwuNTItNC4zNnYtMjYuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik02NTQuMTksMTk5LjczYzAsMi4yMSwuMTIsMy43MiwuNTIsNC4zNiwuMzUsLjU4LDEuMDUsLjgxLDIuNDQsLjg3bDIuNzksLjE4djEuNzRjLTMuMDItLjEyLTUuNzUtLjE4LTguNDItLjE4LTIuODUsMC01LjU4LC4wNi04LjYsLjE4di0xLjc0bDIuNzktLjE4YzEuMzktLjA2LDIuMDktLjI5LDIuNDQtLjg3LC40MS0uNjQsLjUyLTIuMTUsLjUyLTQuMzZ2LTI2LjA4YzAtMi4yMS0uMTItMy43Mi0uNTItNC4zNi0uMzUtLjU4LTEuMDUtLjc1LTIuNDQtLjg3bC0yLjM4LS4xOHYtMS43NGMzLjA4LC4wNiw2LjQ1LC4xOCw5Ljg4LC4xOHM2LjgtLjEyLDEwLjE3LS4xOGguNTJjOC44OSwwLDExLjIxLDQuNTksMTEuMjEsOC43MiwwLDYuMzMtNS42OSwxMC4xMS0xMS4zMywxMS4yMWwxMy4xOSwxNy4yYy44NywxLjE2LDIuMTUsMS4zOSwzLjU0LDEuNTF2MS43NGMtMS41MS0uMDYtMi44NS0uMTgtNC4xOC0uMThzLTIuNjEsLjEyLTMuOTUsLjE4Yy0uNzYtMS4xMS0xLjYzLTIuMDktMi4zOC0zLjE0bC0xMC42OS0xNC4zNWMtLjkzLTEuMjgtMi4wMy0yLjM4LTMuMDItMy42bC4zNS0uN2MuNTIsLjA2LC45OSwuMDYsMS41NywuMDYsMS4xNiwwLDIuMzItLjEyLDMuNTQtLjI5LDQuMDctLjcsNy41NS0zLjgzLDcuNTUtOC4xMywwLTYuMjctNC42NS04LjAyLTkuMTgtOC4wMi0yLjYxLDAtNC4zLC4yOS01LjkzLC43djMwLjMzWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNNzUzLjUzLDE3Ni4xNGwtLjM1LTMuMzFjLS4xNy0xLjU3LS40MS0yLjE1LTIuNTYtMy40OS0xLjYzLS45OS00LjA3LTEuMzktNi4zMy0xLjM5LTQuMDcsMC04LjYsMi43My04LjYsOC40OCwwLDMuOTUsMi4zMiw2LjM5LDkuNTksNy4yLDguMTksLjg3LDEzLjM2LDIuOTEsMTMuMzYsOS41MywwLDkuOTMtOC44OSwxNC43LTE3LjU1LDE0LjctNC4wNywwLTguMDItMS4yOC05LjkzLTIuMjEsLjM1LTIuMjEsLjQxLTQuNTMsLjQxLTYuNjh2LTIuMjFoMS44NmwuNDYsMy44OWMuMjksMi40NCw0Ljg4LDQuNjUsOS40Nyw0LjY1LDUuMjMsMCwxMC40LTMuMiwxMC40LTguOTVzLTQuMy03LjA5LTEwLjIyLTcuNzhjLTkuMTItMS4wNS0xMi43Mi0zLjg5LTEyLjcyLTkuOTQsMC05LDcuOS0xMy4xMywxNC44Ny0xMy4xMyw0LjY1LDAsOC4xMywxLjUxLDEwLjUyLDIuNDQtLjU4LDIuOTYtLjgxLDUuNDYtLjgxLDguMTloLTEuODZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik04MjEuNDMsMTk5LjczYzAsMi4yMSwuMTIsMy43MiwuNTIsNC4zNiwuMzUsLjU4LDEuMDUsLjgxLDIuNDQsLjg3bDIuNzksLjE4djEuNzRjLTMuMDItLjEyLTUuNzUtLjE4LTguNDMtLjE4LTIuODUsMC01LjU4LC4wNi04LjYsLjE4di0xLjc0bDIuNzktLjE4YzEuMzktLjA2LDIuMDktLjI5LDIuNDQtLjg3LC40MS0uNjQsLjUyLTIuMTUsLjUyLTQuMzZ2LTI2LjA4YzAtMi4yMS0uMTItMy43Mi0uNTItNC4zNi0uMzUtLjU4LTEuMDUtLjgxLTIuNDQtLjg3bC0yLjc5LS4xOHYtMS43NGMzLjAyLC4xMiw1Ljc1LC4xOCw4LjYsLjE4LDIuNjcsMCw1LjQtLjA2LDguNDMtLjE4djEuNzRsLTIuNzksLjE4Yy0xLjM5LC4wNi0yLjA5LC4yOS0yLjQ0LC44Ny0uNDEsLjY0LS41MiwyLjE1LS41Miw0LjM2djI2LjA4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy00IiBkPSJNODkyLjQ3LDE3NS4xNmMwLTIuMjEtLjA2LTQuMDctLjIzLTUuODFoLTljLTEuNzQsMC0yLjIxLC41Mi0yLjMyLDEuOTJsLS4yMyw0LjU5aC0xLjhjMC0zLjE0LS4xMi02LjMzLS40MS05LjM2LDQuMTgsMCw4LjM3LC4xOCwxMi41NSwuMThoOC40MmMyLjA5LDAsNC4xOC0uMDYsNi4yNy0uMTIsMi4wOSwwLDQuMTgtLjA2LDYuMjctLjA2LS4yOSwzLjAyLS40MSw2LjIyLS40MSw5LjM2aC0xLjhsLS4yMy00LjU5Yy0uMTItMS4zOS0uNTgtMS45Mi0yLjMyLTEuOTJoLTkuMDFjLS4xNywxLjc0LS4yMywzLjYtLjIzLDUuODF2MjQuNThjMCwyLjIxLC4xMiwzLjcyLC41Miw0LjM2LC4zNSwuNTgsMS4wNSwuODEsMi40NCwuODdsMi43OSwuMTh2MS43NGMtMy4wMi0uMTItNS43NS0uMTgtOC40Mi0uMTgtMi44NSwwLTUuNTgsLjA2LTguNiwuMTh2LTEuNzRsMi43OS0uMThjMS4zOS0uMDYsMi4wOS0uMjksMi40NC0uODcsLjQxLS42NCwuNTItMi4xNSwuNTItNC4zNnYtMjQuNThaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTQiIGQ9Ik05ODMuMDksMTg2Ljg5bDUuOTgtOS40N2MyLjMyLTMuNjYsNC4zNi03LjMyLDYuMjctMTEuMDRoNC42NXYuODdjLTQuODgsNS42NC0xMS45MSwxNS40NS0xNC4yOSwyMC42My0uNywxLjUxLS44MSwyLjk2LS44MSw0LjM2djcuNDljMCwyLjIxLC4xMiwzLjcyLC41Miw0LjM2LC4zNSwuNTgsMS4wNSwuODEsMi40NCwuODdsMi43OSwuMTh2MS43NGMtMy4wMi0uMTItNS43NS0uMTgtOC40Mi0uMTgtMi44NSwwLTUuNTgsLjA2LTguNiwuMTh2LTEuNzRsMi43OS0uMThjMS4zOS0uMDYsMi4wOS0uMjksMi40NC0uODcsLjQxLS42NCwuNTItMi4xNSwuNTItNC4zNnYtOC4yNWMwLS45My0uMTctMS43NC0uNTItMi4zMmwtNy4yLTEyLjU1Yy0zLjAyLTUuMjMtNS45OC03LjM4LTcuNDQtNy41NWwtMS42OC0uMTh2LTEuNjhsNi42OC0xLjM5Yy4xMiwwLC4xNy0uMDYsLjI5LS4wNiwxLjA1LDAsMS44LDEuMTEsMi43MywyLjIxLC45OSwxLjIyLDEuOCwyLjM4LDIuNTYsMy43N2w4LjMxLDE1LjE3WiIvPgogIDwvZz4KPC9zdmc+"
+       alt="Lehigh University">
   <div class="header-brand">
-    <span class="header-brand-dot"></span>
-    Lehigh <strong style="color:var(--brand-maroon)">University</strong>
-    <span class="header-brand-dot"></span>
+    <span class="header-brand-dot" aria-hidden="true"></span>
+    Information Security
+    <span class="header-brand-dot" aria-hidden="true"></span>
   </div>
   <h1>Data Classification <span>Wizard</span></h1>
   <p>Answer a few yes/no questions to determine the correct classification level for your data.</p>
@@ -550,6 +632,7 @@
 
   <!-- QUESTION PANEL -->
   <div class="wizard-card" id="wizard-panel">
+    <div id="a11y-status" role="status" aria-live="polite" class="sr-only"></div>
     <div class="wizard-progress-wrap">
       <div class="wizard-progress-header">
         <div class="wizard-step-label">
@@ -562,9 +645,9 @@
     </div>
     <div class="wizard-body">
       <div class="wizard-topic-chip" id="topic-chip">🏥 Health Data</div>
-      <div class="wizard-question-text" id="question-text">
+      <h2 class="wizard-question-text" id="question-text">
         Does this data relate to the physical or mental health of a person?
-      </div>
+      </h2>
       <div class="wizard-answer-row">
         <button class="answer-btn btn-yes" id="btn-yes" onclick="answer(true)">
           <span class="btn-icon">✓</span>
@@ -589,11 +672,11 @@
     <div class="result-header">
       <div class="result-badge-box" id="result-badge-box">
         <span class="rbadge-num" id="rbadge-num"></span>
-        <span class="rbadge-icon" id="rbadge-icon"></span>
+        <span class="rbadge-icon" id="rbadge-icon" aria-hidden="true"></span>
       </div>
       <div class="result-title-block">
         <div class="result-class-label" id="result-class-label"></div>
-        <div class="result-class-name" id="result-class-name"></div>
+        <h2 class="result-class-name" id="result-class-name"></h2>
         <div class="result-confirmed-chip" id="result-confirmed-chip">✓ Classification Determined</div>
       </div>
     </div>
@@ -626,11 +709,14 @@
 
     <!-- PHI footnote (only shown for PHI results) -->
     <div class="phi-footnote" id="phi-footnote" style="display:none">
-      <span class="phi-footnote-icon">ℹ️</span>
+      <span class="phi-footnote-icon" aria-hidden="true">ℹ️</span>
       <p class="phi-footnote-text">
         <strong>Class I PHI is an operational distinction within Class I.</strong>
-        The key trigger is whether the data involves non-student health information where Lehigh acts
-        as a covered entity or business associate, requiring a Business Associate Agreement (BAA).
+        PHI is health information Lehigh holds as a covered entity, covered health care component,
+        or business associate, which requires a Business Associate Agreement with any vendor that
+        touches it. Two categories are excluded: student health and counseling records, which are
+        FERPA education records and Class II, and employment records held by HR in Lehigh's role as
+        employer, which HIPAA excludes from the PHI definition and which are also Class II.
       </p>
     </div>
 
@@ -645,201 +731,63 @@
 </div>
 
 <footer>
-  Developed by Eric Zematis, CISO — Lehigh University &middot;
-  Companion to <a href="lehigh-data-classification.html">Data Classification Framework</a>
+  <p><strong>Information Security</strong> &middot; Lehigh University</p>
+  <p>Companion to the <a href="lehigh-data-classification.html">Data Classification Framework</a> &middot;
+     Questions? <a href="mailto:security@lehigh.edu">security@lehigh.edu</a></p>
+  <p class="footer-meta" id="footer-meta"></p>
+  <p class="footer-meta" id="footer-precedence"></p>
 </footer>
+
+<!-- Shared classification data: single source of truth for both pages -->
+<script src="classification-data.js"></script>
 
 <script>
 // ═══════════════════════════════════════════════════════
 // QUESTIONS
 // ═══════════════════════════════════════════════════════
 
-const QUESTIONS = {
-  q1: {
-    id: "q1",
-    topic: "🏥 Health Data",
-    text: "Does this data relate to the physical or mental health of a person?",
-    shortLabel: "Health-related data?",
-    stepNum: 1, stepMax: 6,
-    yes: "q1a",
-    no: "q2"
-  },
-  q1a: {
-    id: "q1a",
-    topic: "🏥 Health Data",
-    text: "Is this person a Lehigh student receiving health or counseling services through Lehigh University?",
-    shortLabel: "Lehigh student health or counseling services?",
-    stepNum: 2, stepMax: 3,
-    yes: { type: "result", id: "r_ii_student" },
-    no: "q1b"
-  },
-  q1b: {
-    id: "q1b",
-    topic: "🏥 Health Data",
-    text: "Is this health data processed by or on behalf of Lehigh in a context where a Business Associate Agreement (BAA) would be required with a vendor or third party?",
-    shortLabel: "BAA required with a vendor or third party?",
-    stepNum: 3, stepMax: 3,
-    yes: { type: "result", id: "r_phi_baa" },
-    no: { type: "result", id: "r_phi_no_baa" }
-  },
-  q2: {
-    id: "q2",
-    topic: "🔑 Critical Identifiers",
-    text: "Does this data include any of the following: Social Security numbers, passport or driver's license numbers, financial account or payment card numbers, bank routing numbers, authentication credentials, or encryption keys?",
-    shortLabel: "SSNs, financial accounts, or credentials?",
-    stepNum: 2, stepMax: 6,
-    yes: { type: "result", id: "r_i" },
-    no: "q3"
-  },
-  q3: {
-    id: "q3",
-    topic: "🔬 Research Data",
-    text: "Is this data related to export-controlled research, including data subject to ITAR, EAR, or DFARS/CMMC requirements?",
-    shortLabel: "Export-controlled research (ITAR / EAR / CMMC)?",
-    stepNum: 3, stepMax: 6,
-    yes: { type: "result", id: "r_ii_export" },
-    no: "q4"
-  },
-  q4: {
-    id: "q4",
-    topic: "🎓 Student Records",
-    text: "Is this data related to a student's academic record, including enrollment, grades, attendance, financial aid, or academic performance?",
-    shortLabel: "Student academic records (FERPA)?",
-    stepNum: 4, stepMax: 6,
-    yes: { type: "result", id: "r_ii_ferpa" },
-    no: "q5"
-  },
-  q5: {
-    id: "q5",
-    topic: "⚖️ Legal & Regulatory",
-    text: "Is this data subject to any other federal or state law, regulation, or contractual obligation? Examples include: employee personnel records, legal correspondence, audit findings, donor records, non-public institutional financial data, or vendor contracts with confidentiality terms.",
-    shortLabel: "Other legal, regulatory, or contractual obligation?",
-    stepNum: 5, stepMax: 6,
-    yes: { type: "result", id: "r_ii_other" },
-    no: "q6"
-  },
-  q6: {
-    id: "q6",
-    topic: "🏛️ Institutional Sensitivity",
-    text: "Is this data intended for internal Lehigh use only, and would its unauthorized disclosure cause operational, reputational, or competitive harm to the university — even if no law or regulation requires its protection?",
-    shortLabel: "Internal only; disclosure would cause institutional harm?",
-    stepNum: 6, stepMax: 6,
-    yes: { type: "result", id: "r_iii" },
-    no: { type: "result", id: "r_iv" }
-  }
-};
+
 
 // ═══════════════════════════════════════════════════════
 // RESULTS
 // ═══════════════════════════════════════════════════════
 
-const RESULTS = {
-  r_ii_student: {
-    classId: "ii",
-    classNum: "Class II",
-    className: "Restricted Information",
-    icon: "🔐",
-    color: "#d97706",
-    colorBg: "#fffbeb",
-    reason: "Student health and counseling records at Lehigh are covered under FERPA, not HIPAA. These records are treated as part of the student's educational record and classified as Class II Restricted. A Business Associate Agreement (BAA) is not required for these records.",
-    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
-    phi: false
-  },
-  r_phi_baa: {
-    classId: "phi",
-    classNum: "Class I PHI",
-    className: "Protected Health Information",
-    icon: "🏥",
-    color: "#7c3aed",
-    colorBg: "#faf5ff",
-    reason: "This data constitutes Protected Health Information (PHI) under HIPAA. Lehigh is acting as a covered entity or business associate. A BAA is required for any vendor or third party that touches this data. This is the most restrictive classification at Lehigh.",
-    handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
-    phi: true
-  },
-  r_phi_no_baa: {
-    classId: "phi",
-    classNum: "Class I PHI",
-    className: "Protected Health Information",
-    icon: "🏥",
-    color: "#7c3aed",
-    colorBg: "#faf5ff",
-    reason: "This data constitutes Protected Health Information (PHI) under HIPAA because Lehigh is creating, receiving, maintaining, or transmitting health information for a non-student population in its capacity as a covered entity. Even without an immediate vendor relationship, PHI handling rules and HIPAA compliance requirements apply.",
-    handling: "Most restrictive. Access limited to workforce members with treatment, payment, or operations need. Minimum necessary standard applies. Store only on HIPAA-compliant Lehigh-approved systems. Encryption required in transit and at rest. BAA required for all vendors. Report suspected breaches to the HIPAA Security and Privacy Officer within 24 hours.",
-    phi: true
-  },
-  r_i: {
-    classId: "i",
-    classNum: "Class I",
-    className: "Critical Information",
-    icon: "🛡️",
-    color: "#dc2626",
-    colorBg: "#fff1f2",
-    reason: "This data is directly monetizable by attackers and is breach-notifiable under Pennsylvania law (73 Pa. Stat. § 2301 et seq.) and applicable federal regulations including GLBA and PCI-DSS. It requires the highest level of protection for non-health data at Lehigh.",
-    handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires formal data sharing agreement, security review, and legal review.",
-    phi: false
-  },
-  r_ii_ferpa: {
-    classId: "ii",
-    classNum: "Class II",
-    className: "Restricted Information",
-    icon: "🔐",
-    color: "#d97706",
-    colorBg: "#fffbeb",
-    reason: "Student academic records are protected under the Family Educational Rights and Privacy Act (FERPA). Access is restricted to those with a legitimate educational interest. This data may not be shared externally without student consent except as permitted by FERPA.",
-    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
-    phi: false
-  },
-  r_ii_export: {
-    classId: "i",
-    classNum: "Class I",
-    className: "Critical Information",
-    icon: "🛡️",
-    color: "#dc2626",
-    colorBg: "#fff1f2",
-    reason: "Export-controlled research data subject to ITAR, EAR, or DFARS/CMMC is classified as Class I Critical Information. Unauthorized disclosure could result in federal criminal penalties, loss of research funding, and serious national security implications.",
-    handling: "Access limited to minimum necessary personnel with logging and audit trails. Encryption required in transit and at rest. Do not store in email or unmanaged systems. Third-party sharing requires a formal data sharing agreement, security review, and legal review.",
-    phi: false
-  },
-  r_ii_other: {
-    classId: "ii",
-    classNum: "Class II",
-    className: "Restricted Information",
-    icon: "🔐",
-    color: "#d97706",
-    colorBg: "#fffbeb",
-    reason: "This data is regulated or restricted by federal law, state law, or contractual obligation. Access should be limited to those with a legitimate need to know. External sharing requires a data use agreement or appropriate contract language.",
-    handling: "Access restricted to authorized personnel on a need-to-know basis. Store on Lehigh-approved systems with access controls. Encryption required in transit. Do not store in personal cloud accounts or share with third parties without a data use agreement.",
-    phi: false
-  },
-  r_iii: {
-    classId: "iii",
-    classNum: "Class III",
-    className: "Institutional / Proprietary Information",
-    icon: "🏛️",
-    color: "#2563eb",
-    colorBg: "#eff6ff",
-    reason: "This data is not regulated but is sensitive to Lehigh's operations. Examples include budget drafts, org charts, internal policies, network diagrams, and vendor contracts. It should not be shared outside Lehigh without authorization.",
-    handling: "For internal use only. Store on Lehigh-approved systems. Do not post publicly or send to personal email accounts. No encryption required but avoid external sharing without authorization.",
-    phi: false
-  },
-  r_iv: {
-    classId: "iv",
-    classNum: "Class IV",
-    className: "Public / Unrestricted Information",
-    icon: "🌐",
-    color: "#16a34a",
-    colorBg: "#f0fdf4",
-    reason: "This data can be freely shared and disclosed. No access controls, encryption, or special handling are required. Examples include published research, the course catalog, public event information, and press releases.",
-    handling: "No restrictions. May be stored anywhere, shared freely, and posted publicly. No encryption required.",
-    phi: false
-  }
-};
+
+
+// ═══════════════════════════════════════════════════════
+// SHARED DATA
+// The decision tree lives in classification-data.js so this page and the
+// framework page can never disagree. Do not redefine these here.
+// ═══════════════════════════════════════════════════════
+
+const QUESTIONS = W_QUESTIONS;
+const RESULTS   = W_RESULTS;
 
 // ═══════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════
 
 let currentQ = "q1";
+let wizardStarted = false;   // suppress focus movement on first paint
+
+// Announce a change to assistive technology (WCAG 2.1 SC 4.1.3)
+function say(message) {
+  const region = document.getElementById("a11y-status");
+  if (region) region.textContent = message;
+}
+
+// Move keyboard focus to an element that is not natively focusable
+function focusTarget(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.setAttribute("tabindex", "-1");
+  el.focus({ preventScroll: false });
+}
+
+// Honor the reduced-motion preference for programmatic scrolling
+const prefersReducedMotion = window.matchMedia
+  ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  : false;
 let history = [];   // { questionId, answer, shortLabel }
 
 // ═══════════════════════════════════════════════════════
@@ -870,6 +818,12 @@ function renderQuestion(qId, prevAns) {
   noBtn.classList.remove("prev-selected");
   if (prevAns === true)  yesBtn.classList.add("prev-selected");
   if (prevAns === false) noBtn.classList.add("prev-selected");
+
+  // Announce the new question, and move focus off the button that was just
+  // pressed so keyboard and screen reader users land on the current question.
+  say("Question " + q.stepNum + " of up to " + q.stepMax + ". " + q.text);
+  if (wizardStarted) focusTarget("question-text");
+  wizardStarted = true;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -917,8 +871,11 @@ function showResult(resultId) {
     wizardPanel.classList.remove("fade-out");
 
     // Fill result data
+    // Decorative accent band uses the class accent (Autumn Dusk for Class II);
+    // text and UI boundaries stay on result.color for contrast.
+    const rAccent = result.accent || result.color;
     document.getElementById("result-accent").style.background =
-      `linear-gradient(90deg, ${result.color}, ${result.color}80)`;
+      `linear-gradient(90deg, ${rAccent}, ${rAccent}80)`;
 
     const badge = document.getElementById("result-badge-box");
     badge.style.background = result.colorBg;
@@ -930,6 +887,13 @@ function showResult(resultId) {
     document.getElementById("result-class-label").textContent = result.classNum;
     document.getElementById("result-class-label").style.color = result.color;
     document.getElementById("result-class-name").textContent = result.className;
+
+    // Hand the resolved class off to the framework page so the user lands on
+    // their own result instead of the Class IV default.
+    const learnMore = document.getElementById("learn-more-link");
+    learnMore.href = "lehigh-data-classification.html?class=" + encodeURIComponent(result.classId);
+    learnMore.setAttribute("aria-label",
+      "View full classification details for " + result.classNum + ", " + result.className);
 
     const chip = document.getElementById("result-confirmed-chip");
     chip.style.background = result.color;
@@ -946,7 +910,7 @@ function showResult(resultId) {
     document.getElementById("answer-path").innerHTML = history.map(h => `
       <div class="path-item">
         <div class="path-q">${h.shortLabel}</div>
-        <span class="path-arrow">→</span>
+        <span class="path-arrow" aria-hidden="true">→</span>
         <span class="path-ans ${h.answer ? 'yes-ans' : 'no-ans'}">${h.answer ? 'YES' : 'NO'}</span>
       </div>
     `).join("");
@@ -959,11 +923,15 @@ function showResult(resultId) {
     // PHI footnote
     document.getElementById("phi-footnote").style.display = result.phi ? "flex" : "none";
 
+    // Announce the result and move focus into it
+    say("Result: " + result.classNum + ", " + result.className + ". " + result.reason);
+
     // Show result panel with fade-in
     resultPanel.style.opacity = "0";
     resultPanel.style.transform = "translateY(10px)";
     resultPanel.style.transition = "opacity 0.25s ease, transform 0.25s ease";
     resultPanel.style.display = "block";
+    focusTarget("result-class-name");   // after display:block, or focus() is a no-op
 
     requestAnimationFrame(() => requestAnimationFrame(() => {
       resultPanel.style.opacity = "1";
@@ -1018,6 +986,12 @@ function fadeCard(id, callback) {
 // ═══════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════
+
+// Governance stamp, driven from the shared data module
+document.getElementById("footer-meta").textContent =
+  "Version " + PAGE_META.version + " \u00b7 Last reviewed " + PAGE_META.reviewed +
+  " \u00b7 Next review " + PAGE_META.nextReview + " \u00b7 Owner: " + PAGE_META.owner;
+document.getElementById("footer-precedence").textContent = PAGE_META.precedence;
 
 renderQuestion("q1", null);
 </script>
